@@ -9,6 +9,9 @@
  url = require("url"),
  filesys = require("fs");
 
+// for debugging purposes.
+ var debug = false;
+
 var sica_server = my_http.createServer(function(request,response){
      var my_path = url.parse(request.url).pathname;
 
@@ -42,9 +45,15 @@ var sica_server = my_http.createServer(function(request,response){
                 }
              });
          }
+         /*
+          * TODO: handle other server errors like 408 etc.
+          */
          else{
              filesys.readFile(full_path, "binary", function(err, file) {
                   if(err) {
+                      if(debug) {
+                        console.log("Error:" + err);
+                      }
                       response.writeHeader(500, {"Content-Type": "text/plain"});
                       response.write(err + "\n");
                       response.write("\n\nRequested file" + full_path +
