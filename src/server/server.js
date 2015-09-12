@@ -1,7 +1,8 @@
 /******************************************************************************
  *                            SICA static file Server
  *
- *
+ * TODO: make the server only redirects the login page as I cannot learn how
+ * to properly use the cookies with node.js.
  *****************************************************************************/
 
  my_http = require("http"),
