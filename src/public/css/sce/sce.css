@@ -5,3 +5,15 @@
 .padding-3 {
   padding: 3%;
 }
+
+.centro {
+  text-align: center;
+}
+
+.linha {
+  border: 3px solid #000;
+}
+
+.margin-top {
+  margin-top: 100px;
+}
