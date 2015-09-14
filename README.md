@@ -10,6 +10,8 @@
  * HTML5
  * [Node.js](https://nodejs.org)
     * [Node.js MySQL driver](https://www.npmjs.com/package/mysql)
+    * [body-parser](https://www.npmjs.com/package/body-parser)
+    * [Express](http://expressjs.com/)
  * [Bootstrap](http://getbootstrap.com/)
  * [MySQL Community ServerL](https://dev.mysql.com/downloads/mysql/)
 
