@@ -7,7 +7,6 @@
 		<meta charset="utf-8">
 
 		<!-- mobile stuff -->
-
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
 		<!-- Bootstrap -->
@@ -22,19 +21,24 @@
 
 	    <!-- STYLE TYPE> -->
 	    <style type="text/css">
-			/* Também há identação dentro de cada elemento no CSS. */
-		    body {
-		        background-image: url("imgfundo/ex2.jpg");
-		        background-position: center;
-		        background-size: 100%;
-		        width:50%;
-		    }
+			/* Também há identação dentro de cada elemento no CSS. "Linke" esse css na página. */
+				.imagem_fundo  {
+						position: fixed !important;
+				  	top: 0 !important;
+				  	left: 0 !important;
+				  	width: 100% !important;
+				  	height: 100% !important;
+						z-index: -999;
+				  	opacity: .8;
+				}
+				.wrapper {
+					padding: 5%;
+				}
 		    #principal_logo {
-		      margin-top: 25%;
-		  		background: #BBFFFF;
+		  		background: rgba(5, 5, 5, 0.2);
 					border-color: #black;
 					border-width: thick;
-		  		border-radius: 10px;
+		  		border-radius: 2px;
 		  		padding: auto;
 					margin-bottom:auto; /* ajustado de acordo com o logo */
 		      }
@@ -44,10 +48,9 @@
 		    }
 
 		    #principal_form {
-		      margin-top: 15%;
-		      background: #BBFFFF;
+		      background: rgba(5, 5, 5, 0.2);
 					border-color: #black;
-		      border-radius: 8px;
+		      border-radius: 2px;
 					/* Pare de utilizar unidades de medida diferentes, utilize somente px
 					ou somente % ou somente em!
 		      padding: 2vw;
@@ -67,47 +70,47 @@
 
     <body ondragstart="false">
 			<!-- Todo o corpo deve pertencer ao container-fluid, e não elementos específicos -->
-      <div class="container-fluid">
-      		<div class="row-fluid">
-      			<div id="principal_logo"  class="col-md-8 col-md-offset-7">
-              <div id="img">
-      					<img src="logo_ex.png" id="logo" alt="SCE">
-						  </div>
-							<br> <br>
-        		</div>
-      		</div>
+			<img class="imagem_fundo" src="img/sky.JPG">
 
-        <div class="row-fluid">
-				  <div id="principal_form" class="col-md-8 col-md-offset-7">
-	          <form action="js/sce/login.js" method="post">
-		          <div class="input-group margin-bottom-sm">
-		          	<span class="input-group-addon"><i class="libre libre-user libre-fw" id="botao_usuario_senha" placeholder="Usuário" required ></i></span>
-		          	<input class="form-control" type="text"  id="nome" placeholder="Usuário" required>
-		          </div><br>
-							<div class="input-group ">
-		          	<span class="input-group-addon" id="botao_usuario_senha" ><i class="libre libre-key libre-fw"></i></span>
-		          	<input class="form-control" type="password"id="senha" placeholder="Senha" required>
-		          </div><br>
-		          <!-- Esse div é inútil por hora. <div class="btn-group open"> -->
-								<!-- Ou você usa uma classe ou outra, escolhe! Isso é um botão <button>, não um link <a> -->
-		            <button class="btn btn-default" id="login" type="submit">Login <i class="libre libre-log-in"></i></button>
-		          <!-- </div> -->
+			<div class="container-fluid">
+				<div class="row wrapper">
+	    		<div class="row">
+	    			<div id="principal_logo"  class="col-md-8 col-md-offset-2">
+	    					<img src="" id="logo" alt="SCE">
+	      		</div>
+	    		</div>
 
-		          <!-- Para verificação de erro, porém é necessário que apareça apenas se estiver errada a senha
-		          <p class="alert alert-danger fade in" id="login">
-		            <button type="button" class="close" data-dismiss="alert" title="Clique para fechar">
-		              <span aria-hidden="true"> &times;</span>
-		            </button>
-		            <b style="text-align:left"> Senha ou usuário incorretos! <i class="fa fa-frown-o"></i><br> </b>
-		          </p>
-		          -->
-	          </form>
-          </div>
-      	</div>
+	        <div class="row margin-top">
+					  <div id="principal_form" class="col-md-8 col-md-offset-2">
+		          <form action="/login" method="post">
+								<!-- Para verificação de erro, porém é necessário que apareça apenas se estiver errada a senha
+								<p class="alert alert-danger fade in" id="login">
+									<button type="button" class="close" data-dismiss="alert" title="Clique para fechar">
+										<span aria-hidden="true"> &times;</span>
+									</button>
+									<b style="text-align:left"> Senha ou usuário incorretos! <i class="fa fa-frown-o"></i><br> </b>
+								</p>
+								-->
+
+			          <div class="input-group margin-bottom-sm">
+			          	<span class="input-group-addon"><i class="libre libre-user libre-fw" id="botao_usuario_senha" placeholder="Usuário" required ></i></span>
+			          	<input class="form-control" type="text"  name="usuario[email]" placeholder="Usuário" required>
+			          </div><br>
+								<div class="input-group ">
+			          	<span class="input-group-addon" id="botao_usuario_senha" ><i class="libre libre-key libre-fw"></i></span>
+			          	<input class="form-control" type="password" name="usuario[senha]" placeholder="Senha" required>
+			          </div><br>
+			          <!-- Esse div é inútil por hora. <div class="btn-group open"> -->
+									<!-- Ou você usa uma classe ou outra, escolhe! Isso é um botão <button>, não um link <a> -->
+			            <button class="btn btn-default" id="login">Login <i class="libre libre-log-in"></i></button>
+			          <!-- </div> -->
+		          </form>
+	          </div>
+	      	</div>
+				</div>
 			</div>
 
 		  <script src="js/jquery-2.1.4.min.js"></script>
 		  <script src="js/bootstrap/bootstrap.min.js"></script>
-		  <script src="js/sce/login.js"></script>
 		</body>
 </html>
