@@ -8,14 +8,22 @@ var bodyParser  = require('body-parser');
 var database    = require('./db_pool.js');
 var app         = express();
 
-app.use(bodyParser());
+var debug = false;
 
+if(process.argv[2] = "-d") {
+  debug = true;
+}
+
+/**
+ *
+ */
+app.use(bodyParser());
 /**
  * Pasta padrão para os arquivos do cliente
  */
 app.use(express.static('../public'));
 
-app.get("login", function(req, res) {
+app.get("/login", function(req, res) {
 
 });
 
@@ -24,9 +32,11 @@ app.post("/login", function(req, res) {
     var pass  = req.body.usuario.senha;
 
     // TODO: Login
-    database.handle_db(req, res);
+    database.get_connection(req, res);
 
-    console.log("email: %s pass: %s", email, pass);
+    if(debug) {
+      console.log("email: %s pass: %s", email, pass);
+    }
 });
 
 var server = app.listen(9000, function () {

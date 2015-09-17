@@ -13,7 +13,7 @@
     * [body-parser](https://www.npmjs.com/package/body-parser)
     * [Express](http://expressjs.com/)
  * [Bootstrap](http://getbootstrap.com/)
- * [MySQL Community ServerL](https://dev.mysql.com/downloads/mysql/)
+ * [MySQL Community Server](https://dev.mysql.com/downloads/mysql/)
 
 ## Quer contribuir?
 
