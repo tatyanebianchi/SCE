@@ -3,6 +3,7 @@
  *
  * TODO: make the server only redirects the login page as I cannot learn how
  * to properly use the cookies with node.js.
+ * Won't use this anymore, as the complexity has incresed I will use express.
  *****************************************************************************/
 
  my_http = require("http"),
@@ -13,7 +14,13 @@
 // for debugging purposes.
  var debug = false;
 
-var sica_server = my_http.createServer(function(request,response){
+ // Get the third command line argument.
+ if(process.argv[2] == "-d") {
+     console.log("Debugging active.");
+     debug = true;
+ }
+
+var sce_server = my_http.createServer(function(request, response){
      var my_path = url.parse(request.url).pathname;
 
      //Append index.html if my_path ends with /
@@ -24,14 +31,15 @@ var sica_server = my_http.createServer(function(request,response){
      var public_html_dir = path.join(process.cwd(), "../public/")
      var full_path = path.join(public_html_dir, my_path);
 
-     console.log(my_path);
      console.log("Requested file: " + full_path);
 
      // exists will be deprecated.
      filesys.exists(full_path,function(exists){
          if(!exists){
              var error_file_name = path.join(public_html_dir, "404.html");
-             console.log(error_file_name);
+             if(debug) {
+               console.log(error_file_name);
+             }
 
              filesys.readFile(error_file_name, "binary", function(err, file) {
                 if(err) {
@@ -62,8 +70,9 @@ var sica_server = my_http.createServer(function(request,response){
                                      "It proably does not exist.")
                       response.end();
                   }
+                  /**/
                   else{
-                     response.writeHeader(200);
+                     response.writeHeader(200, "OK");
                      response.write(file, "binary");
                      response.end();
                  }
@@ -72,5 +81,7 @@ var sica_server = my_http.createServer(function(request,response){
      });
  })
 
-sica_server.listen(9000);
-console.log("Server Running on 9000");
+sce_server.listen(9000);
+if(debug) {
+  console.log("Server Running on 9000");
+}
