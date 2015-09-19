@@ -3,7 +3,7 @@
  *
  * TODO: make the server only redirects the login page as I cannot learn how
  * to properly use the cookies with node.js.
- * Won't use this anymore, as the complexity has incresed I will use express.
+ * Won't use this anymore, as the complexity has increased I will use express.
  *****************************************************************************/
 
  my_http = require("http"),
@@ -82,6 +82,7 @@ var sce_server = my_http.createServer(function(request, response){
  })
 
 sce_server.listen(9000);
+console.log("Servidor obsoleto, por favor utilize o express_app.js.");
 if(debug) {
   console.log("Server Running on 9000");
 }

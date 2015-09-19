@@ -32,11 +32,8 @@ app.post("/login", function(req, res) {
     var pass  = req.body.usuario.senha;
 
     // TODO: Login
-    database.get_connection(req, res);
-
-    if(debug) {
-      console.log("email: %s pass: %s", email, pass);
-    }
+    var database_connection = database.get_connection(req, res, database_connection);
+    console.log("database_connection is: " + database_connection);
 });
 
 var server = app.listen(9000, function () {
