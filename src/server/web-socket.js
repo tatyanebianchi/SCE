@@ -24,11 +24,17 @@ exports.init = function() {
 }
 
 console.log("websocket init hit");
-wss.on('connection', function(ws) {
-   // argumento da função callback
-   ws.on('message', function incoming(message) {
-     console.log("received: %s", message);
-   });
 
-   ws.send("Data from SCE server");
-});
+exports.send_message = function(message) {
+    console.log("message to be sent: " + message);
+    wss.on('connection', function(ws) {
+        ws.send(message);
+    });
+}
+
+exports.send_json = function(message) {
+  console.log("message to be sent: " + message);
+  wss.on('connection', function(ws) {
+      ws.send(JSON(message));
+  });
+}

@@ -23,14 +23,13 @@ if(process.argv[2] = "-d") {
 }
 
 /**
- *
- */
-app.use(bodyParser());
-
-/**
  * Pasta padrão para os arquivos do cliente
  */
 app.use(express.static('../public'));
+/**
+ *
+ */
+app.use(bodyParser());
 
 app.get("/", function (req, res) {
     console.log("get on /");
@@ -38,11 +37,8 @@ app.get("/", function (req, res) {
 });
 
 app.post("/login", function(req, res) {
-    var email = req.body.usuario.email;
-    var pass  = req.body.usuario.senha;
-
     // TODO: Login
-    login.do_login(email, pass);
+    login.do_login(req.body, res);
 });
 
 
