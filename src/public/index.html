@@ -19,10 +19,11 @@
 	<link rel="stylesheet" type="text/css" href="css/sce/sce.css">
 </head>
 
-<body ondragstart="false">
-	<img class="back_img" src="img/.png">
+<body ondragstart="false" class="">
+	<img class="back_img" src="">
+	<hr class="black-row">
 	<div class="container">
-		<header class="row col-md-8 col-md-offset-2 center ">
+		<header class="row col-md-8 col-md-offset-2 center ]">
 			<img src="img/scepng.png" alt="SCE" class="img-responsive center-block" width="256" height="256">
 			<h3><b>SCE - Sistema de Controle de Estágio</b></h3>
 		</header>
@@ -31,12 +32,12 @@
 			<article class="col-md-8 col-md-offset-2">
 				<form action="/login" method="post">
 					<!-- Para verificação de erro, porém é necessário que apareça apenas se estiver errada a senha -->
-					<!-- <p class="alert alert-danger fade in" id="login">
-					<button type="button" class="close" data-dismiss="alert" title="Clique para fechar">
-					<span aria-hidden="true"> &times;</span>
-				</button>
-				<b style="text-align:left"> Senha ou usuário incorretos! <i class="fa fa-frown-o"></i><br> </b>
-			</p> -->
+					<p class="hide alert alert-danger fade in" id="auth_error">
+						<button type="button" class="close" data-dismiss="alert" title="Clique para fechar">
+							<span aria-hidden="true"> &times;</span>
+						</button>
+						Senha ou usuário incorretos! <i class=""></i><br>
+					</p>
 
 					<div class="input-group">
 						<span class="input-group-addon"><i class="libre libre-user libre-fw"></i></span>
@@ -54,13 +55,14 @@
 		</section>
 
 		<footer class="row margin-top">
-			<ul class="col-md-8 col-md-offset-2 nav nav-pills right">
-				<li><a href="dev.html" title="Os criadores.">Desenvolvedores</a></li>
-				<li><a href="ajuda.html" title="Precisa de ajuda?">Ajuda</a></li>
-			</ul>
+				<ul class="col-md-8 col-md-offset-2 nav nav-pills right">
+					<li><a href="dev.html" title="Os criadores.">Desenvolvedores</a></li>
+					<li><a href="ajuda.html" title="Precisa de ajuda?">Ajuda</a></li>
+				</ul>
 		</footer>
 	</div>
 
+	<script src="js/sce/login.js"></script>
 	<script src="js/jquery-2.1.4.min.js"></script>
 	<script src="js/bootstrap/bootstrap.min.js"></script>
 </body>
