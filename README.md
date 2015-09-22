@@ -1,5 +1,4 @@
 # SCE - Sistema de Controle de Estágio
---------------------------------------
 
 ## O que é?
 
