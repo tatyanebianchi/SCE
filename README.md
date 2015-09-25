@@ -14,6 +14,14 @@
  * [Bootstrap](http://getbootstrap.com/)
  * [MySQL Community Server](https://dev.mysql.com/downloads/mysql/)
 
+## Compatibilidade entre browsers:
+
+  - [X] Mozilla Firefox
+  - [X] Microsoft Edge
+  - [X] Internet Explorer >= 11.0
+  - [ ] Opera (ainda não testado).
+  - [ ] Safari (ainda não testado).
+
 ## Quer contribuir?
 
  Você ajudar nos enviando sugestões por [email](mailto:rafaelnunes737@hotmail.com), ou até mesmo abrindo um [issue](https://github.com/rafaelcn/SICA/issues/new) com a label *suggestion*. Não iremos aceitar nenhum *pull request* visto que isso é um trabalho de conclusão de curso a ser apresentado ao [IFPA - Campus Tucuruí](http://tucurui.ifpa.edu.br/) (Instituto Federal de Educação, Ciência e Tecnologia do Pará).
