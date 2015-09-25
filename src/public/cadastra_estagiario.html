@@ -1,0 +1,154 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>SCE - Cadastrar estagiário</title>
+
+	<meta charset="utf-8">
+
+	<!-- mobile stuff -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Bootstrap -->
+	<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.min.css">
+
+	<!-- Libre icons -->
+	<link	 rel="stylesheet" type="text/css" href="css/libre-icons/libreicons.css">
+
+	<!-- SCE CSS -->
+	<link rel="stylesheet" type="text/css" href="css/sce/sce.css">
+</head>
+
+<body ondragstart="false" class="">
+	<!-- <img class="back_img" src=""> -->
+	<div class="container-fluid">
+		<header class="row">
+			<nav class="navbar navbar-default">
+					<div class="navbar-header">
+						<a class="navbar-brand" href="/">
+              <img src="img/" alt="SCE - Sistema de Controle de Estágio" class="img-responsive"/>
+            </a>
+					</div>
+
+	        <ul class="nav navbar-nav" style="float: right !important;">
+						<li><a href="#"></a></li>
+						<li><a href="/logout">Sair <i class="libre libre-log-out"></i></a></li>
+	        </ul>
+			</nav>
+		</header>
+
+		<section class="row">
+			<article class="col-md-3">
+            <ul class="link-group nav nav-stacked" role="navigation">
+              <li><a href="/">INÍCIO</a></li>
+              <li class="active"><a href="#">CADASTRAR ESTAGIÁRIO</a></li>
+              <li><a href="remove_estagiario.html">REMOVER ESTAGIÁRIO</a></li>
+              <li><a href="emissao_atestado.html">EMITIR ATESTADO</a></li>
+              <li><a href="empresas.html">EMPRESAS CONVENIADAS</a></li>
+    				</ul>
+			</article>
+
+			<article class="col-md-7 col-md-offset-1">
+        <div class="row">
+          <h4 class="title-1">Cadastrar estagiário</h4>
+          <!-- <hr class="black-row"> -->
+          <form class="form-horizontal" action="/cadastra_estagiario" method="post">
+            <div class="form-group">
+              <label for="estagiario[nome]" class="col-sm-1 control-label">Nome: </label>
+              <div class="col-sm-11">
+                <input type="text" class="form-control" name="estagiario[nome]" placeholder="Exemplo: Rafael Campos Nunes" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="estagiario[matricula]" class="col-sm-1 control-label">Matrícula: </label>
+              <div class="col-sm-11">
+                <input type="text" class="form-control" name="estagiario[matricula]" placeholder="Exemplo: 20122280033" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="estagiario[turma]" class="col-sm-1 control-label">Turma: </label>
+              <div class="col-sm-11">
+                <input type="text" class="form-control" name="estagiario[turma]" placeholder="Exemplo: T228-4MA" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="estagiario[turno]" class="col-sm-1 control-label">Turno: </label>
+              <div class="col-sm-5">
+                <select class="form-control" name="estagiario[turno]">
+                  <option value="none" selected>Selecione um turno</option>
+                  <option value="mat">Matutino</option>
+                  <option value="ves">Vespertino</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="empresas" class="col-sm-1 control-label">Empresa: </label>
+              <div class="col-sm-5">
+                <select class="form-control" name="empresas">
+                  <option value="none" selected="">Selecione a empresa de estágio</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="estagiario[orientador]" class="col-sm-1 control-label">Orientador: </label>
+              <div class="col-sm-4 col-sm-offset-1">
+                <select class="form-control" name="estagiario[orientador]">
+                  <option value="none" selected>Selecione um orientador</option>
+                </select>
+              </div>
+            </div>
+
+            <p class="title-2">
+              Período de estágio
+            </p>
+            <div class="form-group">
+              <label class="col-sm-1 control-label">Início: </label>
+              <div class="col-sm-2">
+                <input type="number" name="name" class="form-control" placeholder="DD" title="Dia. Exemplo: 15" required>
+              </div>
+              <div class="col-sm-2">
+                <input type="number" name="name" class="form-control" placeholder="MM" title="Mês. Exemplo: 07" required>
+              </div>
+              <div class="col-sm-2">
+                <input type="number" name="name" class="form-control" placeholder="AAAA" title="Ano. Exemplo: 2015" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-1 control-label">Fim: </label>
+              <div class="col-sm-2">
+                <input type="number" name="name" class="form-control" placeholder="DD" title="Dia. Exemplo: 20" required>
+              </div>
+              <div class="col-sm-2">
+                <input type="number" name="name" class="form-control" placeholder="MM" title="Mês. Exemplo: 04" required>
+              </div>
+              <div class="col-sm-2">
+                <input type="number" name="name" class="form-control" placeholder="AAAA" title="Ano. Exemplo: 2016" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-offset-10 col-sm-1">
+                <button type="submit" class="btn btn-success disabled" name="button" title="">Cadastrar  <i class="libre libre-check-yes"></i></button>
+              </div>
+            </div>
+          </div>
+        </form>
+			</article>
+		</section>
+
+		<footer class="row margin-top">
+				<ul class="col-md-8 col-md-offset-2 nav nav-pills right">
+				</ul>
+		</footer>
+	</div>
+
+	<script src="js/jquery-2.1.4.min.js"></script>
+	<script src="js/bootstrap/bootstrap.min.js"></script>
+</body>
+</html>

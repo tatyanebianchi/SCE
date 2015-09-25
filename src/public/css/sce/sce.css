@@ -14,6 +14,7 @@ a {
   /*color: #505050;*/
   -webkit-transition: all .2s;
      -moz-transition: all .2s;
+       -o-transition: all .2s;
           transition: all .2s;
 }
 
@@ -22,12 +23,19 @@ a:hover {
    text-decoration: none;
 }
 
-.padding-1 {
-  padding: 1%;
+textarea {
+  min-height: 50px;
+  min-width: 200px;
+  max-width: 480px;
+  max-height: 130px;
 }
 
-.padding-3 {
-  padding: 3%;
+.padding-1 {
+  padding: 3% !important;
+}
+
+.left {
+  text-align: left !important;
 }
 
 .center {
@@ -36,6 +44,27 @@ a:hover {
 
 .right {
   text-align: right !important;
+}
+
+.title-1 {
+  text-decoration: underline;
+  font-size: 40px !important;
+  font-weight: bold;
+}
+
+.title-2 {
+  font-size: 25px !important;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.title-3 {
+  font-size: 20px !important;
+}
+
+.black-row {
+  border: 2px solid rgba(30, 30, 30, 1);
+  margin-top: 0;
 }
 
 .separator-row {
@@ -80,17 +109,48 @@ a:hover {
 }
 
 .quote-alert {
-  border-left: 3px solid rgb(119, 185, 217) !important;
-  background: rgba(155, 215, 244, .2);
+  border-left: 3px solid rgba(250, 255, 4) !important;
+  background: rgba(250, 255, 4, .2);
 }
 
 .quote-danger {
-  border-left: 3px solid rgb(119, 185, 217) !important;
-  background: rgba(155, 215, 244, .2);
+  border-left: 3px solid rgb(198, 42, 0) !important;
+  background: rgba(224, 10, 10, 0.2);
 }
 
 .help-section {
 
+}
+
+.link-group {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.link-group > .active {
+  border-left: 2px solid #245580;
+}
+
+.link-group > li:first-child {
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+.link-group > li:last-child {
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.link-group > li {
+  border-left: 2px solid rgba(0, 0, 0, 0);
+  -webkit-transition: all .2s;
+     -moz-transition: all .2s;
+       -o-transition: all .2s;
+          transition: all .2s;
+}
+
+.link-group > li:hover {
+    border-left: 2px solid #245580;
 }
 
 /**
@@ -106,4 +166,9 @@ a:hover {
 .nav-pills > li:active, a:hover {
   /*background: rgba(98, 92, 98, 0.20) !important;*/
   border-radius: 1px !important;
+}
+
+.navbar-default {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
 }

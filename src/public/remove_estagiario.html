@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>SCE - Remover estagiário</title>
+
+	<meta charset="utf-8">
+
+	<!-- mobile stuff -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Bootstrap -->
+	<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.min.css">
+
+	<!-- Libre icons -->
+	<link	 rel="stylesheet" type="text/css" href="css/libre-icons/libreicons.css">
+
+	<!-- SCE CSS -->
+	<link rel="stylesheet" type="text/css" href="css/sce/sce.css">
+</head>
+
+<body ondragstart="false" class="">
+	<!-- <img class="back_img" src=""> -->
+	<div class="container-fluid">
+		<header class="row">
+			<nav class="navbar navbar-default">
+					<div class="navbar-header">
+						<a class="navbar-brand" href="/">
+              <img src="img/" alt="SCE - Sistema de Controle de Estágio" class="img-responsive"/>
+            </a>
+					</div>
+
+	        <ul class="nav navbar-nav" style="float: right !important;">
+						<li><a href="#"></a></li>
+						<li><a href="/logout">Sair <i class="libre libre-log-out"></i></a></li>
+	        </ul>
+			</nav>
+		</header>
+
+		<section class="row">
+			<article class="col-md-3">
+        <ul class="link-group nav nav-stacked" role="navigation">
+          <li><a href="/">INÍCIO</a></li>
+          <li><a href="cadastra_estagiario.html">CADASTRAR ESTAGIÁRIO</a></li>
+          <li class="active"><a href="#">REMOVER ESTAGIÁRIO</a></li>
+          <li><a href="emissao_atestado.html">EMITIR ATESTADO</a></li>
+          <li><a href="empresas.html">EMPRESAS CONVENIADAS</a></li>
+				</ul>
+			</article>
+
+			<article class="col-md-7 col-md-offset-1">
+				<h4 class="title-1">Remover estagiário</h4>
+				<h4>Pesquise o nome do estagiário a ser removido com a caixa de pesquisa abaixo.</h4>
+				<form class="form-group" action="/pesquisa_estagiario" method="get">
+					<div class="input-group input-group-md">
+						<input type="text" name="estagiario" class="form-control" placeholder="Exemplo: Isabela Silva Brito">
+						<span class="input-group-btn">
+							<button type="submit" class="btn btn-primary"><i class="libre libre-search"></i></button>
+						</span>
+					</div>
+				</form>
+			</article>
+		</section>
+
+		<footer class="row margin-top">
+				<ul class="col-md-8 col-md-offset-2 nav nav-pills right">
+				</ul>
+		</footer>
+	</div>
+
+	<script src="js/jquery-2.1.4.min.js"></script>
+	<script src="js/bootstrap/bootstrap.min.js"></script>
+</body>
+</html>

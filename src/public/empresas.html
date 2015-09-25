@@ -1,0 +1,147 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>SCE - Empresas</title>
+
+	<meta charset="utf-8">
+
+	<!-- mobile stuff -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Bootstrap -->
+	<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.min.css">
+
+	<!-- Libre icons -->
+	<link	 rel="stylesheet" type="text/css" href="css/libre-icons/libreicons.css">
+
+	<!-- SCE CSS -->
+	<link rel="stylesheet" type="text/css" href="css/sce/sce.css">
+</head>
+
+<body ondragstart="false" class="">
+	<!-- <img class="back_img" src=""> -->
+	<div class="container-fluid">
+		<header class="row">
+			<nav class="navbar navbar-default">
+					<div class="navbar-header">
+						<a class="navbar-brand" href="/">
+              <img src="img/" alt="SCE - Sistema de Controle de Estágio" class="img-responsive"/>
+            </a>
+					</div>
+
+	        <ul class="nav navbar-nav" style="float: right !important;">
+						<li><a href="#"></a></li>
+						<li><a href="/logout">Sair <i class="libre libre-log-out"></i></a></li>
+	        </ul>
+			</nav>
+		</header>
+
+		<section class="col-md-3">
+			<article class="row">
+        <ul class="link-group nav nav-stacked" role="navigation">
+          <li><a href="/">INÍCIO</a></li>
+          <li><a href="cadastra_estagiario.html">CADASTRAR ESTAGIÁRIO</a></li>
+          <li><a href="remove_estagiario.html">REMOVER ESTAGIÁRIO</a></li>
+          <li><a href="emissao_atestado.html">EMITIR ATESTADO</a></li>
+          <li class="active"><a href="#">EMPRESAS CONVENIADAS</a></li>
+				</ul>
+			</article>
+    </section>
+
+    <section class="col-md-7 col-md-offset-1">
+			<article class="row">
+          <h4 class="title-1">Empresas conveniadas</h4>
+          <h4 class="alert quote-info">Nessa página encontram-se as empresas conveniadas ao IFPA assim como uma forma de cadastrar uma nova empresa.</h4>
+			</article>
+
+      <article class="row">
+        <!--  Tabela de empresas vinculadas -->
+        <div class="">
+
+        </div>
+
+        <!-- Modal para cadastro de uma nova empresa  -->
+        <div class="modal fade" id="cadastra-empresa" tabindex="-1" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title">Cadastro de nova empresa</h4>
+              </div>
+              <div class="modal-body">
+                <form class="form" action="/cadastra_empresa" id="form-cadastro" role="form" method="post">
+                  <h4 class="title-3">Informações básicas</h4>
+                  <div class="form-group">
+                    <input type="text" name="empresa[nome]" class="form-control" placeholder="Nome da empresa. Exemplo: Supernorte" required>
+                  </div>
+
+                  <div class="form-group">
+                    <input type="text" name="empresa[razao_social]" class="form-control" placeholder="Razão social da empresa. Exemplo: Supermercados do Norte do Brasil" required>
+                  </div>
+
+                  <div class="form-group">
+                    <input type="text" name="empresa[cnpj]" class="form-control" placeholder="CNPJ. Exemplo: 05.327.241/0001-63" required>
+                  </div>
+
+                  <h4 class="title-3">Endereço</h4>
+                  <div class="form-group">
+                    <input type="text" name="empresa[rua]" class="form-control" placeholder="Nome da rua. Exemplo: R Lauro Sodré" required>
+                  </div>
+
+                  <div class="form-group">
+                    <input type="number" name="empresa[numero]" class="form-control" placeholder="Número. Exemplo: 640" required>
+                  </div>
+
+                  <div class="form-group">
+                    <input type="number" name="empresa[cep]" class="form-control" placeholder="CEP. Exemplo: 68456000" required>
+                  </div>
+
+                  <div class="form-group">
+                    <input type="text" name="endereco[bairro]" class="form-control" placeholder="Bairro. Exemplo: São José" required>
+                  </div>
+
+                  <h4 class="title-3">Contato</h4>
+                  <div class="form-group">
+                    <input type="text" name="empresa[email]" class="form-control" placeholder="Email. Exemplo: empresa_tal@empresa.com">
+                  </div>
+
+                  <div class="form-group">
+                    <input type="text" name="empresa[telefone]" class="form-control" placeholder="Telefone. Exemplo: 3787-3045" required>
+                  </div>
+
+                  <div class="form-group">
+                    <input type="text" name="empresa[telefone_2]" class="form-control" placeholder="Telefone 2">
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-success" name="button" form="form-cadastro">
+                  Cadastrar <i class="libre libre-check-yes"></i>
+                </button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">
+                  Cancelar <i class="libre libre-check-no"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="right">
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cadastra-empresa">
+            Cadastrar nova empresa
+          </button>
+        </div>
+      </article>
+		</section>
+
+		<footer class="row margin-top">
+				<ul class="col-md-8 col-md-offset-2 nav nav-pills right">
+				</ul>
+		</footer>
+	</div>
+
+	<script src="js/jquery-2.1.4.min.js"></script>
+	<script src="js/bootstrap/bootstrap.min.js"></script>
+</body>
+</html>
