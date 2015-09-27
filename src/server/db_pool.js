@@ -1,15 +1,19 @@
 /****************************************************************************
- *
+ * Responsável por gerenciar as conexões com o banco de dados e também fazer
+ * querys ao banco.
  *
  *
  ****************************************************************************/
 
-//'use strict'
+'use strict'
 
 
 var mysql   = require('mysql');
 
-var mysql_pool = mysql.createPool({
+/**
+ * Pool de conexões para o banco de dados
+ */
+var pool = mysql.createPool({
     connectionLimit   : 100, // Máximo número de conexões permitidas.
     host              : "localhost",
     user              : "sce",
@@ -18,26 +22,28 @@ var mysql_pool = mysql.createPool({
     debugging         : false
 });
 
-exports.get_connection = function(req, res) {
-    mysql_pool.getConnection(function(error, connection) {
-        if(error) {
-          res.json({"code" : 100, "status" : "connection database error", "error" : error});
-          if(connection) {
-              connection.release();
-          }
-          return;
+
+
+/**
+ *
+ * @param query_data
+ */
+exports.query = function(query_data, callback_return) {
+    pool.getConnection(function(err, connection) {
+        if(err) {
+          callback_return(err)
         }
-        else {
-            console.log("Connected. ID: " + connection.threadId);
-            connection.query("SELECT * FROM usuario", function(error, rows) {
-                if(error) {
-                  console.log(error);
-                }
+        else { // conexão ok
+            connection.query(query_data, function(err, rows) {
+                if(err) {
+                    // retorna o estado dessa função para a função passada por argumento.
+                    callback_return(err);
+                  }
                 else {
-                  res.json(rows);
+                    // retorna o estado dessa função para a função passada por argumento.
+                    callback_return(rows);
                 }
             });
-            return connection;
         }
-     });
+    });
 }
