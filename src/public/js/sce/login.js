@@ -16,7 +16,9 @@ ws.onopen = function(data) {
 ws.onmessage = function(data) {
   console.log(data);
   console.log(data.data);
-  //data = JSON.parse(data.data);
+  data = JSON.parse(data.data);
+
+  console.log(data.type);
 
   // switch(data.type) {
   //   case 'auth_error': {
