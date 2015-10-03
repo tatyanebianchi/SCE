@@ -31,17 +31,17 @@ var pool = mysql.createPool({
 exports.query = function(query_data, callback_return) {
     pool.getConnection(function(err, connection) {
         if(err) {
-          callback_return(err)
+          callback_return(undefined, err)
         }
         else { // conexão ok
             connection.query(query_data, function(err, rows) {
                 if(err) {
                     // retorna o estado dessa função para a função passada por argumento.
-                    callback_return(err);
+                    callback_return(undefined, err);
                   }
                 else {
                     // retorna o estado dessa função para a função passada por argumento.
-                    callback_return(rows);
+                    callback_return(rows, undefined);
                 }
             });
         }
