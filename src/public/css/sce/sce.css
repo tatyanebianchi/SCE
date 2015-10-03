@@ -2,9 +2,6 @@
  * SCE definitions
  */
 
-ul > li {
-  display: inline-block;
-}
 li > a {
   padding: 5px;
   -moz-transition: all .2s;
@@ -32,18 +29,6 @@ textarea {
 
 .padding-1 {
   padding: 3% !important;
-}
-
-.left {
-  text-align: left !important;
-}
-
-.center {
-  text-align: center !important;
-}
-
-.right {
-  text-align: right !important;
 }
 
 .title-1 {
@@ -109,8 +94,9 @@ textarea {
 }
 
 .quote-alert {
-  border-left: 3px solid rgba(250, 255, 4) !important;
+  border-left: 3px solid rgba(250, 255, 4, .3) !important;
   background: rgba(250, 255, 4, .2);
+  color: black;
 }
 
 .quote-danger {
