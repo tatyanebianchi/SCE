@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<title>Login - SCE</title>
+	<title>SCE</title>
 
 	<meta charset="utf-8">
 
@@ -20,49 +20,66 @@
 </head>
 
 <body ondragstart="false" class="">
-	<img class="back_img" src="">
-	<hr class="black-row">
-	<div class="container">
-		<header class="row col-md-8 col-md-offset-2 center ]">
-			<img src="img/scepng.png" alt="SCE" class="img-responsive center-block" width="256" height="256">
-			<h3><b>SCE - Sistema de Controle de Estágio</b></h3>
+	<!-- <img class="back_img" src=""> -->
+	<div class="container-fluid">
+		<header class="row">
+			<nav class="navbar navbar-default">
+					<div class="navbar-header">
+						<a class="navbar-brand" href="/">
+              <img src="img/" alt="SCE - Sistema de Controle de Estágio" class="img-responsive"/>
+            </a>
+					</div>
+
+	        <ul class="nav navbar-nav" style="float: right !important;">
+						<li><a href="#"></a></li>
+						<li><a href="/logout">Sair <i class="libre libre-log-out"></i></a></li>
+	        </ul>
+			</nav>
 		</header>
 
 		<section class="row">
-			<article class="col-md-8 col-md-offset-2">
-				<form action="/login" method="post">
-					<!-- Para verificação de erro, porém é necessário que apareça apenas se estiver errada a senha -->
-					<p class="hide alert alert-danger fade in" id="auth_error">
-						<button type="button" class="close" data-dismiss="alert" title="Clique para fechar">
-							<span aria-hidden="true"> &times;</span>
-						</button>
-						Senha ou usuário incorretos! <i class=""></i><br>
-					</p>
+			<article class="col-md-3">
+				<p class="alert alert-dismissible bg-info" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="close"><span>&times;</span></button>
+					Bem vindo ao SCE. Utilize o menu de opções abaixo para navegar.
+				</p>
+        <ul class="link-group nav nav-stacked" role="navigation">
+          <li class="active"><a href="#">INÍCIO</a></li>
+          <li><a href="cadastra_estagiario.html">CADASTRAR ESTAGIÁRIO</a></li>
+          <li><a href="remove_estagiario.html">REMOVER ESTAGIÁRIO</a></li>
+          <li><a href="emissao_atestado.html">EMITIR ATESTADO</a></li>
+          <li><a href="empresas.html">EMPRESAS CONVENIADAS</a></li>
+				</ul>
 
-					<div class="input-group">
-						<span class="input-group-addon"><i class="libre libre-user libre-fw"></i></span>
-						<input class="form-control" type="text"  name="usuario[email]" placeholder="Usuário" required>
-					</div><br>
-					<div class="input-group ">
-						<span class="input-group-addon"><i class="libre libre-key libre-fw"></i></span>
-						<input class="form-control" type="password" name="usuario[senha]" placeholder="Senha" required>
-					</div><br>
-					<div class="right">
-						<button type="submit" class="btn btn-default">Login <i class="libre libre-log-in"></i></button>
-					</div>
-				</form>
+				<div class="margin-top">
+					asdasdasd
+				</div>
+			</article>
+
+			<article class="col-md-9">
+				<div class="container col-md-4" style="float: right !important;">
+					<form class="" action="/pesquisar_estagiario" method="get">
+						<div class="input-group input-group-md">
+							<input type="text" name="estagiario" class="form-control" placeholder="Pesquisar estagiário">
+							<span class="input-group-btn">
+								<button type="submit" class="btn btn-primary"><i class="libre libre-search"></i></button>
+							</span>
+						</div>
+					</form>
+				</div>
+
+				<div class="row" id="resultado_pesquisa">
+
+				</div>
 			</article>
 		</section>
 
 		<footer class="row margin-top">
 				<ul class="col-md-8 col-md-offset-2 nav nav-pills right">
-					<li><a href="dev.html" title="Os criadores.">Desenvolvedores</a></li>
-					<li><a href="ajuda.html" title="Precisa de ajuda?">Ajuda</a></li>
 				</ul>
 		</footer>
 	</div>
 
-	<script src="js/sce/login.js"></script>
 	<script src="js/jquery-2.1.4.min.js"></script>
 	<script src="js/bootstrap/bootstrap.min.js"></script>
 </body>

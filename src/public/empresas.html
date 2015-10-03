@@ -26,7 +26,7 @@
 			<nav class="navbar navbar-default">
 					<div class="navbar-header">
 						<a class="navbar-brand" href="/">
-              <img src="img/" alt="SCE - Sistema de Controle de Estágio" class="img-responsive"/>
+              <img src="" alt="SCE - Sistema de Controle de Estágio" class="img-responsive"/>
             </a>
 					</div>
 
@@ -55,10 +55,23 @@
           <h4 class="alert quote-info">Nessa página encontram-se as empresas conveniadas ao IFPA assim como uma forma de cadastrar uma nova empresa.</h4>
 			</article>
 
+			<article class="row text-right">
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cadastra-empresa">
+					Cadastrar nova empresa
+				</button>
+			</article>
+
       <article class="row">
         <!--  Tabela de empresas vinculadas -->
-        <div class="">
+        <div class="margin-top">
+					<table class="table table-striped" id="empresas-conveniadas">
+						<tr>
+							<th>Nome</th>
+							<th>Contato</th>
+							<th>Ações</th>
+						</tr>
 
+					</table>
         </div>
 
         <!-- Modal para cadastro de uma nova empresa  -->
@@ -126,12 +139,6 @@
             </div>
           </div>
         </div>
-
-        <div class="right">
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cadastra-empresa">
-            Cadastrar nova empresa
-          </button>
-        </div>
       </article>
 		</section>
 
@@ -143,5 +150,6 @@
 
 	<script src="js/jquery-2.1.4.min.js"></script>
 	<script src="js/bootstrap/bootstrap.min.js"></script>
+	<script src="js/sce/empresas.js"></script>
 </body>
 </html>
