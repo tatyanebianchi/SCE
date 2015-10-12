@@ -104,6 +104,32 @@ textarea {
   background: rgba(224, 10, 10, 0.2);
 }
 
+/**
+ * Seção de notificação do SCE, escrevi esse porque os padrões do Bootstrap
+ * não me satisfazem.
+ */
+.sce-alert {
+  padding: 15px;
+  /**/
+  border-radius: 2px;
+}
+
+.sce-alert-warning {
+  background-color: rgba(250, 247, 0, 0.39);
+}
+
+.sce-alert-danger {
+  background-color: rgba(255, 54, 0, 0.39);
+}
+
+.sce-alert-info {
+  background-color: rgba(0, 124, 177, 0.39);
+}
+
+.sce-alert-success {
+  background-color: rgba(73, 209, 0, 0.39)
+}
+
 .help-section {
 
 }
@@ -136,7 +162,7 @@ textarea {
 }
 
 .link-group > li:hover {
-    border-left: 2px solid #245580;
+  border-left: 2px solid #245580;
 }
 
 /**
