@@ -1,8 +1,11 @@
 /**
- * Script que abre uma conexão com o websocket specificado e define o objeto
- * sockets para utilização posterior por outro script.
- */
-
+  * sockets.js
+  * Author: Rafael Campos Nunes.
+  * License: GPLv3
+  *
+  * Script que abre uma conexão com o websocket specificado e define o objeto
+  * sockets para utilização posterior por outro script.
+  */
 
 (function () {
     'use strict'
