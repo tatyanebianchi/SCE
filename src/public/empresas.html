@@ -64,10 +64,14 @@
       <article class="row">
         <!--  Tabela de empresas vinculadas -->
         <div class="margin-top">
-					<table class="table table-striped" id="empresas-conveniadas">
+					<p class="hide alert alert-danger" id="error_box">
+					</p>
+
+					<table class="table table-striped table-bordered" id="tabela-empresas">
 						<tr>
 							<th>Nome</th>
-							<th>Contato</th>
+							<th>Telefone</th>
+							<th>Email</th>
 							<th>Ações</th>
 						</tr>
 
@@ -150,6 +154,7 @@
 
 	<script src="js/jquery-2.1.4.min.js"></script>
 	<script src="js/bootstrap/bootstrap.min.js"></script>
+	<script src="js/sce/sockets.js"></script>
 	<script src="js/sce/empresas.js"></script>
 </body>
 </html>

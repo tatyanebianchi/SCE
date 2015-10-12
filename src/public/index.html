@@ -39,8 +39,7 @@
 
 		<section class="row">
 			<article class="col-md-3">
-				<p class="alert alert-dismissible bg-info" role="alert">
-					<button type="button" class="close" data-dismiss="alert" aria-label="close"><span>&times;</span></button>
+				<p class="sce-alert sce-alert-info" role="alert">
 					Bem vindo ao SCE. Utilize o menu de opções abaixo para navegar.
 				</p>
         <ul class="link-group nav nav-stacked" role="navigation">
@@ -58,18 +57,20 @@
 
 			<article class="col-md-9">
 				<div class="container col-md-4" style="float: right !important;">
-					<form class="" action="/pesquisar_estagiario" method="get">
+					<form method="get">
 						<div class="input-group input-group-md">
-							<input type="text" name="estagiario" class="form-control" placeholder="Pesquisar estagiário">
+							<input type="text" name="estagiario" class="form-control" placeholder="Pesquisar estagiário" id="campo_estagiario" required>
 							<span class="input-group-btn">
-								<button type="submit" class="btn btn-primary"><i class="libre libre-search"></i></button>
+								<button type="submit" class="btn btn-primary" onclick="pesquisaEstagiario()"><i class="libre libre-search"></i></button>
 							</span>
 						</div>
 					</form>
 				</div>
 
 				<div class="row" id="resultado_pesquisa">
+						<table class="hide">
 
+						</table>
 				</div>
 			</article>
 		</section>
@@ -82,5 +83,7 @@
 
 	<script src="js/jquery-2.1.4.min.js"></script>
 	<script src="js/bootstrap/bootstrap.min.js"></script>
+	<script src="js/sce/sockets.js"></script>
+	<script src="js/sce/pesquisa_estagiario.js"></script>
 </body>
 </html>

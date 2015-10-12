@@ -23,10 +23,13 @@
 	<!-- <img class="back_img" src=""> -->
 	<div class="container-fluid">
 		<header class="row">
+			<div class="hidden" id="notificacao">
+			</div>
+
 			<nav class="navbar navbar-default">
 					<div class="navbar-header">
 						<a class="navbar-brand" href="/">
-              <img src="img/" alt="SCE - Sistema de Controle de Estágio" class="img-responsive"/>
+              <img src="" alt="SCE - Sistema de Controle de Estágio" class="img-responsive"/>
             </a>
 					</div>
 
@@ -88,7 +91,7 @@
             <div class="form-group">
               <label for="empresas" class="col-sm-1 control-label">Empresa: </label>
               <div class="col-sm-5">
-                <select class="form-control" name="empresas" required>
+                <select class="form-control" name="empresas" id="select-empresas" required>
                   <option value="none" selected="">Selecione a empresa de estágio</option>
                 </select>
               </div>
@@ -97,7 +100,7 @@
             <div class="form-group">
               <label for="estagiario[orientador]" class="col-sm-1 control-label">Orientador: </label>
               <div class="col-sm-4 col-sm-offset-1">
-                <select class="form-control" name="estagiario[orientador]" required>
+                <select class="form-control" name="estagiario[orientador]" id="select-orientador" required>
                   <option value="none" selected>Selecione um orientador</option>
                 </select>
               </div>
@@ -134,11 +137,25 @@
 
             <div class="form-group">
               <div class="col-sm-offset-10 col-sm-1">
-                <button type="submit" class="btn btn-success" name="button" title="">Cadastrar  <i class="libre libre-check-yes"></i></button>
+                <button type="submit" class="btn btn-success" name="button" title="" id="submit">Cadastrar  <i class="libre libre-check-yes"></i></button>
               </div>
             </div>
           </div>
         </form>
+
+				<div class="modal fade" id="cadastro-estado" tabindex="-1" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modal-titulo">Estado do cadastro</h4>
+              </div>
+            	<div class="modal-body" id="modal-corpo">
+            	</div>
+							<div class="modal-footer" id="modal-rodape">
+							</div>
+          </div>
+        </div>
 			</article>
 		</section>
 
@@ -150,5 +167,8 @@
 
 	<script src="js/jquery-2.1.4.min.js"></script>
 	<script src="js/bootstrap/bootstrap.min.js"></script>
+	<script src="js/sce/sockets.js"></script>
+	<script src="js/sce/notification.js"></script>
+	<script src="js/sce/cadastra_estagiario.js"></script>
 </body>
 </html>
