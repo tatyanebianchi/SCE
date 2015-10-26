@@ -26,3 +26,17 @@
   1004    | Representa um *estado* que significa erro no sistema.
   1006    | Representa uma *requisição*, geralmente vinda do cliente ao servidor.
   1007    | Representa uma *resposta*, geralmente vinda do servidor ao cliente.
+
+# Log do servidor
+
+  O log do servidor é escrito na pasta `./log`, com o nome `server.log`, esse
+  arquivo tem como função principal notificar qualquer modificação de estado do
+  servidor e seus componentes, como o [`web_sockets.js`](). Qualquer ação de
+  requisição/resposta é gravada no log do servidor, para tal, é definido um código
+  afim de padronizar a identificação do conteúdo da mensagem no log.
+
+  Código  | Significado
+  ------  | -----------
+  900     | Representa um *notificação*.
+  904     | Representa um *erro*.
+  906     | Representa uma *requisição* pelo cliente.
