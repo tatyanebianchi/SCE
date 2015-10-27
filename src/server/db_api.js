@@ -28,6 +28,9 @@ exports.get_orientadores = function(return_data) {
     // return return_data(undefined);
 }
 
+/**
+ * @param {Function} callback
+ */
 exports.get_classes = function(return_data) {
   mysql_pool.query("SELECT * FROM sce.turma;", return_data);
 }
