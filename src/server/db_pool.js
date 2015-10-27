@@ -22,8 +22,6 @@ var pool = mysql.createPool({
     debugging         : false
 });
 
-
-
 /**
  *
  * @param query_data
@@ -41,7 +39,14 @@ exports.query = function(query_data, callback_return) {
                   }
                 else {
                     // retorna o estado dessa função para a função passada por argumento.
-                    callback_return(rows, undefined);
+                    if(rows == "") {
+                        callback_return(undefined, "The query has returned null." +
+                                        " May be occurred from a bad formatted query." +
+                                        " Or no result was found on the database.");
+                    }
+                    else {
+                        callback_return(rows, undefined);
+                    }
                 }
             });
         }
