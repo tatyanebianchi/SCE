@@ -38,5 +38,7 @@
   Código  | Significado
   ------  | -----------
   900     | Representa um *notificação*.
-  904     | Representa um *erro*.
-  906     | Representa uma *requisição* pelo cliente.
+  903     | Representa um *estado* que significa sucesso.
+  904     | Representa um *estado* que significa erro.
+  906     | Representa uma *requisição* vinda do cliente ao servidor.
+  907     | Representa uma *mensagem* a ser enviada pelo servidor.
