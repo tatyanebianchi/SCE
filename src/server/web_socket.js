@@ -16,15 +16,18 @@ var WebSocketServer = require('ws').Server
   });
 
 exports.init = function() {
-    console.log("websocket init hit");
+    utils.write_log('Web socket inicializado', '900');
 }
 
 /**
- *
  * @param message Mensagem a ser enviada ao cliente.
  */
 exports.send_message = function(message) {
-      console.log("message to be sent: " + message);
+      if(utils.is_debug()) {
+          console.log("Mensagem a ser enviada: " + message);
+      }
+
+      utils.write_log('Mensagem a ser enviada ao cliente: ' + message, '907');
       wss.on('connection', function(ws) {
           ws.send(message);
       });
@@ -38,7 +41,11 @@ exports.send_message = function(message) {
  * @param message Mensagem em JSON a ser enviada ao cliente.
  */
 exports.send_json = function(message) {
-    console.log("message to be sent: " + message);
+    if(utils.is_debug()) {
+        console.log("Mensagem a ser enviada: " + message);
+    }
+
+    utils.write_log('Mensagem a ser enviada ao cliente: ' + message, '907');
     wss.on('connection', function(ws) {
         ws.send(JSON.stringify(message));
     });
@@ -56,13 +63,15 @@ wss.on('connection', function connection(ws) {
             console.log("Mensagem do cliente recebida: " + message);
         }
 
+        utils.write_log('Mensagem do cliente recebida: ' + message, '906');
+
         message = JSON.parse(message);
 
         switch (message.code) {
             case '1006': // requisição
                 switch (message.desc) {
                   case 'get_companies':
-                      db_api.get_empresas(function callback(data, err) {
+                      db_api.get_empresas(function(data, err) {
                           if(utils.is_debug()) {
                               utils.type("Objeto retornado do banco de dados", data);
                               utils.type("Erro no banco de dados", err);
@@ -83,22 +92,27 @@ wss.on('connection', function connection(ws) {
                           else {
                             ws.send(JSON.stringify({
                                 code: '1004', // resposta da requisição
-                                desc: '[DB_API_ERR] Contate o administrador do sistema.',
+                                desc: '[DB_API_ERR]',
                                 value: err
                             }));
+
+                            utils.write_log('', '904');
                           }
                       });
                       break;
                   case 'search':
                       console.log(message.value);
-                      db_api.search_estagiario(message.value, function callback(data, err) {
-                          for (var i = 0; i < data.length; i++) {
-                            console.log(data[i]);
+                      db_api.search_estagiario(message.value, function(data, err) {
+                          // unstable.
+                          if(data) {
+                              for (var i = 0; i < data.length; i++) {
+                                console.log(data[i]);
+                              }
                           }
                       });
                       break;
                   case 'get_tutors':
-                      db_api.get_orientadores(function callback(data, err) {
+                      db_api.get_orientadores(function(data, err) {
                           if(utils.is_debug()) {
                               utils.type("Objeto retornado do banco de dados", data);
                               utils.type("Erro no banco de dados", err);
@@ -118,11 +132,33 @@ wss.on('connection', function connection(ws) {
                           else {
                             ws.send(JSON.stringify({
                                 code: '1004',
-                                desc: '[DB_API_ERR] Contate o administrador do sistema.',
+                                desc: '[DB_API_ERR]',
                                 value: err
                             }));
+
+                            utils.write_log('', '904');
                           }
                       });
+                      break;
+                  case 'get_classes':
+                      db_api.get_classes(function(data, err) {
+                          if(data) {
+                              var classes = []
+
+                              for(var i = 0; i < data.length; i++) {
+                                  classes.push(data[i]);
+                              }
+
+                              ws.send(JSON.stringify({
+                                code: '1007',
+                                desc: 'classes',
+                                value: classes
+                              }));
+                          }
+                          else {
+                              utils.write_log('', '904');
+                          }
+                      })
                       break;
                 }
                 break;
