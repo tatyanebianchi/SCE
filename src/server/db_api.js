@@ -55,7 +55,21 @@ exports.search_estagiario = function(search, return_data) {
 }
 
 exports.insert_estagiario = function(data, callback) {
-    node_utils.inspect(data);
+    var value_query = '';
+
+    for(var i = 0; i < data.length; i++) {
+      if(data[i] == '' && i < data.length-1) {
+          value_query += '\'\', ';
+      }
+      else {
+          value_query += '\'' + data[i] + '\'';
+          if(i < data.length-1) {
+              value_query += ', ';
+          }
+      }
+    }
+
+    console.log(value_query);
 
     mysql_pool.query('INSERT INTO `sce`.`estagiario` (`matricula`,' +
                                                   '`nome`,' +
@@ -64,16 +78,10 @@ exports.insert_estagiario = function(data, callback) {
                                                   '`empresa`,' +
                                                   '`orientador_siap`,' +
                                                   '`empresa_idEmpresa`,' +
-                                                  '`turma_idturma`)' +
-                                                  'VALUES (' +
-                                                          '`' + data[0] + '`,' +
-                                                          '`' + data[1] + '`,' +
-                                                          '`' + data[2] + '`,' +
-                                                          '`' + data[3] + '`,' +
-                                                          '`' + data[4] + '`,' +
-                                                          '`' + data[5] + '`,' +
-                                                          '`' + data[6] + '`,' +
-                                                          '`' + data[7] + '`,', callback)
+                                                  '`foto`' +
+                                                  '`turma_idturma`,' +
+                                                  '`observacao`)' +
+                                                  ' VALUES (' + value_query, callback)
 }
 
 exports.insert_empresa = function(callback) {
