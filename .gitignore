@@ -30,4 +30,5 @@
 # Ignore bootstrap node modules #
 #################################
 src/public/css/bootstrap/node_modules/
+src/server/log/
 LibreICONS-master/
