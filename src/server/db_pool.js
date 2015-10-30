@@ -50,5 +50,8 @@ exports.query = function(query_data, callback_return) {
                 }
             });
         }
+
+        // Does connection pooling rightly.
+        connection.release();
     });
 }
