@@ -23,8 +23,8 @@ var pool = mysql.createPool({
 });
 
 /**
- *
- * @param query_data
+ * @param query_data a query a ser executada no banco de dados.
+ * @param {Function} callback chamado ao finalizar a query.
  */
 exports.query = function(query_data, callback_return) {
     pool.getConnection(function(err, connection) {
@@ -40,9 +40,7 @@ exports.query = function(query_data, callback_return) {
                 else {
                     // retorna o estado dessa função para a função passada por argumento.
                     if(rows == "") {
-                        callback_return(undefined, "The query has returned null." +
-                                        " May be occurred from a bad formatted query." +
-                                        " Or no result was found on the database.");
+                        callback_return(undefined, "Nenhum resultado foi encontrado");
                     }
                     else {
                         callback_return(rows, undefined);
