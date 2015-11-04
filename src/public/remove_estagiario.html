@@ -39,26 +39,47 @@
 
 		<section class="row">
 			<article class="col-md-3">
-        <ul class="link-group nav nav-stacked" role="navigation">
+				<ul class="link-group nav nav-stacked" role="navigation">
           <li><a href="/">INÍCIO</a></li>
           <li><a href="cadastra_estagiario.html">CADASTRAR ESTAGIÁRIO</a></li>
-          <li class="active"><a href="#">REMOVER ESTAGIÁRIO</a></li>
+          <li class="active"><a href="remove_estagiario.html">REMOVER ESTAGIÁRIO</a></li>
           <li><a href="emissao_atestado.html">EMITIR ATESTADO</a></li>
-          <li><a href="empresas.html">EMPRESAS CONVENIADAS</a></li>
+					<li class="link-group-title"><a href="#configuracoes" data-toggle="collapse" data-parent=".link-group">CONFIGURAÇÕES</a></li>
+					<div id="configuracoes" class="panel-collapse collapse">
+						<ul class="link-group nav nav-stacked" role="navigation">
+							<li><a href="empresas.html">EMPRESAS CONVENIADAS</a></li>
+							<li><a href="#">TURMAS</a></li>
+							<li><a href="#">ORIENTADORES</a></li>
+					</ul>
+					</div>
+					<li class="link-group-title"><a href="ajuda.html">AJUDA</a></li>
 				</ul>
 			</article>
 
 			<article class="col-md-7 col-md-offset-1">
-				<h4 class="title-1">Remover estagiário</h4>
+				<h4 class="title-1">
+					Remover estagiário
+					<a tabindex="0" role="button" style="float:right;" class="tool-info" data-toggle="popover" data-placement="left" title="Página para remoção de estagiário"
+					data-content="Para mais informações siga a página de ajuda." data-trigger="focus">
+						<i  class="libre libre-question"></i>
+					</a>
+				</h4>
 				<h4>Pesquise o nome do estagiário a ser removido com a caixa de pesquisa abaixo.</h4>
-				<form class="form-group" action="/pesquisa_estagiario" method="get">
-					<div class="input-group input-group-md">
-						<input type="text" name="estagiario" class="form-control" placeholder="Exemplo: Isabela Silva Brito">
-						<span class="input-group-btn">
-							<button type="submit" class="btn btn-primary"><i class="libre libre-search"></i></button>
-						</span>
-					</div>
-				</form>
+				<div class="input-group input-group-md">
+					<input type="text" class="form-control" placeholder="Exemplo: Isabela Silva Brito ou somente Isa." id="campo_estagiario">
+					<span class="input-group-btn">
+						<button type="submit" class="btn btn-primary" onClick="pesquisa_estagiario()" id="botao_pesquisa"><i class="libre libre-search"></i></button>
+					</span>
+				</div>
+
+				<!--  Tabela de estagiários -->
+        <div class="margin-top">
+					<p class="sce-hide sce-alert sce-alert-danger" data-toggle="tooltip" data-container="body" data-placement="top" title="Clique para fechar o alerta" id="error_box">
+					</p>
+
+					<table class="sce-hide table table-striped table-bordered" id="resultado_pesquisa">
+					</table>
+        </div>
 			</article>
 		</section>
 
@@ -70,5 +91,8 @@
 
 	<script src="js/jquery-2.1.4.min.js"></script>
 	<script src="js/bootstrap/bootstrap.min.js"></script>
+	<script src="js/sce/base.js"></script>
+	<script src="js/sce/sockets.js"></script>
+	<script src="js/sce/pesquisa_estagiario.js"></script>
 </body>
 </html>

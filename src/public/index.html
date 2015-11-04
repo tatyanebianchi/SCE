@@ -20,19 +20,18 @@
 </head>
 
 <body ondragstart="false" class="">
-	<!-- <img class="back_img" src=""> -->
 	<div class="container-fluid">
 		<header class="row">
 			<nav class="navbar navbar-default">
 					<div class="navbar-header">
 						<a class="navbar-brand" href="/">
-              <img src="img/" alt="SCE - Sistema de Controle de Estágio" class="img-responsive"/>
+              <img src="img/" alt="SCE - Sistema de Controle de Estágio" class="img-rounded img-responsive"/>
             </a>
 					</div>
 
 	        <ul class="nav navbar-nav" style="float: right !important;">
 						<li><a href="#"></a></li>
-						<li><a href="/logout">Sair <i class="libre libre-log-out"></i></a></li>
+						<li><a href="/logout" title="Fazer logout da aplicação">Sair <i class="libre libre-log-out"></i></a></li>
 	        </ul>
 			</nav>
 		</header>
@@ -42,35 +41,42 @@
 				<p class="sce-alert sce-alert-info" role="alert">
 					Bem vindo ao SCE. Utilize o menu de opções abaixo para navegar.
 				</p>
+
         <ul class="link-group nav nav-stacked" role="navigation">
           <li class="active"><a href="#">INÍCIO</a></li>
           <li><a href="cadastra_estagiario.html">CADASTRAR ESTAGIÁRIO</a></li>
           <li><a href="remove_estagiario.html">REMOVER ESTAGIÁRIO</a></li>
           <li><a href="emissao_atestado.html">EMITIR ATESTADO</a></li>
-          <li><a href="empresas.html">EMPRESAS CONVENIADAS</a></li>
+					<li class="link-group-title"><a href="#configuracoes" data-toggle="collapse" data-parent=".link-group">CONFIGURAÇÕES</a></li>
+					<div id="configuracoes" class="panel-collapse collapse">
+						<ul class="link-group nav nav-stacked" role="navigation">
+							<li><a href="empresas.html">EMPRESAS CONVENIADAS</a></li>
+							<li><a href="turmas.html">TURMAS</a></li>
+							<li><a href="orientadores.html">ORIENTADORES</a></li>
+					</ul>
+					</div>
+					<li class="link-group-title"><a href="ajuda.html">AJUDA</a></li>
 				</ul>
-
-				<div class="margin-top">
-					asdasdasd
-				</div>
 			</article>
 
 			<article class="col-md-9">
-				<div class="container col-md-4" style="float: right !important;">
-					<form method="get">
+				<div class="container-fluid col-md-4" style="float: right !important; padding-right: 0 !important;">
+					<!-- <form method="get"> -THIS WAS REDIRECTING THE PAGE AND MAKING THE ERRORS -->
 						<div class="input-group input-group-md">
 							<input type="text" name="estagiario" class="form-control" placeholder="Pesquisar estagiário" id="campo_estagiario" required>
 							<span class="input-group-btn">
-								<button type="submit" class="btn btn-primary" onclick="pesquisaEstagiario()"><i class="libre libre-search"></i></button>
+								<button type="submit" class="btn btn-primary" onclick="pesquisa_estagiario()" id="botao_pesquisa"><i class="libre libre-search"></i></button>
 							</span>
 						</div>
-					</form>
+					<!-- </form> -->
 				</div>
 
-				<div class="row" id="resultado_pesquisa">
-						<table class="hide">
+				<div class="margin-top">
+					<p class="sce-hide sce-alert sce-alert-danger" data-toggle="tooltip" data-container="body" data-placement="top" title="Clique para fechar o alerta" id="error_box">
+					</p>
 
-						</table>
+					<table class="sce-hide table table-striped table-bordered" id="resultado_pesquisa">
+					</table>
 				</div>
 			</article>
 		</section>
@@ -83,6 +89,7 @@
 
 	<script src="js/jquery-2.1.4.min.js"></script>
 	<script src="js/bootstrap/bootstrap.min.js"></script>
+	<script src="js/sce/base.js"></script>
 	<script src="js/sce/sockets.js"></script>
 	<script src="js/sce/pesquisa_estagiario.js"></script>
 </body>
