@@ -11,7 +11,7 @@ var app         = express();
 
 // SCE
 var webSocket   = require('./web_socket.js');
-var login       = require('./login.js');
+//var login       = require('./login.js');
 var utils       = require('./server_utils.js')
 var cadastro    = require('./cadastro.js')
 
