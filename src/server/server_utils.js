@@ -26,11 +26,13 @@ exports.get_file = function(file) {
 }
 
 /**
+ * Função que escreve na saída padrão uma mensagem juntamente com a tipagem do
+ * parâmetro data.
  * @param mensagem
  * @param data
  */
 exports.type = function(mensagem, data) {
-    console.log(mensagem + " -> " + typeof(data));
+    util.log(mensagem + " -> " + typeof(data));
 }
 
 exports.is_debug = function() {
@@ -45,7 +47,7 @@ exports.write_log = function(message, error_code) {
     var date = Date();
     fs.open(log_file, 'a', function(err, fd) {
         if(err) {
-            console.log('Erro ao abrir o arquivo ' + log_file + ' para escrita.');
+            util.log('Erro ao abrir o arquivo ' + log_file + ' para escrita.');
         }
         else {
             var log_message = date + ' LOG: ' + error_code + ' -> ' + message +
@@ -54,7 +56,7 @@ exports.write_log = function(message, error_code) {
             fs.appendFileSync(log_file, log_message, 'utf8',
                               function(err) {
                                   if(err) {
-                                      console.log("Erro ao adicionar texto para"
+                                      util.log("Erro ao adicionar texto para"
                                       + " o arquivo.")
                                   }
                               });
