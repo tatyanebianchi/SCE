@@ -10,26 +10,47 @@ var bodyParser  = require('body-parser');
 var app         = express();
 
 // SCE
-var webSocket   = require('./web_socket.js');
-var login       = require('./login.js');
-var utils       = require('./server_utils.js')
-var cadastro    = require('./cadastro.js')
+var webSocket   = require('./web_socket.js'),
+    login       = require('./login.js'),
+    utils       = require('./server_utils.js'),
+    cadastro    = require('./cadastro.js');
 
 // node.js
-var path        = require('path');
+var path        = require('path'),
+    node_utils  = require('util');
+    // cluster     = require('cluster');
 
+// Início da escrita no log.
+utils.write_log('\n\n\n\n\n=================== SERVER INIT ====================');
 
-var debug = false;
 if(process.argv[2] == ("-d" || "-debug")) {
-  debug = true;
+    utils.set_debug(true);
+    utils.write_log('Servidor iniciando em modo debug. Informações adicionais serão mostradas no console.', '900');
 }
+else if(process.argv[2] == '-h') {
+    console.log('\tnodejs server <opções>');
+    console.log('\nOpões: ');
+    console.log('\t-d: opção debug, o servidor vai funcionar em modo debug, o' +
+              'que o fará emitir mensagens de aviso/erro na stdout.');
+    console.log('\t-h: opção ajuda, mostra esse menu.');
+    process.exit();
+}
+
+process.on('uncaughtException', function(err) {
+    // construindo a pilha de rastreamento (I know, it sounds weird in portuguese)
+    var stack = err.stack;
+
+    utils.write_log('Exceção: ' + stack, '904');
+    node_utils.log("Exceção: " + stack);
+});
+
 
 /**
  * Pasta padrão para os arquivos do cliente
  */
 app.use(express.static('../public'));
 /**
- *
+ * Middleware bodyParser
  */
 app.use(bodyParser());
 
@@ -63,7 +84,7 @@ app.post("/cadastra_estagiario", function(req, res) {
  * Seção do software a ser implementada posteriormente
  */
  app.post("/cadastra_usuario", function(req, res) {
-
+    cadastro.cadastra_usuario(req.body, res);
  });
 
 /**
@@ -78,5 +99,8 @@ var server = app.listen(9000, function () {
   var host = server.address().address;
   var port = server.address().port;
 
-  console.log('SCE server listening at http://%s:%s', host, port);
+  var env = JSON.stringify( process.env );
+
+  utils.write_log('Servidor executando em: ' + process.cwd(), '900')
+  utils.write_log('Servidor escutando em: http://' + host + ':' + port, '900');
 });
