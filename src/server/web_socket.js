@@ -207,16 +207,16 @@ wss.on('connection', function connection(ws) {
 /**
  * Função auxiliar que envia uma mensagem através do web socket.
  * code: 1007. Mais informações sobre a estrutura da mensagem em README.md.
- * @param ws 
- * @param desc
- * @param value
+ * @param ws
+ * @param _desc
+ * @param {Object} _value valor a ser enviado ao cliente.
  */
 function send_message(ws, _desc, _value) {
     if(utils.is_debug()) {
-        util.log("Mensagem a ser enviada: " + message);
+        util.log("Mensagem a ser enviada: " + _desc + ' - ' + _value);
     }
 
-    utils.write_log('Mensagem a ser enviada ao cliente: ' + message, '907');
+    utils.write_log('Mensagem a ser enviada ao cliente: ' + _desc + ' - ' + _value, '907');
 
     ws.send(JSON.stringify({
       code: '1007',
@@ -237,14 +237,14 @@ function send_message(ws, _desc, _value) {
  * code: 1004. Mais informações sobre a estrutura da mensagem em README.md.
  * @param ws
  * @param _desc
- * @param _value
+ * @param {Object} _value valor a ser enviado ao cliente.
  */
 function send_error(ws, _desc, _value, where) {
     if(utils.is_debug()) {
-        util.log("Mensagem a ser enviada: " + message);
+        util.log("Mensagem a ser enviada: " + _desc + ' - ' + _value);
     }
 
-    utils.write_log('Mensagem a ser enviada ao cliente: ' + message, '907');
+    utils.write_log('Mensagem a ser enviada ao cliente: ' + _desc + ' - ' + _value, '907');
 
     ws.send(JSON.stringify({
       code: '1004',
