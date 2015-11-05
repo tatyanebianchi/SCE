@@ -35,12 +35,16 @@ exports.send_message = function(message) {
 
       utils.write_log('Mensagem a ser enviada ao cliente: ' + message, '907');
       wss.on('connection', function(ws) {
-          ws.send(message, function(error) {
-              utils.write_log("Erro ao enviar informação ao cliente: " + error, '904');
-              if(utils.is_debug()) {
-                  util.log("Erro ao enviar informação ao cliente: " + error);
-              }
-          });
+          if(message) {
+              ws.send(message, function(error) {
+                  if(error) {
+                      utils.write_log("Erro ao enviar informação ao cliente: " + error, '904');
+                      if(utils.is_debug()) {
+                          util.log("Erro ao enviar informação ao cliente: " + error);
+                      }
+                  }
+              });
+          }
       });
 }
 
@@ -49,7 +53,7 @@ exports.send_message = function(message) {
  * síncrona e pode travar o servidor. Procurando uma maneira de fazer código
  * non-blocking.
  *
- * @param message Mensagem em JSON a ser enviada ao cliente.
+ * @param {Object} message Mensagem em JSON a ser enviada ao cliente.
  */
 exports.send_json = function(message) {
     if(utils.is_debug()) {
@@ -58,12 +62,16 @@ exports.send_json = function(message) {
 
     utils.write_log('Mensagem a ser enviada ao cliente: ' + message, '907');
     wss.on('connection', function(ws) {
-        ws.send(JSON.stringify(message), function(error) {
-            utils.write_log("Erro ao enviar informação ao cliente: " + error, '904');
-            if(utils.is_debug()) {
-                util.log("Erro ao enviar informação ao cliente: " + error);
-            }
-        });
+        if(message) {
+            ws.send(JSON.stringify(message), function(error) {
+                if(error) {
+                    utils.write_log("Erro ao enviar informação ao cliente: " + error, '904');
+                    if(utils.is_debug()) {
+                        util.log("Erro ao enviar informação ao cliente: " + error);
+                    }
+                }
+            });
+        }
     });
 }
 
@@ -75,7 +83,9 @@ exports.send_json = function(message) {
  */
 wss.on('connection', function connection(ws) {
     ws.on('error', function(error) {
-        util.log("WebSockets sofreu um erro: " + error);
+        if(error) {
+            util.log("WebSockets sofreu um erro: " + error);
+        }
     });
 
     ws.on('open', function() {
@@ -121,30 +131,84 @@ wss.on('connection', function connection(ws) {
                       });
                       break;
                   case 'search':
-                      db_api.search_estagiario(message.value, function(data, err) {
-                          if(utils.is_debug()) {
-                              utils.type("Objeto retornado do banco de dados", data);
-                              utils.type("Erro no banco de dados", err);
-                          }
-
-                          if(data) {
-                              var pesquisa_estagiarios = [];
-                              for (var i = 0; i < data.length; i++) {
-                                  pesquisa_estagiarios.push(data[i]);
-                              }
-
-                              send_message(ws, 'estagiarios', pesquisa_estagiarios, 'search');
-                          }
-                          else {
+                      if(message.value.search_for[0] === 'estagiario') {
+                          db_api.search('estagiario', message.value, function(data, err) {
                               if(utils.is_debug()) {
-                                  util.log('Erro em \'search\': ' + err);
+                                  utils.type("Objeto retornado do banco de dados", data);
+                                  utils.type("Erro no banco de dados", err);
                               }
 
-                              send_error(ws, '[DB_API_ERR]', err, 'search');
-                              utils.write_log('[DB_API_ERR]' + err, '904');
+                              if(data) {
+                                  var pesquisa_estagiarios = [];
+                                  for (var i = 0; i < data.length; i++) {
+                                      pesquisa_estagiarios.push(data[i]);
+                                  }
 
-                          }
-                      });
+                                  send_message(ws, 'estagiarios', pesquisa_estagiarios, 'search');
+                              }
+                              else {
+                                  if(utils.is_debug()) {
+                                      util.log('Erro em \'search\': ' + err);
+                                  }
+
+                                  send_error(ws, '[DB_API_ERR]', err, 'search');
+                                  utils.write_log('[DB_API_ERR]' + err, '904');
+                              }
+                          });
+                      }
+                      else if(data.value.search_for[0] === 'turma') {
+                          db_api.search('turma', message.value, function(data, err) {
+                              if(utils.is_debug()) {
+                                  utils.type("Objeto retornado do banco de dados", data);
+                                  utils.type("Erro no banco de dados", err);
+                              }
+
+                              if(data) {
+                                  var turmas = [];
+                                  for (var i = 0; i < data.length; i++) {
+                                      turmas.push(data[i]);
+                                  }
+
+                                  send_message(ws, 'turmas', turmas, 'search');
+                              }
+                              else {
+                                  if(utils.is_debug()) {
+                                      util.log('Erro em \'search\': ' + err);
+                                  }
+
+                                  send_error(ws, '[DB_API_ERR]', err, 'search');
+                                  utils.write_log('[DB_API_ERR]' + err, '904');
+                              }
+                          });
+                      }
+                      else if(data.value.search_for[0] === 'orientador') {
+                          db_api.search('orientador', message.value, function(data, err) {
+                              if(utils.is_debug()) {
+                                  utils.type("Objeto retornado do banco de dados", data);
+                                  utils.type("Erro no banco de dados", err);
+                              }
+
+                              if(data) {
+                                  var orientadores = [];
+                                  for (var i = 0; i < data.length; i++) {
+                                      orientadores.push(data[i]);
+                                  }
+
+                                  send_message(ws, 'orientadores', orientadores, 'search');
+                              }
+                              else {
+                                  if(utils.is_debug()) {
+                                      util.log('Erro em \'search\': ' + err);
+                                  }
+
+                                  send_error(ws, '[DB_API_ERR]', err, 'search');
+                                  utils.write_log('[DB_API_ERR]' + err, '904');
+                              }
+                          });
+                      }
+                      else {
+                        // NOTE: alguém por acaso está tentando fazer XSS
+                      }
                       break;
                   case 'get_tutors':
                       db_api.get_orientadores(function(data, err) {
@@ -188,7 +252,6 @@ wss.on('connection', function connection(ws) {
                               send_message(ws, 'classes', classes, 'get_classes');
                           }
                           else {
-                              // TODO: enviar erro ao cliente
                               if(utils.is_debug()) {
                                 util.log('Erro em \'get_classes\': ' + err)
                               }
