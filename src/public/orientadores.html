@@ -66,16 +66,27 @@
 							<i  class="libre libre-question"></i>
 						</a>
 					</h4>
+					<h4>Pesquise o nome do orientador com a caixa de pesquisa abaixo.</h4>
+					<div class="input-group">
+						<input type="text" value="" placeholder="Exemplo: Franciel Amorim ou somente F" class="form-control" id="campo_orientador">
 
-          <form class="" action="/" method="get" class="disabled">
-            <div class="form-group">
-              <input type="text" name="orientadores[orientador]" value="" placeholder="Buscar orientador" class="form-control" title="Função desabilitada no momento">
-            </div>
-          </form>
+						<span class="input-group-btn">
+							<div class="dropdown">
+							  <button class="btn sce-btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" id="botao_pesquisa">
+							    Pesquisar por
+							    <span class="caret"></span>
+							  </button>
+							  <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
+							    <li><a id="pesquisa_por_nome" href="pesquisa_por_nome">Nome</a></li>
+							    <li><a id="pesquisa_por_siap" href="pesquisa_por_siap">SIAP</a></li>
+							  </ul>
+							</div>
+						</span>
+					</div><br>
 			</article>
 
 			<article class="row text-right">
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cadastra-orientador">
+				<button type="button" class="btn sce-btn-primary" data-toggle="modal" data-target="#cadastra-orientador">
 					Cadastrar orientador
 				</button>
 			</article>
@@ -83,79 +94,38 @@
       <article class="row">
         <!--  Tabela de empresas vinculadas -->
         <div class="margin-top">
-					<p class="sce-hide alert sce-alert sce-alert-danger" id="error_box">
+					<p class="sce-hide sce-alert sce-alert-danger" data-toggle="tooltip" data-container="body" data-placement="top" title="Clique para fechar o alerta" id="error_box">
 					</p>
 
-					<table class="table table-striped table-bordered" id="tabela-empresas">
-						<tr>
-							<th>Nome</th>
-							<th>Telefone</th>
-							<th>Email</th>
-							<th>Ações</th>
-						</tr>
-
+					<table class="sce-hide table table-striped table-bordered" id="resultado_pesquisa">
 					</table>
         </div>
 
         <!-- Modal para cadastro de uma nova empresa  -->
-        <div class="modal fade" id="cadastra-empresa" tabindex="-1" role="dialog">
+        <div class="modal fade" id="cadastra-orientador" tabindex="-1" role="dialog">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title">Cadastro de nova empresa</h4>
+                  <h4 class="modal-title">Cadastro de novo orientador</h4>
               </div>
               <div class="modal-body">
-                <form class="form" action="/cadastra_empresa" id="form-cadastro" role="form" method="post">
-                  <h4 class="title-3">Informações básicas</h4>
+                <form class="form" action="/cadastra_orientador" id="form-cadastro" role="form" method="post">
+                  <h4 class="title-3">Informações do orientador</h4>
                   <div class="form-group">
-                    <input type="text" name="empresa[nome]" class="form-control" placeholder="Nome da empresa. Exemplo: Supernorte" required>
+                    <input type="text" name="orientador[nome]" class="form-control" placeholder="Nome completo do orientador. Exemplo: Landry Silva" required>
                   </div>
 
                   <div class="form-group">
-                    <input type="text" name="empresa[razao_social]" class="form-control" placeholder="Razão social da empresa. Exemplo: Supermercados do Norte do Brasil" required>
-                  </div>
-
-                  <div class="form-group">
-                    <input type="text" name="empresa[cnpj]" class="form-control" placeholder="CNPJ. Exemplo: 05.327.241/0001-63" required>
-                  </div>
-
-                  <h4 class="title-3">Endereço</h4>
-                  <div class="form-group">
-                    <input type="text" name="empresa[rua]" class="form-control" placeholder="Nome da rua. Exemplo: R Lauro Sodré" required>
-                  </div>
-
-                  <div class="form-group">
-                    <input type="number" name="empresa[numero]" class="form-control" placeholder="Número. Exemplo: 640" required>
-                  </div>
-
-                  <div class="form-group">
-                    <input type="number" name="empresa[cep]" class="form-control" placeholder="CEP. Exemplo: 68456000" required>
-                  </div>
-
-                  <div class="form-group">
-                    <input type="text" name="endereco[bairro]" class="form-control" placeholder="Bairro. Exemplo: São José" required>
-                  </div>
-
-                  <h4 class="title-3">Contato</h4>
-                  <div class="form-group">
-                    <input type="text" name="empresa[email]" class="form-control" placeholder="Email. Exemplo: empresa_tal@empresa.com">
-                  </div>
-
-                  <div class="form-group">
-                    <input type="text" name="empresa[telefone]" class="form-control" placeholder="Telefone. Exemplo: 3787-3045" required>
-                  </div>
-
-                  <div class="form-group">
-                    <input type="text" name="empresa[telefone_2]" class="form-control" placeholder="Telefone 2">
+                    <input type="number" name="orientador[siap]" class="form-control" placeholder="o SIAP do orientador." required>
                   </div>
                 </form>
               </div>
               <div class="modal-footer">
-                <button type="submit" class="btn btn-success" name="button" form="form-cadastro">
+                <button type="submit" class="btn sce-btn-success" name="button" form="form-cadastro">
                   Cadastrar <i class="libre libre-check-yes"></i>
                 </button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">
+                <button type="button" class="btn sce-btn-danger" data-dismiss="modal">
                   Cancelar <i class="libre libre-check-no"></i>
                 </button>
               </div>
@@ -173,8 +143,8 @@
 
 	<script src="js/jquery-2.1.4.min.js"></script>
 	<script src="js/bootstrap/bootstrap.min.js"></script>
+	<script src="js/sce/base.js"></script>
 	<script src="js/sce/sockets.js"></script>
 	<script src="js/sce/orientadores.js"></script>
-	<script src="js/sce/base.js"></script>
 </body>
 </html>
