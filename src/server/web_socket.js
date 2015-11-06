@@ -156,7 +156,7 @@ wss.on('connection', function connection(ws) {
                               }
                           });
                       }
-                      else if(data.value.search_for[0] === 'turma') {
+                      else if(message.value.search_for[0] === 'turma') {
                           db_api.search('turma', message.value, function(data, err) {
                               if(utils.is_debug()) {
                                   utils.type("Objeto retornado do banco de dados", data);
@@ -181,7 +181,7 @@ wss.on('connection', function connection(ws) {
                               }
                           });
                       }
-                      else if(data.value.search_for[0] === 'orientador') {
+                      else if(message.value.search_for[0] === 'orientador') {
                           db_api.search('orientador', message.value, function(data, err) {
                               if(utils.is_debug()) {
                                   utils.type("Objeto retornado do banco de dados", data);

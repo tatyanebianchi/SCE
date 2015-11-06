@@ -80,6 +80,15 @@ app.post("/cadastra_estagiario", function(req, res) {
     cadastro.cadastra_estagiario(req.body, res);
 });
 
+app.post("/cadastra_orientador", function(req, res) {
+    cadastro.cadastra_orientador(req.body, res);
+});
+
+app.post("/cadastra_turma", function(req, res) {
+    cadastro.cadastra_turma(req.body, res);
+});
+
+
 /**
  * Seção do software a ser implementada posteriormente
  */
