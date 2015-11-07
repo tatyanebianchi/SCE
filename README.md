@@ -19,8 +19,8 @@
   - [X] Mozilla Firefox
   - [X] Microsoft Edge
   - [X] Internet Explorer >= 11.0
-  - [ ] Opera (ainda não testado).
-  - [ ] Safari (ainda não testado).
+  - [X] Opera (ainda não testado).
+  - [X] Safari (ainda não testado).
 
 ## TODO:
 
