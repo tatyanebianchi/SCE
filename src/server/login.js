@@ -7,12 +7,12 @@
 
 // node.js
 var path = require('path');
-// WebSocket
-var ws = require('./web-socket.js');
+
 // SCE
-var utils = require('./server-utils.js');
-var mysql = require('./db_pool.js');
-var db_api  = require('./db_api.js');
+var utils   = require('./server_utils.js'),
+    ws      = require('./web_socket.js'),
+    mysql   = require('./db_pool.js'),
+    db_api  = require('./db_api.js');
 
 
 /**
