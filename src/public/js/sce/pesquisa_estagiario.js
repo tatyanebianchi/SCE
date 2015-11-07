@@ -43,9 +43,9 @@ else {
                                     '</td>' +
                                     '<td class="text-center">' +
                                     " <div class='btn-group btn-group-lg' role='group'>" +
-                                    "   <button type='button' class='btn btn-primary' title='Editar informações do estagiário' data-toggle='tooltip' data-container='body' onClick=''><i class='libre libre-edit'></i></button>" +
-                                    "   <button class='btn btn-default' title='Ver informações do estagiário' data-toggle='tooltip' data-container='body' onClick=''><i class='libre libre-content'></i></button>" +
-                                    "   <button class='btn btn-danger' title='Excluir estagiário' data-toggle='tooltip' data-container='body' onClick=''><i class='libre libre-trash'></i></button>" +
+                                    "   <button class='btn sce-btn-primary' title='Editar informações do estagiário' data-toggle='tooltip' data-container='body' onClick=''><i class='libre libre-edit'></i></button>" +
+                                    "   <button class='btn sce-btn-default' title='Ver informações do estagiário' data-toggle='tooltip' data-container='body' onClick=''><i class='libre libre-content'></i></button>" +
+                                    "   <button class='btn sce-btn-danger' title='Excluir estagiário' data-toggle='tooltip' data-container='body' onClick=''><i class='libre libre-trash'></i></button>" +
                                     " </div>" +
                                     ' </td>' +
                                   '</tr>'

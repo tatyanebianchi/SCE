@@ -27,7 +27,7 @@ else {
     })
 
 
-    var animation_time = 650;
+    var animation_time = 550;
 
     // alerts são ignoráveis
     $('.sce-alert').click(function() {

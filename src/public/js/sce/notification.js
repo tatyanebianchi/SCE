@@ -12,28 +12,31 @@ if(typeof jQuery == "undefined") {
 else {
     var animation_time = 500;
 
-    function erro(mensagem) {
+    var classes = 'sce-alert sce-alert-danger sce-alert-warning sce-alert-info' +
+                  'sce-alert-success'
+
+    function notificacao_erro(mensagem) {
         $("#notificacao").addClass("sce-alert sce-alert-danger")
         .html(mensagem)
         .slideDown(animation_time)
         .removeClass("hidden");
     }
 
-    function alerta(mensagem) {
+    function notificacao_alerta(mensagem) {
         $("#notificacao").addClass("sce-alert sce-alert-warning")
         .html(mensagem)
         .slideDown(animation_time)
         .removeClass("hidden");
     }
 
-    function informacao(mensagem) {
+    function notificacao_informacao(mensagem) {
         $("#notificacao").addClass("sce-alert sce-alert-info")
         .html(mensagem)
         .slideDown(animation_time)
         .removeClass("hidden");
     }
 
-    function sucesso(mensagem) {
+    function notificacao_sucesso(mensagem) {
         $("#notificacao").addClass("sce-alert sce-alert-success")
         .html(mensagem)
         .slideDown(animation_time)
@@ -42,6 +45,7 @@ else {
 
     function esconder_notificacao() {
         $("#notificacao")
-        .slideUp(animation_time)
+        .delay(750)
+        .slideUp(animation_time);
     }
 }
