@@ -20,8 +20,8 @@
 </head>
 
 <body ondragstart="false" class="">
-	<!-- <img class="back_img" src=""> -->
-	<hr class="black-row">
+	<img class="back_img" src="/img/calc-background3.1.jpg">
+	<hr class="blue-row">
 	<div class="container">
 		<header class="row col-md-8 col-md-offset-2 text-center">
 			<img src="img/scepng2.png" alt="SCE" class="img-responsive center-block" width="256" height="256">
@@ -32,10 +32,7 @@
 			<article class="col-md-8 col-md-offset-2">
 				<form action="/login" method="post">
 					<!-- Para verificação de erro, porém é necessário que apareça apenas se estiver errada a senha -->
-					<p class="hide alert alert-danger fade in" id="auth_error">
-						<button type="button" class="close" data-dismiss="alert" title="Clique para fechar">
-							<span aria-hidden="true"> &times;</span>
-						</button>
+					<p class="hide alert alert-danger fade in" id="error_box">
 						Senha ou usuário incorretos! <i class=""></i><br>
 					</p>
 
@@ -48,7 +45,7 @@
 						<input class="form-control" type="password" name="usuario[senha]" placeholder="Senha" required>
 					</div><br>
 					<div class="text-right">
-						<button type="submit" class="btn btn-default">Login <i class="libre libre-log-in"></i></button>
+						<button type="submit" class="btn sce-btn-default">Login <i class="libre libre-log-in"></i></button>
 					</div>
 				</form>
 			</article>

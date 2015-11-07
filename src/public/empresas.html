@@ -20,7 +20,6 @@
 </head>
 
 <body ondragstart="false" class="">
-	<!-- <img class="back_img" src=""> -->
 	<div class="container-fluid">
 		<header class="row">
 			<nav class="navbar navbar-default">
@@ -44,19 +43,32 @@
           <li><a href="cadastra_estagiario.html">CADASTRAR ESTAGIÁRIO</a></li>
           <li><a href="remove_estagiario.html">REMOVER ESTAGIÁRIO</a></li>
           <li><a href="emissao_atestado.html">EMITIR ATESTADO</a></li>
-          <li class="active"><a href="#">EMPRESAS CONVENIADAS</a></li>
+					<li class="link-group-title"><a href="#configuracoes" data-toggle="collapse" data-parent=".link-group">CONFIGURAÇÕES</a></li>
+					<div id="configuracoes" class="panel-collapse collapse in">
+						<ul class="link-group nav nav-stacked" role="navigation">
+							<li class="active"><a href="empresas.html">EMPRESAS CONVENIADAS</a></li>
+              <li><a href="turmas.html">TURMAS</a></li>
+							<li><a href="orientadores.html">ORIENTADORES</a></li>
+						</ul>
+					</div>
+					<li class="link-group-title"><a href="ajuda.html">AJUDA</a></li>
 				</ul>
 			</article>
     </section>
 
     <section class="col-md-7 col-md-offset-1">
 			<article class="row">
-          <h4 class="title-1">Empresas conveniadas</h4>
-          <h4 class="alert quote-info">Nessa página encontram-se as empresas conveniadas ao IFPA assim como uma forma de cadastrar uma nova empresa.</h4>
+          <h4 class="title-1">
+						Empresas conveniadas
+						<a tabindex="0" role="button" style="float:right;" class="tool-info" data-toggle="popover" data-placement="left" title="Página de empresas conveniadas"
+						data-content="Nessa página encontram-se as empresas conveniadas ao IFPA, asim como o modo de cadastrar uma nova empresa. Para mais informações siga a página de ajuda." data-trigger="focus">
+							<i  class="libre libre-question"></i>
+						</a>
+					</h4>
 			</article>
 
 			<article class="row text-right">
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cadastra-empresa">
+				<button class="btn sce-btn-primary" data-toggle="modal" data-target="#cadastra-empresa">
 					Cadastrar nova empresa
 				</button>
 			</article>
@@ -64,7 +76,7 @@
       <article class="row">
         <!--  Tabela de empresas vinculadas -->
         <div class="margin-top">
-					<p class="hide alert alert-danger" id="error_box">
+					<p class="hide alert alert-danger" data-toggle="tooltip" data-container="body" data-placement="top" title="Clique para fechar o alerta" id="error_box">
 					</p>
 
 					<table class="table table-striped table-bordered" id="tabela-empresas">
@@ -74,7 +86,6 @@
 							<th>Email</th>
 							<th>Ações</th>
 						</tr>
-
 					</table>
         </div>
 
@@ -124,7 +135,7 @@
                   </div>
 
                   <div class="form-group">
-                    <input type="text" name="empresa[telefone]" class="form-control" placeholder="Telefone. Exemplo: 3787-3045" required>
+                    <input type="text" name="empresa[telefone]" class="form-control" placeholder="Telefone. Exemplo: 3787-3045">
                   </div>
 
                   <div class="form-group">
@@ -133,10 +144,10 @@
                 </form>
               </div>
               <div class="modal-footer">
-                <button type="submit" class="btn btn-success" name="button" form="form-cadastro">
+                <button type="submit" class="btn sce-btn-success" name="button" form="form-cadastro">
                   Cadastrar <i class="libre libre-check-yes"></i>
                 </button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">
+                <button type="button" class="btn sce-btn-danger" data-dismiss="modal">
                   Cancelar <i class="libre libre-check-no"></i>
                 </button>
               </div>
@@ -154,6 +165,7 @@
 
 	<script src="js/jquery-2.1.4.min.js"></script>
 	<script src="js/bootstrap/bootstrap.min.js"></script>
+	<script src="js/sce/base.js"></script>
 	<script src="js/sce/sockets.js"></script>
 	<script src="js/sce/empresas.js"></script>
 </body>

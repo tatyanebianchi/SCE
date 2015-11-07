@@ -68,7 +68,16 @@
 				<div class="input-group input-group-md">
 					<input type="text" class="form-control" placeholder="Exemplo: Isabela Silva Brito ou somente Isa." id="campo_estagiario">
 					<span class="input-group-btn">
-						<button type="submit" class="btn btn-primary" onClick="pesquisa_estagiario()" id="botao_pesquisa"><i class="libre libre-search"></i></button>
+						<div class="dropdown">
+							<button class="btn sce-btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" id="botao_pesquisa">
+								Pesquisar por
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenu">
+								<li><a id="pesquisa_por_nome" href="pesquisa_por_nome">Nome</a></li>
+								<li><a id="pesquisa_por_matricula" href="pesquisa_por_matricula">Matrícula</a></li>
+							</ul>
+						</div>
 					</span>
 				</div>
 
