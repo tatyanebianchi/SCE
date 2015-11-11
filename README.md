@@ -1,5 +1,7 @@
 # SCE - Sistema de Controle de Estágio
 
+[![Estado dos testes]](https://travis-ci.org/rafaelcn/SCE.svg?branch=master)
+
 ## O que é?
 
   Um sistema voltado ao controle de estágios, a princípio ele irá funcionar no IFPA - Campus Tucuruí.
