@@ -2,6 +2,54 @@
  * SCE definitions
  */
 
+ @font-face {
+ font-family: 'Ubuntu';
+ src: url('../fonts/Ubuntu-Light.ttf') format('truetype');
+ font-weight: 300;
+ font-style: normal;
+ }
+ @font-face {
+ font-family: 'Ubuntu';
+ src: url('../fonts/Ubuntu-LightItalic.ttf') format('truetype');
+ font-weight: 300;
+ font-style: italic;
+  }
+ @font-face {
+ font-family: 'Ubuntu';
+ src: url('../fonts/Ubuntu-Regular.ttf') format('truetype');
+ font-weight: 400;
+ font-style: normal;
+ }
+ @font-face {
+ font-family: 'Ubuntu';
+ src: url('../fonts/Ubuntu-Medium.ttf') format('truetype');
+ font-weight: 500;
+ font-style: normal;
+ }
+ @font-face {
+ font-family: 'Ubuntu';
+ src: url('../fonts/Ubuntu-MediumItalic.ttf') format('truetype');
+ font-weight: 500;
+ font-style: italic;
+ }
+ @font-face {
+ font-family: 'Ubuntu';
+ src: url('../fonts/Ubuntu-Bold.ttf') format('truetype');
+ font-weight: 700;
+ font-style: normal;
+ }
+ @font-face {
+ font-family: 'Ubuntu';
+ src: url('../fonts/Ubuntu-BoldItalic.ttf') format('truetype');
+ font-weight: 700;
+ font-style: italic;
+ }
+
+* {
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
 
 li > a {
   padding: 5px;
@@ -165,17 +213,9 @@ th {
   padding: 15px;
 }
 
-.btn-out-danger,
-.btn-out-primary,
-.btn-out-warning,
-.btn-out-success,
-.btn-out-default,
-.btn-out-secondary {
-  font-weight: bold;
-}
-
 .btn-out-primary {
   background: inherit;
+  color: rgba(3, 103, 145, 1);
   border: 1px solid rgba(3, 103, 145, 1);
   -webkit-transition: all .125s ease-out;
      -moz-transition: all .125s ease-out;
@@ -190,6 +230,7 @@ th {
 
 .btn-out-secondary {
   background: inherit;
+  color: rgb(23, 34, 47);
   border: 1px solid rgb(23, 34, 47);
   -webkit-transition: all .125s ease-out;
      -moz-transition: all .125s ease-out;
@@ -204,7 +245,8 @@ th {
 
 .btn-out-success {
   background: inherit;
-  border: 1px solid rgba(72, 152, 29, 1);
+  color: rgb(72, 152, 29);
+  border: 1px solid rgb(72, 152, 29);
   -webkit-transition: all .125s ease-out;
      -moz-transition: all .125s ease-out;
        -o-transition: all .125s ease-out;
@@ -218,7 +260,8 @@ th {
 
 .btn-out-warning {
   background: inherit;
-  border: 1px solid rgba(226, 197, 8, 1);
+  color: rgb(226, 197, 8);
+  border: 1px solid rgb(226, 197, 8);
   -webkit-transition: all .125s ease-out;
      -moz-transition: all .125s ease-out;
        -o-transition: all .125s ease-out;
@@ -232,7 +275,8 @@ th {
 
 .btn-out-danger {
   background: inherit;
-  border: 1px solid rgba(255, 0, 0, 1);
+  color: rgb(255, 0, 0);
+  border: 1px solid rgb(255, 0, 0);
   -webkit-transition: all .125s ease-out;
      -moz-transition: all .125s ease-out;
        -o-transition: all .125s ease-out;
@@ -246,7 +290,8 @@ th {
 
 .btn-out-default {
   background: inherit;
-  border: 1px solid rgba(196, 193, 193, 1);
+  color: rgb(161, 161, 161);
+  border: 1px solid rgb(161, 161, 161);
   -webkit-transition: all .125s ease-out;
      -moz-transition: all .125s ease-out;
        -o-transition: all .125s ease-out;
@@ -254,7 +299,8 @@ th {
 }
 
 .btn-out-default:hover {
-  background: rgba(196, 193, 193, 1);
+  background: rgb(161, 161, 161);
+  color: white;
 }
 
 .sce-btn-danger:focus,
@@ -267,7 +313,6 @@ th {
 
 .sce-btn-primary {
   color: white;
-  font-weight: bold;
   background: rgba(2, 141, 200, 1);
   -webkit-transition: all .125s ease-out;
      -moz-transition: all .125s ease-out;
@@ -282,7 +327,6 @@ th {
 
 .sce-btn-secondary {
   color: white;
-  font-weight: bold;
   background: rgb(37, 54, 74);
   -webkit-transition: all .125s ease-out;
      -moz-transition: all .125s ease-out;
@@ -297,7 +341,6 @@ th {
 
 .sce-btn-success {
   color: white;
-  font-weight: bold;
   background: rgba(92, 195, 36, 1);
   -webkit-transition: all .125s ease-out;
      -moz-transition: all .125s ease-out;
@@ -312,7 +355,6 @@ th {
 
 .sce-btn-warning {
   color: white;
-  font-weight: bold;
   background: rgba(255, 222, 0, 1);
   -webkit-transition: all .125s ease-out;
      -moz-transition: all .125s ease-out;
@@ -327,7 +369,6 @@ th {
 
 .sce-btn-danger {
   color: white;
-  font-weight: bold;
   background: rgba(244, 43, 43, 1);
   -webkit-transition: all .125s ease-out;
      -moz-transition: all .125s ease-out;
@@ -341,7 +382,6 @@ th {
 }
 
 .sce-btn-default {
-  font-weight: bold;
   background: rgba(221, 221, 221, 1);
   -webkit-transition: all .125s ease-out;
      -moz-transition: all .125s ease-out;
@@ -390,8 +430,8 @@ th {
 }
 
 .link-group {
-  border: 1px solid #ccc;
   border-radius: 2px;
+  border: 1px solid #ccc;
   background: rgba(255, 255, 255, .4);
 }
 
@@ -551,14 +591,19 @@ th {
   background-size: cover;
 }
 
-input[type="text"]:focus,
-input[type="number"]:focus,
-input[type="password"]:focus {
-  border: 1px solid rgba(37, 54, 74, .8) !important;
+select,
+textarea,
+input[type="text"],
+input[type="number"],
+input[type="password"] {
+  font-weight: 300;
 }
 
 select:focus,
-textarea:focus {
+textarea:focus,
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="password"]:focus {
   border: 1px solid rgba(37, 54, 74, .8) !important;
 }
 
