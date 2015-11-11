@@ -4,24 +4,14 @@
   *
   *************************************************************************/
 
-// express e middleware
-var express     = require('express'),
-    bodyParser  = require('body-parser');
-var app         = express();
-
-// SCE
-var ws          = require('./web_socket.js'),
-    login       = require('./login.js'),
-    utils       = require('./server_utils.js'),
-    cadastro    = require('./cadastro.js');
-
 // node.js
 var path        = require('path'),
     cluster     = require('cluster');
-    node_utils  = require('util');
+    node_utils  = require('util'),
+    os          = require('os');
 
-// Início da escrita no log.
-utils.write_log('\n\n\n\n\n=================== SERVER INIT: ' + Date() + '====================');
+// SCE
+var utils       = require('./server_utils.js');
 
 if(process.argv[2] == ("-d" || "-debug")) {
     utils.set_debug(true);
@@ -36,45 +26,48 @@ else if(process.argv[2] == '-h') {
     process.exit();
 }
 
-// if(cluster.isMaster) {
-//     // Inicia um processo adjacente ao processo mestre.
-//     cluster.fork();
-//
-//     // Reiniciando o processo se houve exceção.
-//     cluster.on('exit', function(worker, code, signal) {
-//         setTimeout(function() {
-//           if(utils.is_debug()) {
-//               node_utils.log('worker '+ worker.process.pid + ' morreu ('+ (signal || code) + '). Reiniciando...');
-//           }
-//
-//           utils.write_log('Algo sério aconteceu e o cluster está reiniciando o worker.', '904');
-//
-//
-//           cluster.fork();
-//         }, 500);
-//     });
-//
-//     cluster.on('online', function(worker) {
-//         node_utils.log('O worker ' + worker.id + ' está executando.');
-//     });
-// }
-// else {
-    process.on('uncaughtException', function(err) {
-        // construindo a pilha de rastreamento (I know, it sounds weird in portuguese)
-        var stack = err.stack;
+if(cluster.isMaster) {
+    // Início da escrita no log.
+    utils.write_log('\n\n\n\n\n=================== SERVER INIT: ' + Date() + '====================');
 
-        ws.send_json({
-          code: '1004',
-          desc: '[INTERNAL_SERVER_ERROR]',
-          value: 'O servidor sofreu um problema grave, por favor, contate o administrador.'
-        })
+   utils.write_log('Iniciando servidor com ' + os.cpus().length + ' workers', '900');
 
-        utils.write_log('Exceção: ' + stack, '904');
-        node_utils.log("Exceção: " + stack);
-        node_utils.inspect(stack);
-        process.exit(7);
+    /* Inicia um processo adjacente ao processo mestre. Optimizando para máquinas
+     * com mais de um núcleo.
+     */
+     for(var i = 0; i < os.cpus().length; i++) {
+       cluster.fork();
+     }
+
+
+    // Reiniciando o processo se houve exceção.
+    cluster.on('exit', function(worker, code, signal) {
+        setTimeout(function() {
+          if(utils.is_debug()) {
+              node_utils.log('worker '+ worker.process.pid + ' morreu ('+ (signal || code) + '). Reiniciando...');
+          }
+
+          utils.write_log('Algo sério aconteceu e o cluster está reiniciando o worker.', '904');
+
+          cluster.fork();
+        }, 500);
     });
 
+    cluster.on('online', function(worker) {
+        node_utils.log('O worker ' + worker.id + ' está executando.');
+    });
+}
+else {
+  // SCE
+  var ws          = require('./web_socket.js'),
+      login       = require('./login.js'),
+      cadastro    = require('./cadastro.js');
+
+    // express e middleware
+    var express     = require('express'),
+        bodyParser  = require('body-parser');
+
+    var app         = express();
     /**
      * Pasta padrão para os arquivos do cliente
      */
@@ -134,6 +127,7 @@ else if(process.argv[2] == '-h') {
       res.sendFile(utils.get_file("404.html"));
     });
 
+
     var server = app.listen(9000, function () {
       var host = server.address().address;
       var port = server.address().port;
@@ -141,4 +135,20 @@ else if(process.argv[2] == '-h') {
       utils.write_log('Servidor executando em: ' + process.cwd(), '900')
       utils.write_log('Servidor escutando em: http://' + host + ':' + port, '900');
     });
-// }
+
+    process.on('uncaughtException', function(err) {
+        // construindo a pilha de rastreamento (I know, it sounds weird in portuguese)
+        var stack = err.stack;
+
+        ws.send_json({
+          code: '1004',
+          desc: '[INTERNAL_SERVER_ERROR]',
+          value: 'O servidor sofreu um problema grave, por favor, contate o administrador.'
+        })
+
+        utils.write_log('Exceção: ' + stack, '904');
+        node_utils.log("Exceção: " + stack);
+        node_utils.inspect(stack);
+        process.exit(7);
+    });
+}
