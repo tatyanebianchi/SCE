@@ -16,15 +16,17 @@
 
 ## Compatibilidade entre browsers:
 
-  - [X] Mozilla Firefox
+  - [X] Mozilla Firefox (utilizando a versão 42.0)
+  - [X] Google Chrome (utilizando a versão 46.0.2490.80)
   - [X] Microsoft Edge
   - [X] Internet Explorer >= 11.0
-  - [X] Opera (ainda não testado).
-  - [X] Safari (ainda não testado).
+  - [X] Opera (utilizando a versão 32).
+  - [X] Safari >= 5.1.7
 
 ## TODO:
 
   - [ ] Usar Sass no CSS.
+
 
 ## Quer contribuir?
 
