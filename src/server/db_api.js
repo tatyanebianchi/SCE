@@ -135,7 +135,7 @@ exports.insert_empresa = function(data, callback) {
 }
 
 exports.insert_orientador = function(data, callback) {
-    var sql_query = 'INSERT INTO orientador (??, ??) VALUES (?, ?)';
+    var sql_query = 'INSERT INTO sce.orientador (??, ??) VALUES (?, ?)';
 
     var inserts = ['siap', 'nome', data[0], data[1]];
 
@@ -160,7 +160,12 @@ exports.insert_turma = function(data, callback) {
  * @param {Function} callback
  */
 exports.delete_empresa = function(id_empresa, callback) {
+    var sql_query = 'DELETE FROM sce.empresa' +
+                    'WHERE sce.empresa.id_empresa == ?';
 
+    var inserts = [id_empresa];
+
+    var sql_query = mysql.format(sql_query, inserts);
 }
 
 /**
@@ -168,7 +173,12 @@ exports.delete_empresa = function(id_empresa, callback) {
  * @param {Function} callback
  */
 exports.delete_estagiario = function(matricula, callback) {
+    var sql_query = 'DELETE FROM sce.estagiario' +
+                    'WHERE sce.estagiario.matricula == ?';
 
+    var inserts = [matricula];
+
+    var sql_query = mysql.format(sql_query, inserts);
 }
 
 /**
@@ -176,7 +186,12 @@ exports.delete_estagiario = function(matricula, callback) {
  * @param {Function} callback
  */
 exports.delete_orientador = function(siap, callback) {
+    var sql_query = 'DELETE FROM sce.orientador' +
+                    'WHERE sce.orientador.siap == ?';
 
+    var inserts = [siap];
+
+    var sql_query = mysql.format(sql_query, inserts);
 }
 
 /**
@@ -184,7 +199,12 @@ exports.delete_orientador = function(siap, callback) {
  * @param {Function} callback
  */
 exports.delete_turma  = function(id_turma, callback) {
+    var sql_query = 'DELETE FROM sce.turma' +
+                    'WHERE sce.turma.id_turma == ?';
 
+    var inserts = [id_turma];
+
+    var sql_query = mysql.format(sql_query, inserts);
 }
 
 /**
