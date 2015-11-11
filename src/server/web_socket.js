@@ -1,6 +1,10 @@
 /**
+ * web_socket.js
+ * Author: Rafael Campos Nunes.
+ * License: GPLv3
  *
- *
+ * Script cuja função  é  receber,  interpretar  e  responder  clientes em suas
+ * respectivas requisições.
  */
 
 'use strict'
@@ -114,9 +118,7 @@ wss.on('connection', function connection(ws) {
 
                           if (data) {
                               var empresas = [];
-                              for (var i = 0; i < data.length; i++) {
-                                  empresas.push(data[i]);
-                              }
+                              empresas = data.slice();
 
                               send_message(ws, 'empresas', empresas, 'get_companies');
                           }
@@ -140,9 +142,7 @@ wss.on('connection', function connection(ws) {
 
                               if(data) {
                                   var pesquisa_estagiarios = [];
-                                  for (var i = 0; i < data.length; i++) {
-                                      pesquisa_estagiarios.push(data[i]);
-                                  }
+                                  pesquisa_estagiarios = data.slice();
 
                                   send_message(ws, 'estagiarios', pesquisa_estagiarios, 'search');
                               }
@@ -165,9 +165,7 @@ wss.on('connection', function connection(ws) {
 
                               if(data) {
                                   var turmas = [];
-                                  for (var i = 0; i < data.length; i++) {
-                                      turmas.push(data[i]);
-                                  }
+                                  turmas = data.slice();
 
                                   send_message(ws, 'turmas', turmas, 'search');
                               }
@@ -190,9 +188,7 @@ wss.on('connection', function connection(ws) {
 
                               if(data) {
                                   var orientadores = [];
-                                  for (var i = 0; i < data.length; i++) {
-                                      orientadores.push(data[i]);
-                                  }
+                                  orientadores = data.slice();
 
                                   send_message(ws, 'orientadores', orientadores, 'search');
                               }
@@ -219,9 +215,7 @@ wss.on('connection', function connection(ws) {
 
                           if (data) {
                               var orientadores = [];
-                              for (var i = 0; i < data.length; i++) {
-                                  orientadores.push(data[i]);
-                              }
+                              orientadores = data.slice();
 
                               send_message(ws, 'orientadores', orientadores, 'get_tutors');
                           }
@@ -244,10 +238,7 @@ wss.on('connection', function connection(ws) {
 
                           if(data) {
                               var classes = []
-
-                              for(var i = 0; i < data.length; i++) {
-                                  classes.push(data[i]);
-                              }
+                              classes = data.slice();
 
                               send_message(ws, 'classes', classes, 'get_classes');
                           }
@@ -259,7 +250,67 @@ wss.on('connection', function connection(ws) {
                               send_error(ws, '[DB_API_ERR]', err, 'get_classes');
                               utils.write_log('[DB_API_ERR] ' + err, '904');
                           }
-                      })
+                      });
+                      break;
+                  case 'delete_turma':
+                      db_api.delete_turma(message.value, function(data, err) {
+                          if(utils.is_debug()) {
+                              utils.type("Objeto retornado do banco de dados", data);
+                              utils.type("Erro no banco de dados", err);
+                          }
+
+                          if(data) {
+                              send_message(ws, 'delete_turma', null, 'delete_turma');
+                          }
+                          else {
+                              if(utils.is_debug()) {
+                                util.log('Erro em \'delete_turma\': ' + err)
+                              }
+
+                              send_error(ws, '[DB_API_ERR]', err, 'delete_turma');
+                              utils.write_log('[DB_API_ERR] ' + err, '904');
+                          }
+                      });
+                      break;
+                  case 'delete_estagiario':
+                      db_api.delete_estagiario(message.value, function(data, err) {
+                        if(utils.is_debug()) {
+                            utils.type("Objeto retornado do banco de dados", data);
+                            utils.type("Erro no banco de dados", err);
+                        }
+
+                        if(data) {
+                            send_message(ws, 'delete_estagiario', null, 'delete_estagiario');
+                        }
+                        else {
+                            if(utils.is_debug()) {
+                              util.log('Erro em \'delete_estagiario\': ' + err)
+                            }
+
+                            send_error(ws, '[DB_API_ERR]', err, 'delete_estagiario');
+                            utils.write_log('[DB_API_ERR] ' + err, '904');
+                        }
+                      });
+                      break;
+                  case 'delete_orientador':
+                      db_api.delete_orientador(message.value, function(data, err) {
+                          if(utils.is_debug()) {
+                              utils.type("Objeto retornado do banco de dados", data);
+                              utils.type("Erro no banco de dados", err);
+                          }
+
+                          if(data) {
+                              send_message(ws, 'delete_orientador', null, 'delete_orientador');
+                          }
+                          else {
+                              if(utils.is_debug()) {
+                                util.log('Erro em \'delete_orientador\': ' + err)
+                              }
+
+                              send_error(ws, '[DB_API_ERR]', err, 'delete_orientador');
+                              utils.write_log('[DB_API_ERR] ' + err, '904');
+                          }
+                      });
                       break;
                 }
                 break;
@@ -270,11 +321,12 @@ wss.on('connection', function connection(ws) {
 /**
  * Função auxiliar que envia uma mensagem através do web socket.
  * code: 1007. Mais informações sobre a estrutura da mensagem em README.md.
- * @param ws
- * @param _desc
- * @param {Object} _value valor a ser enviado ao cliente.
+ * @param {Object} ws
+ * @param {String} _desc Descrição do valor a ser enviado ao cliente.
+ * @param {Object} _value Valor a ser enviado ao cliente.
+ * @param {String} where Onde ocorreu o envio.
  */
-function send_message(ws, _desc, _value) {
+function send_message(ws, _desc, _value, where) {
     if(utils.is_debug()) {
         util.log("Mensagem a ser enviada: " + _desc + ' - ' + _value);
     }
@@ -298,9 +350,10 @@ function send_message(ws, _desc, _value) {
 /**
  * Função auxiliar que enviar uma mensagem de erro através do web socket.
  * code: 1004. Mais informações sobre a estrutura da mensagem em README.md.
- * @param ws
- * @param _desc
- * @param {Object} _value valor a ser enviado ao cliente.
+ * @param {Object} ws
+ * @param {String} _desc Descrição do valor a ser enviado ao cliente.
+ * @param {Object} _value Valor a ser enviado ao cliente.
+ * @param {String} where Onde ocorreu o envio.
  */
 function send_error(ws, _desc, _value, where) {
     if(utils.is_debug()) {
