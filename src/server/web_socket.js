@@ -30,7 +30,7 @@ exports.init = function() {
  */
 exports.send_message = function(message) {
       if(utils.is_debug()) {
-          util.log("Mensagem a ser enviada: " + message);
+          util.log('Mensagem a ser enviada:' + util.inspect(message));
       }
 
       utils.write_log('Mensagem a ser enviada ao cliente: ' + message, '907');
@@ -57,7 +57,7 @@ exports.send_message = function(message) {
  */
 exports.send_json = function(message) {
     if(utils.is_debug()) {
-        util.log("Mensagem a ser enviada: " + message);
+        util.log('Mensagem a ser enviada: ' + util.inspect(message));
     }
 
     utils.write_log('Mensagem a ser enviada ao cliente: ' + message, '907');
