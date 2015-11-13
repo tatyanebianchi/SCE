@@ -30,9 +30,9 @@
 
 		<section class="row">
 			<article class="col-md-8 col-md-offset-2">
-				<form action="/login" method="post">
+				<form action="/login" method="post" onsubmit="doLogin()">
 					<!-- Para verificação de erro, porém é necessário que apareça apenas se estiver errada a senha -->
-					<p class="hide alert alert-danger fade in" id="error_box">
+					<p class="sce-hide sce-alert sce-alert-danger fade in" data-toggle="tooltip" data-placement="top" title="Clique para fechar o alerta" id="error_box">
 						Senha ou usuário incorretos! <i class=""></i><br>
 					</p>
 
@@ -45,7 +45,7 @@
 						<input class="form-control" type="password" name="usuario[senha]" placeholder="Senha" required>
 					</div><br>
 					<div class="text-right">
-						<button type="submit" class="btn sce-btn-default">Login <i class="libre libre-log-in"></i></button>
+						<button type="submit" class="btn sce-btn-default" id="botao_login">Login <i class="libre libre-log-in"></i></button>
 					</div>
 				</form>
 			</article>
@@ -61,6 +61,8 @@
 
 	<script src="js/jquery-2.1.4.min.js"></script>
 	<script src="js/bootstrap/bootstrap.min.js"></script>
+	<script src="js/sce/base.js"></script>
+	<script src="js/sce/sockets.js"></script>
 	<script src="js/sce/login.js"></script>
 </body>
 </html>

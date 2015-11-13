@@ -15,7 +15,7 @@
   <link rel="stylesheet" type="text/css" href="css/sce/sce.css">
 </head>
 
-<body>
+<body ondragstart="false">
   <!-- <img class="back_img" src="img/calc-background3.1.jpg"> -->
   <header class="">
     <nav class="navbar navbar-default">
@@ -25,10 +25,11 @@
           </a>
         </div>
 
-        <ul class="nav navbar-nav">
+        <ul class="nav navbar-nav float-right">
           <li><a href="/">Início</a></li>
           <li class="active"><a href="#">Desenvolvedores</a></li>
           <li class=""><a href="/ajuda.html">Ajuda</a></li>
+          <li><a href="javascript:window.history.back();">Voltar à página anterior</a></li>
         </ul>
     </nav>
   </header>
@@ -36,7 +37,11 @@
     <section class="row">
       <article class="col-md-12">
           <div class="jumbotron dev-background">
-            <h1 class="text-center"><i class="libre libre-virus"></i><br>Desenvolvedores</h1>
+            <header>
+              <h1 class="text-center">
+                  <i class="libre libre-virus"></i><br>Desenvolvedores
+              </h1>
+            </header>
           </div>
           <ul class="list-inline text-center">
             <li>
