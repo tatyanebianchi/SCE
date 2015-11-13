@@ -141,6 +141,49 @@ th {
     float: left !important;
 }
 
+.help-block {
+  padding: 2%;
+  background: rgba(255, 255, 255, .4) !important;
+  border-radius: 2px;
+  color: black;
+}
+
+.help-title {
+  font-size: 30px;
+}
+
+.help-content {
+  text-align: justify;
+  -moz-transition: all .2s ease-in;
+}
+
+.help-content::first-letter {
+  font-size: 20px;
+}
+
+.help-content:hover {
+  padding: 3px;
+  background: rgba(255, 255, 255, 1);
+}
+
+.help-nav {
+  border-radius: 2px !important;
+  background: linear-gradient(
+    rgba(255, 255, 255, 0.4),
+    rgba(255, 255, 255, 0.4)
+  );
+}
+
+.help-nav > li:first-child > a {
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+}
+
+.help-nav > li:last-child > a {
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+
 .back_img {
   position: fixed !important;
   top: 0 !important;
@@ -198,8 +241,9 @@ th {
 }
 
 .panel-header {
-  height: 150px;
+  height: 175px;
   background-size: cover;
+  box-shadow: inset 0px 0px 75px black;
 }
 
 .panel-profile-img {
@@ -514,10 +558,16 @@ th {
 }
 
 .dev-background {
-  background-image: url('../../img/code/code2-blur.png');
+  background: linear-gradient(
+      rgba(0, 0, 0, 0.6),
+      rgba(0, 0, 0, 0.6)
+    ),
+    url('../../img/code/code1.png');
   background-repeat: no-repeat;
+}
+
+.dev-background > header {
   color: white;
-  opacity: .9;
 }
 
 /**
