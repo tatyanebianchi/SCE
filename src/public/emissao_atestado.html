@@ -44,7 +44,15 @@
           <li><a href="cadastra_estagiario.html">CADASTRAR ESTAGIÁRIO</a></li>
           <li><a href="remove_estagiario.html">REMOVER ESTAGIÁRIO</a></li>
           <li class="active"><a href="#">EMITIR ATESTADO</a></li>
-          <li><a href="empresas.html">EMPRESAS CONVENIADAS</a></li>
+					<li class="link-group-title"><a href="#configuracoes" data-toggle="collapse" data-parent=".link-group">CONFIGURAÇÕES</a></li>
+					<div id="configuracoes" class="panel-collapse collapse">
+						<ul class="link-group nav nav-stacked" role="navigation">
+							<li><a href="empresas.html">EMPRESAS CONVENIADAS</a></li>
+							<li><a href="turmas.html">TURMAS</a></li>
+							<li><a href="orientadores.html">ORIENTADORES</a></li>
+						</ul>
+					</div>
+					<li class="link-group-title"><a href="ajuda.html">AJUDA</a></li>
 				</ul>
 			</article>
 		</section>
@@ -52,6 +60,22 @@
 		<section class="col-md-7 col-md-offset-1">
 			<article class="row">
 				<h4 class="title-1">Emissão de atestado de estágio</h4>
+
+				<h4>Pesquise o nome do estagiário para emissão do certificado.</h4>
+				<div class="input-group input-group-md">
+					<input type="text" class="form-control" placeholder="Exemplo: Nicole Lima Magny ou somente Nicole." id="campo_estagiario">
+					<span class="input-group-btn">
+						<div class="dropdown">
+							<button class="btn sce-btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" id="botao_pesquisa">
+								Pesquisar por
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenu">
+								<li><a id="pesquisa_por_nome" href="pesquisa_por_nome">Nome</a></li>
+								<li><a id="pesquisa_por_matricula" href="pesquisa_por_matricula">Matrícula</a></li>
+							</ul>
+						</div>
+					</span>
 			</article>
 		</section>
 

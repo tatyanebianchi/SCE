@@ -29,8 +29,7 @@
             </a>
 					</div>
 
-	        <ul class="nav navbar-nav" style="float: right !important;">
-						<li><a href="#"></a></li>
+	        <ul class="nav navbar-nav float-right">
 						<li><a href="/logout" title="Fazer logout da aplicação">Sair <i class="libre libre-log-out"></i></a></li>
 	        </ul>
 			</nav>
@@ -38,11 +37,11 @@
 
 		<section class="row">
 			<article class="col-md-3">
-				<p class="sce-alert sce-alert-info" role="alert">
+				<p class="sce-alert sce-alert-info" data-toggle="tooltip" data-container="body" data-placement="top" title="Clique para fechar o alerta"  role="alert">
 					Bem vindo ao SCE. Utilize o menu de opções abaixo para navegar.
 				</p>
 
-        <ul class="link-group nav nav-stacked" role="navigation">
+        <ul class="link-group nav nav-stacked margin-top" role="navigation">
           <li class="active"><a href="#">INÍCIO</a></li>
           <li><a href="cadastra_estagiario.html">CADASTRAR ESTAGIÁRIO</a></li>
           <li><a href="remove_estagiario.html">REMOVER ESTAGIÁRIO</a></li>
@@ -60,15 +59,22 @@
 			</article>
 
 			<article class="col-md-9">
-				<div class="container-fluid col-md-4" style="float: right !important; padding-right: 0 !important;">
-					<!-- <form method="get"> -THIS WAS REDIRECTING THE PAGE AND MAKING THE ERRORS -->
+				<div class="container-fluid col-md-6" style="float: right !important; padding-right: 0 !important;">
 						<div class="input-group input-group-md">
 							<input type="text" name="estagiario" class="form-control" placeholder="Pesquisar estagiário" id="campo_estagiario" required>
 							<span class="input-group-btn">
-								<button type="submit" class="btn btn-primary" onclick="pesquisa_estagiario()" id="botao_pesquisa"><i class="libre libre-search"></i></button>
+								<div class="dropdown">
+								  <button class="btn sce-btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" id="botao_pesquisa">
+								    Pesquisar por
+								    <span class="caret"></span>
+								  </button>
+								  <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
+								    <li><a id="pesquisa_por_nome" href="pesquisa_por_nome">Nome</a></li>
+								    <li><a id="pesquisa_por_matricula" href="pesquisa_por_matricula">Matrícula</a></li>
+								  </ul>
+								</div>
 							</span>
 						</div>
-					<!-- </form> -->
 				</div>
 
 				<div class="margin-top">

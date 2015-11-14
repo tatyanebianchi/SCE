@@ -3,27 +3,53 @@
  *
  */
 
-var ws;
-var ws_port = 9005
+// Verificando se o objeto sockets existe na página.
+if(typeof sockets === "undefined") {
+  $('#botao_login').addClass('disabled');
 
-// Conectando ao web socket
-ws = new WebSocket('ws://' + window.location.hostname + ':' + ws_port);
+  throw new Error("This script requires sockets.js, verify if it was included.");
+}
+else {
+  ws.onopen = function(e) {
+      console.log('Conexão com o web socket bem sucedida na porta %s', ws_port);
+  }
 
-ws.onopen = function(data) {
-  console.log("Conexão com o web socket bem sucedida na porta %s", ws_port);
+  ws.onerror = function(e) {
+      console.log('Erro de conexão com o websocket, provavelmente o servidor foi desligado.');
+  }
+
+  ws.onclose = function(e) {
+    console.log('Conexão com o websocket fechada.');
+  }
+
+  ws.onmessage = function(data) {
+    data = JSON.parse(data.data)
+
+    switch (data.code) {
+      case '1007':
+
+        break;
+      case '1004':
+        $('#error_box').html(
+          'Um erro ocorreu ao fazer login. Erro: <strong>' + data.desc + '</strong>'
+        ).fadeIn("slow");
+        $('#botao_login').removeClass('disabled');
+        break;
+      case '1001':
+        $('#error_box').fadeIn("slow");
+        $('#botao_login').removeClass('disabled');
+        break;
+    }
+  }
 }
 
-ws.onmessage = function(data) {
-  console.log(data);
-  console.log(data.data);
-  data = JSON.parse(data.data);
+function doLogin() {
+  $('#botao_login').addClass('disabled');
 
-  console.log(data.type);
-
-  // switch(data.type) {
-  //   case 'auth_error': {
-  //       var error_box = document.getElementById("auth_error");
-  //       // TODO: retirar a classe hide do elemento.
-  //   }
-  // }
+  if(typeof sockets === 'undefined') {
+    return false;
+  }
+  else {
+    return true;
+  }
 }

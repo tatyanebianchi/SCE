@@ -1,14 +1,20 @@
-/****************************************************************************
- * Responsável por gerenciar as conexões com o banco de dados e também fazer
- * querys ao banco.
- *
- *
- ****************************************************************************/
+/**
+  * db_pool.js
+  * Author: Rafael Campos Nunes.
+  * License: GPLv3
+  *
+  * Pool de conexões.
+  *
+  * Responsável por gerenciar as conexões com o banco de dados e também fazer
+  * querys ao banco.
+  */
 
 'use strict'
 
-
 var mysql   = require('mysql');
+
+// SCE
+var utils = require('./server_utils.js');
 
 /**
  * Pool de conexões para o banco de dados
@@ -29,16 +35,15 @@ var pool = mysql.createPool({
 exports.query = function(query_data, callback_return) {
     pool.getConnection(function(err, connection) {
         if(err) {
-          callback_return(undefined, err)
+            callback_return(undefined, err)
+            utils.write_log('Um erro ocorreu ao tentar conectar ao servidor. Erro: ' + err, '904')
         }
         else { // conexão ok
             connection.query(query_data, function(err, rows) {
                 if(err) {
-                    // retorna o estado dessa função para a função passada por argumento.
                     callback_return(undefined, err);
                   }
                 else {
-                    // retorna o estado dessa função para a função passada por argumento.
                     if(rows == "") {
                         callback_return(undefined, "Nenhum resultado foi encontrado");
                     }
@@ -50,6 +55,8 @@ exports.query = function(query_data, callback_return) {
         }
 
         // Does connection pooling rightly.
-        connection.release();
+        if(connection) {
+            connection.release();
+        }
     });
 }

@@ -1,5 +1,7 @@
 # SCE - Sistema de Controle de Estágio
 
+![Estado dos testes](https://travis-ci.org/rafaelcn/SCE.svg?branch=master)
+
 ## O que é?
 
   Um sistema voltado ao controle de estágios, a princípio ele irá funcionar no IFPA - Campus Tucuruí.
@@ -16,15 +18,17 @@
 
 ## Compatibilidade entre browsers:
 
-  - [X] Mozilla Firefox
+  - [X] Mozilla Firefox (utilizando a versão 42.0)
+  - [X] Google Chrome (utilizando a versão 46.0.2490.80)
   - [X] Microsoft Edge
   - [X] Internet Explorer >= 11.0
-  - [ ] Opera (ainda não testado).
-  - [ ] Safari (ainda não testado).
+  - [X] Opera (utilizando a versão 32).
+  - [X] Safari >= 5.1.7
 
 ## TODO:
 
   - [ ] Usar Sass no CSS.
+
 
 ## Quer contribuir?
 

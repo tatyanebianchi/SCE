@@ -31,14 +31,13 @@ else {
                         $('#tabela-empresas').fadeIn("fast");
                         for(var i = 0; i < data.value.length; i++) {
                             $('#tabela-empresas').append(
-                              $(
                                 "<tr><td>"+ data.value[i].nome + "</td>" +
                                 "<td>" + data.value[i].telefone + "</td>" +
                                 "<td>" + data.value[i].email + "</td>" +
-                                "<td class='text-center'><div class='btn-group btn-group-lg' role='group'><button class='btn btn-primary' title='Editar informações da empresa'><i class='libre libre-edit'></i></button>" +
-                                "<button class='btn btn-default' title='Ver informações da empresa'><i class='libre libre-content'></i></button>" +
-                                "<button class='btn btn-danger' title='Excluir empresa'><i class='libre libre-trash'></i></button></div></td></tr>")
-                                .fadeIn("slow"));
+                                "<td class='text-center'><div class='btn-group btn-group-lg' role='group'><button class='btn sce-btn-primary' title='Editar informações da empresa'><i class='libre libre-edit'></i></button>" +
+                                "<button class='btn sce-btn-default' title='Ver informações da empresa'><i class='libre libre-content'></i></button>" +
+                                "<button class='btn sce-btn-danger' title='Excluir empresa'><i class='libre libre-trash'></i></button></div></td></tr>"
+                            ).fadeIn("slow");
                         }
                         break;
                   }
