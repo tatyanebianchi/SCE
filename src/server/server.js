@@ -1,8 +1,21 @@
-/***************************************************************************
-  * Servidor HTTP SCE.
-  *
-  *
-  *************************************************************************/
+/**
+ * Este arquivo pertence ao SCE - Sistema de Controle de Estágio -, cuja função
+ * é realizar o controle de estágio para discentes do IFPA.
+ * Copyright (C) 2015  Rafael Campos Nunes
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 // node.js
 var path        = require('path'),
@@ -13,9 +26,9 @@ var path        = require('path'),
 // SCE
 var utils       = require('./server_utils.js');
 
-if(process.argv[2] == ("-d" || "-debug")) {
-    utils.set_debug(true);
-    utils.write_log('Servidor iniciando em modo debug. Informações adicionais serão mostradas no console.', '900');
+if(process.argv[2] == "-d" || process.argv[2] == "-debug") {
+    utils.setDebug(true);
+    utils.writeLog('Servidor iniciando em modo debug. Informações adicionais serão mostradas no console.', '900');
 }
 else if(process.argv[2] == '-h') {
     console.log('\tnodejs server <opções>');
@@ -28,9 +41,9 @@ else if(process.argv[2] == '-h') {
 
 if(cluster.isMaster) {
     // Início da escrita no log.
-    utils.write_log('\n\n\n\n\n=================== SERVER INIT: ' + Date() + '====================');
+    utils.writeLog('\n\n\n\n\n=================== SERVER INIT: ' + Date() + '====================');
 
-   utils.write_log('Iniciando servidor com ' + os.cpus().length + ' workers', '900');
+   utils.writeLog('Iniciando servidor com ' + os.cpus().length + ' workers', '900');
 
     /* Inicia um processo adjacente ao processo mestre. Optimizando para máquinas
      * com mais de um núcleo.
@@ -43,11 +56,11 @@ if(cluster.isMaster) {
     // Reiniciando o processo se houve exceção.
     cluster.on('exit', function(worker, code, signal) {
         setTimeout(function() {
-          if(utils.is_debug()) {
+          if(utils.isDebug()) {
               node_utils.log('worker '+ worker.process.pid + ' morreu ('+ (signal || code) + '). Reiniciando...');
           }
 
-          utils.write_log('Algo sério aconteceu e o cluster está reiniciando o worker.', '904');
+          utils.writeLog('Algo sério aconteceu e o cluster está reiniciando o worker.', '904');
 
           cluster.fork();
         }, 500);
@@ -146,7 +159,7 @@ else {
           value: 'O servidor sofreu um problema grave, por favor, contate o administrador.'
         })
 
-        utils.write_log('Exceção: ' + stack, '904');
+        utils.writeLog('Exceção: ' + stack, '904');
         node_utils.log("Exceção: " + stack);
         node_utils.inspect(stack);
         process.exit(7);
