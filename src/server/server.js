@@ -1,21 +1,8 @@
-/**
- * Este arquivo pertence ao SCE - Sistema de Controle de Estágio -, cuja função
- * é realizar o controle de estágio para discentes do IFPA.
- * Copyright (C) 2015  Rafael Campos Nunes
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+/***************************************************************************
+  * Servidor HTTP SCE.
+  *
+  *
+  *************************************************************************/
 
 // node.js
 var path        = require('path'),
@@ -26,9 +13,9 @@ var path        = require('path'),
 // SCE
 var utils       = require('./server_utils.js');
 
-if(process.argv[2] == '-debug' || process.argv[2] == '-d') {
-    utils.setDebug(true);
-    utils.writeLog('Servidor iniciando em modo debug. Informações adicionais serão mostradas no console.', '900');
+if(process.argv[2] == ("-d" || "-debug")) {
+    utils.set_debug(true);
+    utils.write_log('Servidor iniciando em modo debug. Informações adicionais serão mostradas no console.', '900');
 }
 else if(process.argv[2] == '-h') {
     console.log('\tnodejs server <opções>');
@@ -40,34 +27,35 @@ else if(process.argv[2] == '-h') {
 }
 
 if(cluster.isMaster) {
-  // Início da escrita no log.
-  utils.writeLog('\n\n\n\n\n=================== SERVER INIT: ' + Date() + '====================');
-  utils.writeLog('Iniciando servidor com ' + os.cpus().length + ' workers', '900');
+    // Início da escrita no log.
+    utils.write_log('\n\n\n\n\n=================== SERVER INIT: ' + Date() + '====================');
 
-  if (utils.isDebug()) {
-    node_utils.log('Iniciando servidor com ' + os.cpus().length + ' workers');
-  }
+   utils.write_log('Iniciando servidor com ' + os.cpus().length + ' workers', '900');
 
-  /* Inicia um processo adjacente ao processo mestre. Optimizando para máquinas
-   * com mais de um núcleo.
-   */
-   for (var i = 0; i < os.cpus().length; i++) {
-     cluster.fork();
-   }
+    /* Inicia um processo adjacente ao processo mestre. Optimizando para máquinas
+     * com mais de um núcleo.
+     */
+     for(var i = 0; i < os.cpus().length; i++) {
+       cluster.fork();
+     }
 
-  // Reiniciando o processo em caso de exceção.
-  cluster.on('exit', function(worker, code, signal) {
-    if (utils.isDebug()) {
-        node_utils.log('worker '+ worker.process.pid + ' morreu ('+ (signal || code) + '). Reiniciando...');
-    }
-    utils.writeLog('Algo sério aconteceu e o cluster está reiniciando o worker.', '904');
 
-    cluster.fork();
-  });
+    // Reiniciando o processo se houve exceção.
+    cluster.on('exit', function(worker, code, signal) {
+        setTimeout(function() {
+          if(utils.is_debug()) {
+              node_utils.log('worker '+ worker.process.pid + ' morreu ('+ (signal || code) + '). Reiniciando...');
+          }
 
-  cluster.on('online', function(worker) {
-      node_utils.log('O worker ' + worker.id + ' está executando.');
-  });
+          utils.write_log('Algo sério aconteceu e o cluster está reiniciando o worker.', '904');
+
+          cluster.fork();
+        }, 500);
+    });
+
+    cluster.on('online', function(worker) {
+        node_utils.log('O worker ' + worker.id + ' está executando.');
+    });
 }
 else {
   // SCE
@@ -75,89 +63,92 @@ else {
       login       = require('./login.js'),
       cadastro    = require('./cadastro.js');
 
-  // express e middleware
-  var express     = require('express'),
-      bodyParser  = require('body-parser');
+    // express e middleware
+    var express     = require('express'),
+        bodyParser  = require('body-parser');
 
-  var app         = express();
-  /**
-   * Pasta padrão para os arquivos do cliente
-   */
-  app.use(express.static('../public'));
-  /**
-   * Middleware bodyParser
-   */
-  app.use(bodyParser.urlencoded({ extended: true }));
-  app.use(bodyParser.json());
+    var app         = express();
+    /**
+     * Pasta padrão para os arquivos do cliente
+     */
+    app.use(express.static('../public'));
+    /**
+     * Middleware bodyParser
+     */
+    app.use(bodyParser.urlencoded({ extended: true }));
+    app.use(bodyParser.json());
 
-  // Inicializando o web socket.
-  ws.init();
+    // Inicializando o web socket.
+    ws.init();
 
-  app.get("/", function (req, res) {
-  });
+    app.get("/", function (req, res) {
+        console.log("get on /");
+        // webSocket.init();
+    });
 
-  app.get("/logout", function(req, res) {
-      // TODO: logout. Destruir sessão e cookies.
-      login.logout(req, res);
-  });
+    app.get("/logout", function(req, res) {
+        // TODO: logout. Destruir sessão e cookies.
+        login.logout(req, res);
+    });
 
-  app.post("/login", function(req, res) {
-      // TODO: Login. Criar sessão e armazenar cookies
-      login.do_login(req.body, res);
-  });
+    app.post("/login", function(req, res) {
+        // TODO: Login. Criar sessão e armazenar cookies
+        login.do_login(req.body, res);
+    });
 
-  app.post("/cadastra_empresa", function(req, res) {
-      cadastro.cadastraEmpresa(req.body, res);
-  });
+    app.post("/cadastra_empresa", function(req, res) {
+        cadastro.cadastra_empresa(req.body, res);
+    });
 
-  app.post("/cadastra_estagiario", function(req, res) {
-      cadastro.cadastraEstagiario(req.body, res);
-  });
+    app.post("/cadastra_estagiario", function(req, res) {
+        cadastro.cadastra_estagiario(req.body, res);
+    });
 
-  app.post("/cadastra_orientador", function(req, res) {
-      cadastro.cadastraOrientador(req.body, res);
-  });
+    app.post("/cadastra_orientador", function(req, res) {
+        cadastro.cadastra_orientador(req.body, res);
+    });
 
-  app.post("/cadastra_turma", function(req, res) {
-      cadastro.cadastraTurma(req.body, res);
-  });
+    app.post("/cadastra_turma", function(req, res) {
+        cadastro.cadastra_turma(req.body, res);
+    });
 
-  /**
-   * Seção do software a ser implementada posteriormente
-   */
-   app.post("/cadastra_usuario", function(req, res) {
-      cadastro.cadastraUsuario(req.body, res);
-   });
+    /**
+     * Seção do software a ser implementada posteriormente
+     */
+     app.post("/cadastra_usuario", function(req, res) {
+        cadastro.cadastra_usuario(req.body, res);
+     });
 
-  /**
-   * Capturando o erro 404.
-   */
-  app.use(function(req, res, next) {
-    res.status(404);
-    res.sendFile(utils.getFile("404.html"));
-  });
+    /**
+     * Capturando o erro 404.
+     */
+    app.use(function(req, res, next) {
+      res.status(404);
+      res.sendFile(utils.get_file("404.html"));
+    });
 
-  var server = app.listen(9000, function () {
-    var host = server.address().address;
-    var port = server.address().port;
 
-    utils.writeLog('Servidor executando em: ' + process.cwd(), '900')
-    utils.writeLog('Servidor escutando em: http://' + host + ':' + port, '900');
-  });
+    var server = app.listen(9000, function () {
+      var host = server.address().address;
+      var port = server.address().port;
 
-  process.on('uncaughtException', function(err) {
-    // construindo a pilha de rastreamento (I know, it sounds weird in portuguese)
-    var stack = err.stack;
+      utils.write_log('Servidor executando em: ' + process.cwd(), '900')
+      utils.write_log('Servidor escutando em: http://' + host + ':' + port, '900');
+    });
 
-    ws.send_json({
-      code: '1004',
-      desc: '[INTERNAL_SERVER_ERROR]',
-      value: 'O servidor sofreu um problema grave, por favor, contate o administrador.'
-    })
+    process.on('uncaughtException', function(err) {
+        // construindo a pilha de rastreamento (I know, it sounds weird in portuguese)
+        var stack = err.stack;
 
-    utils.writeLog('Exceção: ' + stack, '904');
-    node_utils.log("Exceção: " + stack);
-    node_utils.inspect(stack);
-    process.exit(7);
-  });
+        ws.send_json({
+          code: '1004',
+          desc: '[INTERNAL_SERVER_ERROR]',
+          value: 'O servidor sofreu um problema grave, por favor, contate o administrador.'
+        })
+
+        utils.write_log('Exceção: ' + stack, '904');
+        node_utils.log("Exceção: " + stack);
+        node_utils.inspect(stack);
+        process.exit(7);
+    });
 }
