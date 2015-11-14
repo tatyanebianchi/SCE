@@ -76,92 +76,89 @@ else {
       login       = require('./login.js'),
       cadastro    = require('./cadastro.js');
 
-    // express e middleware
-    var express     = require('express'),
-        bodyParser  = require('body-parser');
+  // express e middleware
+  var express     = require('express'),
+      bodyParser  = require('body-parser');
 
-    var app         = express();
-    /**
-     * Pasta padrão para os arquivos do cliente
-     */
-    app.use(express.static('../public'));
-    /**
-     * Middleware bodyParser
-     */
-    app.use(bodyParser.urlencoded({ extended: true }));
-    app.use(bodyParser.json());
+  var app         = express();
+  /**
+   * Pasta padrão para os arquivos do cliente
+   */
+  app.use(express.static('../public'));
+  /**
+   * Middleware bodyParser
+   */
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.json());
 
-    // Inicializando o web socket.
-    ws.init();
+  // Inicializando o web socket.
+  ws.init();
 
-    app.get("/", function (req, res) {
-        console.log("get on /");
-        // webSocket.init();
-    });
+  app.get("/", function (req, res) {
+  });
 
-    app.get("/logout", function(req, res) {
-        // TODO: logout. Destruir sessão e cookies.
-        login.logout(req, res);
-    });
+  app.get("/logout", function(req, res) {
+      // TODO: logout. Destruir sessão e cookies.
+      login.logout(req, res);
+  });
 
-    app.post("/login", function(req, res) {
-        // TODO: Login. Criar sessão e armazenar cookies
-        login.do_login(req.body, res);
-    });
+  app.post("/login", function(req, res) {
+      // TODO: Login. Criar sessão e armazenar cookies
+      login.do_login(req.body, res);
+  });
 
-    app.post("/cadastra_empresa", function(req, res) {
-        cadastro.cadastra_empresa(req.body, res);
-    });
+  app.post("/cadastra_empresa", function(req, res) {
+      cadastro.cadastraEmpresa(req.body, res);
+  });
 
-    app.post("/cadastra_estagiario", function(req, res) {
-        cadastro.cadastra_estagiario(req.body, res);
-    });
+  app.post("/cadastra_estagiario", function(req, res) {
+      cadastro.cadastraEstagiario(req.body, res);
+  });
 
-    app.post("/cadastra_orientador", function(req, res) {
-        cadastro.cadastra_orientador(req.body, res);
-    });
+  app.post("/cadastra_orientador", function(req, res) {
+      cadastro.cadastraOrientador(req.body, res);
+  });
 
-    app.post("/cadastra_turma", function(req, res) {
-        cadastro.cadastra_turma(req.body, res);
-    });
+  app.post("/cadastra_turma", function(req, res) {
+      cadastro.cadastraTurma(req.body, res);
+  });
 
-    /**
-     * Seção do software a ser implementada posteriormente
-     */
-     app.post("/cadastra_usuario", function(req, res) {
-        cadastro.cadastra_usuario(req.body, res);
-     });
+  /**
+   * Seção do software a ser implementada posteriormente
+   */
+   app.post("/cadastra_usuario", function(req, res) {
+      cadastro.cadastraUsuario(req.body, res);
+   });
 
-    /**
-     * Capturando o erro 404.
-     */
-    app.use(function(req, res, next) {
-      res.status(404);
-      res.sendFile(utils.get_file("404.html"));
-    });
+  /**
+   * Capturando o erro 404.
+   */
+  app.use(function(req, res, next) {
+    res.status(404);
+    res.sendFile(utils.getFile("404.html"));
+  });
 
+  var server = app.listen(9000, function () {
+    var host = server.address().address;
+    var port = server.address().port;
 
-    var server = app.listen(9000, function () {
-      var host = server.address().address;
-      var port = server.address().port;
+    utils.writeLog('Servidor executando em: ' + process.cwd(), '900')
+    utils.writeLog('Servidor escutando em: http://' + host + ':' + port, '900');
+  });
 
-      utils.write_log('Servidor executando em: ' + process.cwd(), '900')
-      utils.write_log('Servidor escutando em: http://' + host + ':' + port, '900');
-    });
+  process.on('uncaughtException', function(err) {
+    // construindo a pilha de rastreamento (I know, it sounds weird in portuguese)
+    var stack = err.stack;
 
-    process.on('uncaughtException', function(err) {
-        // construindo a pilha de rastreamento (I know, it sounds weird in portuguese)
-        var stack = err.stack;
+    ws.send_json({
+      code: '1004',
+      desc: '[INTERNAL_SERVER_ERROR]',
+      value: 'O servidor sofreu um problema grave, por favor, contate o administrador.'
+    })
 
-        ws.send_json({
-          code: '1004',
-          desc: '[INTERNAL_SERVER_ERROR]',
-          value: 'O servidor sofreu um problema grave, por favor, contate o administrador.'
-        })
-
-        utils.writeLog('Exceção: ' + stack, '904');
-        node_utils.log("Exceção: " + stack);
-        node_utils.inspect(stack);
-        process.exit(7);
-    });
+    utils.writeLog('Exceção: ' + stack, '904');
+    node_utils.log("Exceção: " + stack);
+    node_utils.inspect(stack);
+    process.exit(7);
+  });
 }
