@@ -18,12 +18,16 @@
 
 ## Compatibilidade entre browsers:
 
-  - [X] Mozilla Firefox (utilizando a versão 42.0)
-  - [X] Google Chrome (utilizando a versão 46.0.2490.80)
+  *__Nota: Testado nas mais recentes versões.__*
+
+  - [X] Mozilla Firefox
+  - [X] Google Chrome
   - [X] Microsoft Edge
-  - [X] Internet Explorer >= 11.0
-  - [X] Opera (utilizando a versão 32).
-  - [X] Safari >= 5.1.7
+  - [X] Internet Explorer
+  - [X] Opera
+  - [X] Safari
+
+  A aplicação deve funcionar como esperado nas últimas versões dos respectivos browsers, caso contrário, notifique um [bug](http://github.com/rafaelcn/SCE/issues/new).
 
 ## TODO:
 
