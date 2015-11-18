@@ -1,7 +1,25 @@
-/*****************************************************************************
- * Interface de programação da apliação.  Responsável  por  retornar  dados  e
- * formatar em JSON para posterior envio ao cliente utilizando websockets.
- ****************************************************************************/
+/**
+ * Este arquivo pertence ao SCE - Sistema de Controle de Estágio -, cuja função
+ * é realizar o controle de estágio para discentes do IFPA.
+ * Copyright (C) 2015  Rafael Campos Nunes
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Interface de programação da apliação.  Responsável  por  retornar  dados do
+ * banco de dados para posterior tratamento, e finalmente enviar a informação
+ * ao cliente.
+ */
 
 'use strict'
 
@@ -18,7 +36,6 @@ var node_utils  = require('util'),
  */
 exports.get_empresas = function(return_data) {
     mysql_pool.query("SELECT * FROM sce.empresa;", return_data);
-    // return return_data(undefined);
 }
 
 /**
@@ -26,7 +43,6 @@ exports.get_empresas = function(return_data) {
  */
 exports.get_orientadores = function(return_data) {
     mysql_pool.query("SELECT * FROM sce.orientador;", return_data);
-    // return return_data(undefined);
 }
 
 /**
@@ -46,7 +62,7 @@ exports.get_estagiarios = function(return_data) {
 /**
  * @param {Function} callback
  */
-exports.get_usuarios = function(return_data) {
+exports.getUsuarios = function(return_data) {
     mysql_pool.query("SELECT * FROM sce.usuario;", return_data);
 }
 
@@ -60,15 +76,14 @@ exports.get_usuarios = function(return_data) {
  * @param {Function} callback
  */
 exports.search = function(table, search_obj, return_data) {
-
   var constantes_de_pesquisa = {
-      nome: "WHERE nome LIKE ?",
-      matricula: "WHERE matricula = ?",
-      siap: "WHERE siap = ?",
-      id_turma: "WHERE id_turma LIKE ?"
+      nome: 'WHERE nome LIKE ?',
+      matricula: 'WHERE matricula = ?',
+      siap: 'WHERE siap = ?',
+      id_turma: 'WHERE id_turma LIKE ?'
   }
 
-  var sql_query = "SELECT * FROM ?? ";
+  var sql_query = 'SELECT * FROM ??';
 
   if(search_obj.search_for[1] == 'nome') {
       sql_query += constantes_de_pesquisa.nome;
@@ -80,7 +95,7 @@ exports.search = function(table, search_obj, return_data) {
   else if(search_obj.search_for[1] == 'siap') {
       sql_query += constantes_de_pesquisa.siap;
   }
-  else if(search_obj.search_for[1] == null) {
+  else if(search_obj.search_for[1] === null) {
     sql_query += constantes_de_pesquisa.id_turma;
     search_obj.search_string += '%';
   }
@@ -89,83 +104,82 @@ exports.search = function(table, search_obj, return_data) {
 
   sql_query = mysql.format(sql_query, inserts);
 
-  utils.write_log('Query a ser executada no banco de dados: ' + sql_query, '903');
+  utils.writeLog('Query a ser executada no banco de dados: ' + sql_query, '903');
   mysql_pool.query(sql_query, return_data);
 }
 
 
 exports.insert_estagiario = function(data, callback) {
+  // Usando prepared statements.
+  var sql_query = "INSERT INTO sce.estagiario (??, ??, ??, ??, ??," +
+                                            "??, ??, ??, ??, ??)" +
+                                            " VALUES (?, ?, ?, ?," +
+                                            " ?, ?, ?, ?, ?, ?)";
 
-    // Usando prepared statements.
-    var sql_query = "INSERT INTO sce.estagiario (??, ??, ??, ??, ??," +
-                                              "??, ??, ??, ??, ??)" +
-                                              " VALUES (?, ?, ?, ?," +
-                                              " ?, ?, ?, ?, ?, ?)";
+  var inserts = ['matricula', 'nome', 'periodo_inicio', 'periodo_fim', 'empresa',
+                 'foto', 'observacao', 'empresa_id_empresa', 'turma_id_turma',
+                 'orientador_siap', data[0], data[1], data[2], data[3], data[4],
+                 data[5],data[6], data[7], data[8], data[9]];
 
-    var inserts = ['matricula', 'nome', 'periodo_inicio', 'periodo_fim', 'empresa',
-                   'foto', 'observacao', 'empresa_id_empresa', 'turma_id_turma',
-                   'orientador_siap', data[0], data[1], data[2], data[3], data[4],
-                   data[5],data[6], data[7], data[8], data[9]];
+  sql_query = mysql.format(sql_query, inserts);
 
-    sql_query = mysql.format(sql_query, inserts);
-
-    utils.write_log('Query a ser executada no banco de dados: ' + sql_query, '903');
-    mysql_pool.query(sql_query, callback);
+  utils.writeLog('Query a ser executada no banco de dados: ' + sql_query, '903');
+  mysql_pool.query(sql_query, callback);
 }
 
 /**
  * @param {Function} callback
  */
 exports.insert_empresa = function(data, callback) {
-    // Usando prepared statements.
-    var sql_query = 'INSERT INTO sce.empresa (??, ??, ??, ??, ??,' +
-                                              '??, ??, ??, ??, ??)' +
-                                              'VALUES (?, ?, ?, ?,' +
-                                              '?, ?, ?, ?, ?, ?)';
+  // Usando prepared statements.
+  var sql_query = 'INSERT INTO sce.empresa (??, ??, ??, ??, ??,' +
+                                            '??, ??, ??, ??, ??)' +
+                                            'VALUES (?, ?, ?, ?,' +
+                                            '?, ?, ?, ?, ?, ?)';
 
-    var inserts = ['nome', 'razao_social', 'cnpj', 'email', 'telefone',
-                   'telefone_2', 'endereco_rua', 'endereco_numero',
-                   'endereco_bairro', 'endereco_cep', data[0], data[1], data[2],
-                   data[3], data[4], data[5],data[6], data[7], data[8], data[9]];
+  var inserts = ['nome', 'razao_social', 'cnpj', 'email', 'telefone',
+                 'telefone_2', 'endereco_rua', 'endereco_numero',
+                 'endereco_bairro', 'endereco_cep', data[0], data[1], data[2],
+                 data[3], data[4], data[5],data[6], data[7], data[8], data[9]];
 
-    sql_query = mysql.format(sql_query, inserts);
+  sql_query = mysql.format(sql_query, inserts);
 
-    utils.write_log('Query a ser executada no banco de dados: ' + sql_query, '903');
-    mysql_pool.query(sql_query, callback);
+  utils.writeLog('Query a ser executada no banco de dados: ' + sql_query, '903');
+  mysql_pool.query(sql_query, callback);
 }
 
 exports.insert_orientador = function(data, callback) {
-    var sql_query = 'INSERT INTO sce.orientador (??, ??) VALUES (?, ?)';
+  var sql_query = 'INSERT INTO sce.orientador (??, ??) VALUES (?, ?)';
 
-    var inserts = ['siap', 'nome', data[0], data[1]];
+  var inserts = ['siap', 'nome', data[0], data[1]];
 
-    sql_query = mysql.format(sql_query, inserts);
+  sql_query = mysql.format(sql_query, inserts);
 
-    utils.write_log('Query a ser executada no banco de dados: ' + sql_query, '903');
-    mysql_pool.query(sql_query, callback);
+  utils.writeLog('Query a ser executada no banco de dados: ' + sql_query, '903');
+  mysql_pool.query(sql_query, callback);
 }
 
 exports.insert_turma = function(data, callback) {
-    var sql_query = 'INSERT INTO turma (??, ??, ??) VALUES(?, ?, ?)';
+  var sql_query = 'INSERT INTO turma (??, ??, ??) VALUES(?, ?, ?)';
 
-    var inserts = ['id_turma', 'turno', 'curso', data[0], data[1], data[2]];
+  var inserts = ['id_turma', 'turno', 'curso', data[0], data[1], data[2]];
 
-    sql_query = mysql.format(sql_query, inserts);
+  sql_query = mysql.format(sql_query, inserts);
 
-    utils.write_log('Query a ser executada no banco de dados: ' + sql_query, '903');
-    mysql_pool.query(sql_query, callback);
+  utils.writeLog('Query a ser executada no banco de dados: ' + sql_query, '903');
+  mysql_pool.query(sql_query, callback);
 }
 
 /**
  * @param {Function} callback
  */
 exports.delete_empresa = function(id_empresa, callback) {
-    var sql_query = 'DELETE FROM sce.empresa' +
-                    'WHERE sce.empresa.id_empresa == ?';
+  var sql_query = 'DELETE FROM sce.empresa' +
+                  'WHERE sce.empresa.id_empresa == ?';
 
-    var inserts = [id_empresa];
+  var inserts = [id_empresa];
 
-    var sql_query = mysql.format(sql_query, inserts);
+  var sql_query = mysql.format(sql_query, inserts);
 }
 
 /**
@@ -173,12 +187,12 @@ exports.delete_empresa = function(id_empresa, callback) {
  * @param {Function} callback
  */
 exports.delete_estagiario = function(matricula, callback) {
-    var sql_query = 'DELETE FROM sce.estagiario' +
-                    'WHERE sce.estagiario.matricula == ?';
+  var sql_query = 'DELETE FROM sce.estagiario' +
+                  'WHERE sce.estagiario.matricula == ?';
 
-    var inserts = [matricula];
+  var inserts = [matricula];
 
-    var sql_query = mysql.format(sql_query, inserts);
+  var sql_query = mysql.format(sql_query, inserts);
 }
 
 /**
@@ -186,12 +200,12 @@ exports.delete_estagiario = function(matricula, callback) {
  * @param {Function} callback
  */
 exports.delete_orientador = function(siap, callback) {
-    var sql_query = 'DELETE FROM sce.orientador' +
-                    'WHERE sce.orientador.siap == ?';
+  var sql_query = 'DELETE FROM sce.orientador' +
+                  'WHERE sce.orientador.siap == ?';
 
-    var inserts = [siap];
+  var inserts = [siap];
 
-    var sql_query = mysql.format(sql_query, inserts);
+  var sql_query = mysql.format(sql_query, inserts);
 }
 
 /**
@@ -199,13 +213,16 @@ exports.delete_orientador = function(siap, callback) {
  * @param {Function} callback
  */
 exports.delete_turma  = function(id_turma, callback) {
-    var sql_query = 'DELETE FROM sce.turma' +
-                    'WHERE sce.turma.id_turma == ?';
+  var sql_query = 'DELETE FROM sce.turma' +
+                  'WHERE sce.turma.id_turma == ?';
 
-    var inserts = [id_turma];
+  var inserts = [id_turma];
 
-    var sql_query = mysql.format(sql_query, inserts);
+  var sql_query = mysql.format(sql_query, inserts);
 }
+
+
+
 
 /**
  *

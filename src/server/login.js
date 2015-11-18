@@ -27,12 +27,12 @@ exports.do_login = function(req, res) {
     db_api.getUsuarios(function callback(data, err) {
         // se erro estiver definido.
         if(err) {
+            res.sendFile(utils.get_file("login.html"));
             console.log("[DB_API] Erro de requisição: " + err)
             ws.send_json({
               code: '1004',
               desc: err
-            })
-            res.sendFile(utils.get_file("login.html"));
+            });
         }
         else {
             for(var i = 0; i < data.length; i++) {
