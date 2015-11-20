@@ -373,7 +373,7 @@ function send_error(ws, _desc, _value, where) {
     util.log("Mensagem a ser enviada: " + _desc + ' - ' + _value);
   }
 
-  utils.write_log('Mensagem a ser enviada ao cliente: ' + _desc + ' - ' + _value, '907');
+  utils.writeLog('Mensagem a ser enviada ao cliente: ' + _desc + ' - ' + _value, '907');
 
   ws.send(JSON.stringify({
     code: '1004',
