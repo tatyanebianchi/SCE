@@ -153,6 +153,7 @@ th {
 }
 
 .help-content {
+  padding: 2%;
   text-align: justify;
   -moz-transition: all .2s ease-in;
 }
@@ -162,7 +163,6 @@ th {
 }
 
 .help-content:hover {
-  padding: 3px;
   background: rgba(255, 255, 255, 1);
 }
 
@@ -186,6 +186,7 @@ th {
 
 .back_img {
   position: fixed !important;
+  filter: blur(2px);
   top: 0 !important;
   left: 0 !important;
   width: 100% !important;
@@ -437,6 +438,20 @@ th {
   background: rgba(196, 193, 193, 1);
 }
 
+.sce-dropdown-btn {
+  background: inherit;
+  color: rgba(34, 54, 74, 1) !important;
+  -webkit-transition: all .125s ease-out;
+     -moz-transition: all .125s ease-out;
+       -o-transition: all .125s ease-out;
+          transition: all .125s ease-out;
+}
+
+.sce-dropdown-btn:hover {
+  color: rgba(221, 221, 221, 1) !important;
+  background: rgba(34, 54, 74, 1) !important;
+}
+
 /**
  * Seção de notificação do SCE, escrevi esse porque os padrões do Bootstrap
  * não me satisfazem.
@@ -507,8 +522,16 @@ th {
   border-left: 3px solid #25364a;
 }
 
+.link-group > li:first-child {
+  border-top-left-radius: 2px !important;
+}
+
+.link-group .link-group > li:first-child {
+  border-top-left-radius: 0px !important;
+}
+
 .link-group > li > a {
-  border-radius: 0 !important;
+  border-radius: 0;
 }
 
 .link-group-title {
@@ -552,7 +575,7 @@ th {
 }
 
 /* Test stuff */
-.back-component {
+-component {
   background-image: url('../../img/calc-background3.1.jpg');
   background-repeat: no-repeat;
 }
