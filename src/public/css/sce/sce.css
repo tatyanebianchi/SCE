@@ -447,7 +447,9 @@ th {
           transition: all .125s ease-out;
 }
 
-.sce-dropdown-btn:hover {
+.sce-dropdown-btn:hover,
+.sce-dropdown-btn:active,
+.sce-dropdown-btn:focus {
   color: rgba(221, 221, 221, 1) !important;
   background: rgba(34, 54, 74, 1) !important;
 }
