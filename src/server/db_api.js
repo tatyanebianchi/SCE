@@ -177,7 +177,7 @@ exports.insert_turma = function(data, callback) {
  */
 exports.delete_empresa = function(id_empresa, callback) {
   var sqlQuery = 'DELETE FROM sce.empresa' +
-                  'WHERE sce.empresa.id_empresa == ?';
+                  'WHERE sce.empresa.id_empresa = ?';
 
   var inserts = [id_empresa];
 
@@ -191,7 +191,7 @@ exports.delete_empresa = function(id_empresa, callback) {
  */
 exports.delete_estagiario = function(matricula, callback) {
   var sqlQuery = 'DELETE FROM sce.estagiario' +
-                  'WHERE sce.estagiario.matricula == ?';
+                  'WHERE sce.estagiario.matricula = ?';
 
   var inserts = [matricula];
 
@@ -205,7 +205,7 @@ exports.delete_estagiario = function(matricula, callback) {
  */
 exports.delete_orientador = function(siap, callback) {
   var sqlQuery = 'DELETE FROM sce.orientador' +
-                  'WHERE sce.orientador.siap == ?';
+                  'WHERE sce.orientador.siap = ?';
 
   var inserts = [siap];
 
@@ -219,7 +219,7 @@ exports.delete_orientador = function(siap, callback) {
  */
 exports.delete_turma  = function(id_turma, callback) {
   var sqlQuery = 'DELETE FROM sce.turma' +
-                  'WHERE sce.turma.id_turma == ?';
+                  'WHERE sce.turma.id_turma = ?';
 
   var inserts = [id_turma];
 
