@@ -242,7 +242,7 @@ exports.init = function() {
            }
          });
          break;
-       case 'get_classes':
+       	case 'get_classes':
          db_api.get_classes(function (data, err) {
            if (utils.isDebug()) {
              utils.type("Objeto retornado do banco de dados", data);
@@ -265,7 +265,7 @@ exports.init = function() {
            }
          });
          break;
-       case 'delete_turma':
+       	case 'delete_turma':
          db_api.delete_turma(message.value, function (data, err) {
            if (utils.isDebug()) {
              utils.type("Objeto retornado do banco de dados", data);
@@ -285,7 +285,7 @@ exports.init = function() {
            }
          });
          break;
-       case 'delete_estagiario':
+       	case 'delete_estagiario':
          db_api.delete_estagiario(message.value, function (data, err) {
            if (utils.isDebug()) {
              utils.type("Objeto retornado do banco de dados", data);
@@ -305,7 +305,7 @@ exports.init = function() {
            }
          });
          break;
-       case 'delete_orientador':
+       	case 'delete_orientador':
          db_api.delete_orientador(message.value, function (data, err) {
            if (utils.isDebug()) {
              utils.type("Objeto retornado do banco de dados", data);
@@ -323,6 +323,26 @@ exports.init = function() {
              send_error(ws, '[DB_API_ERR]', err, 'delete_orientador');
              utils.writeLog('[DB_API_ERR] ' + err, '904');
            }
+         });
+         break;
+        case 'delete_empresa':
+         db_api.delete_empresa(message.value, function (data, err) {
+		       	if (utils.isDebug()) {
+		        	utils.type("Objeto retornado do banco de dados", data);
+		        	utils.type("Erro no banco de dados", err);
+		       	}	
+
+		       if (data) {
+		        	send_message(ws, 'delete_empresa', null, 'delete_empresa');
+		       }
+		       else {
+		         	if (utils.isDebug()) {
+		           	util.log('Erro em \'delete_empresa\': ' + err)
+		         	}
+
+		         	send_error(ws, '[DB_API_ERR]', err, 'delete_empresa');
+		         	utils.writeLog('[DB_API_ERR] ' + err, '904');
+		       }
          });
          break;
        }

@@ -26,49 +26,60 @@ var path        = require('path'),
 // SCE
 var utils       = require('./server_utils.js');
 
-if(process.argv[2] == "-d" || process.argv[2] == "-debug") {
-    utils.setDebug(true);
-    utils.writeLog('Servidor iniciando em modo debug. Informações adicionais serão mostradas no console.', '900');
+if (process.argv[2] == "-d" || process.argv[2] == "-debug") {
+  utils.setDebug(true);
+  utils.writeLog('Servidor iniciando em modo debug. Informações adicionais serão mostradas no console.', '900');
 }
-else if(process.argv[2] == '-h') {
-    console.log('\tnodejs server <opções>');
-    console.log('\nOpões: ');
-    console.log('\t-d: opção debug, o servidor vai funcionar em modo debug, o' +
-              'que o fará emitir mensagens de aviso/erro na stdout.');
-    console.log('\t-h: opção ajuda, mostra esse menu.');
-    process.exit();
+else if (process.argv[2] == '-h') {
+  console.log('Uso: ');
+  console.log('    nodejs server <opções>');
+  console.log('Opções: ');
+  console.log('    -d: opção debug, o servidor vai funcionar em modo debug, o que o fará ');
+  console.log('emitir mensagens de aviso/erro na stdout.');
+  console.log('    -h: opção ajuda, mostra esse menu.');
+  process.exit();
+}
+else {
+  console.error('Flag ' + process.argv[2] + ' inválida.\n');
+  console.log('Uso: ');
+  console.log('    nodejs server <opções>');
+  console.log('Opções: ');
+  console.log('    -d: opção debug, o servidor vai funcionar em modo debug, o que o fará ');
+  console.log('emitir mensagens de aviso/erro na stdout.');
+  console.log('    -h: opção ajuda, mostra esse menu.');
+  process.exit(1);
 }
 
-if(cluster.isMaster) {
-    // Início da escrita no log.
-    utils.writeLog('\n\n\n\n\n=================== SERVER INIT: ' + Date() + '====================');
+if (cluster.isMaster) {
+  // Início da escrita no log.
+  utils.writeLog('\n\n\n\n\n=================== SERVER INIT: ' + Date() + '====================');
 
-   utils.writeLog('Iniciando servidor com ' + os.cpus().length + ' workers', '900');
+ utils.writeLog('Iniciando servidor com ' + os.cpus().length + ' workers', '900');
 
-    /* Inicia um processo adjacente ao processo mestre. Optimizando para máquinas
-     * com mais de um núcleo.
-     */
-     for(var i = 0; i < os.cpus().length; i++) {
-       cluster.fork();
-     }
+  /* Inicia um processo adjacente ao processo mestre. Optimizando para máquinas
+   * com mais de um núcleo.
+   */
+   for(var i = 0; i < os.cpus().length; i++) {
+     cluster.fork();
+   }
 
 
-    // Reiniciando o processo se houve exceção.
-    cluster.on('exit', function(worker, code, signal) {
-        setTimeout(function() {
-          if(utils.isDebug()) {
-              node_utils.log('worker '+ worker.process.pid + ' morreu ('+ (signal || code) + '). Reiniciando...');
-          }
+  // Reiniciando o processo se houve exceção.
+  cluster.on('exit', function(worker, code, signal) {
+      setTimeout(function() {
+        if (utils.isDebug()) {
+            node_utils.log('worker '+ worker.process.pid + ' morreu ('+ (signal || code) + '). Reiniciando...');
+        }
 
-          utils.writeLog('Algo sério aconteceu e o cluster está reiniciando o worker.', '904');
+        utils.writeLog('Algo sério aconteceu e o cluster está reiniciando o worker.', '904');
 
-          cluster.fork();
-        }, 500);
-    });
+        cluster.fork();
+      }, 500);
+  });
 
-    cluster.on('online', function(worker) {
-        node_utils.log('O worker ' + worker.id + ' está executando.');
-    });
+  cluster.on('online', function(worker) {
+      node_utils.log('O worker ' + worker.id + ' está executando.');
+  });
 }
 else {
   // SCE
