@@ -13,7 +13,7 @@
 	<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.min.css">
 
 	<!-- Libre icons -->
-	<link	 rel="stylesheet" type="text/css" href="css/libre-icons/libreicons.css">
+	<link rel="stylesheet" type="text/css" href="css/libre-icons/libreicons.css">
 
 	<!-- SCE CSS -->
 	<link rel="stylesheet" type="text/css" href="css/sce/sce.css">
@@ -22,65 +22,92 @@
 <body ondragstart="false" class="">
 	<div class="container-fluid">
 		<header class="row">
-			<nav class="navbar navbar-default">
-					<div class="navbar-header">
-						<a class="navbar-brand" href="/">
-              <img src="img/" alt="SCE - Sistema de Controle de Estágio" class="img-rounded img-responsive"/>
-            </a>
-					</div>
+			<div class="sce-hide" id="notificacao"></div>
 
-	        <ul class="nav navbar-nav float-right">
-						<li><a href="/logout" title="Fazer logout da aplicação">Sair <i class="libre libre-log-out"></i></a></li>
-	        </ul>
+			<nav class="navbar navbar-default">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="/">
+            <img src="img/" alt="SCE - Sistema de Controle de Estágio" class="img-rounded img-responsive"/>
+          </a>
+				</div>
+
+        <ul class="nav navbar-nav float-right">
+					<li><a href="/logout" title="Fazer logout da aplicação">Sair <i class="libre libre-log-out"></i></a></li>
+        </ul>
 			</nav>
 		</header>
 
-		<section class="row">
-			<article class="col-md-3">
+		<section class="col-md-3">
+			<article class="row">
 				<p class="sce-alert sce-alert-info" data-toggle="tooltip" data-container="body" data-placement="top" title="Clique para fechar o alerta"  role="alert">
 					Bem vindo ao SCE. Utilize o menu de opções abaixo para navegar.
 				</p>
 
-        <ul class="link-group nav nav-stacked margin-top" role="navigation">
+        <ul class="link-group nav nav-stacked" role="navigation">
+        	<li class="link-group-title">MENU</li>
           <li class="active"><a href="#">INÍCIO</a></li>
           <li><a href="cadastra_estagiario.html">CADASTRAR ESTAGIÁRIO</a></li>
           <li><a href="remove_estagiario.html">REMOVER ESTAGIÁRIO</a></li>
           <li><a href="emissao_atestado.html">EMITIR ATESTADO</a></li>
-					<li class="link-group-title"><a href="#configuracoes" data-toggle="collapse" data-parent=".link-group">CONFIGURAÇÕES</a></li>
+					<li class="link-group-section"><a href="#configuracoes" data-toggle="collapse" data-parent=".link-group">CONFIGURAÇÕES</a></li>
 					<div id="configuracoes" class="panel-collapse collapse">
 						<ul class="link-group nav nav-stacked" role="navigation">
 							<li><a href="empresas.html">EMPRESAS CONVENIADAS</a></li>
 							<li><a href="turmas.html">TURMAS</a></li>
 							<li><a href="orientadores.html">ORIENTADORES</a></li>
-					</ul>
+							<li class="disabled"><a href="usuarios.html">USUÁRIOS</a></li>
+						</ul>
 					</div>
-					<li class="link-group-title"><a href="ajuda.html">AJUDA</a></li>
+					<li class="link-group-section"><a href="ajuda.html">AJUDA</a></li>
 				</ul>
 			</article>
+		</section>
 
-			<article class="col-md-9">
-				<div class="container-fluid col-md-6" style="float: right !important; padding-right: 0 !important;">
-						<div class="input-group input-group-md">
-							<input type="text" name="estagiario" class="form-control" placeholder="Pesquisar estagiário" id="campo_estagiario" required>
-							<span class="input-group-btn">
-								<div class="dropdown">
-								  <button class="btn sce-btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" id="botao_pesquisa">
-								    Pesquisar por
-								    <span class="caret"></span>
-								  </button>
-								  <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-								    <li><a id="pesquisa_por_nome" href="pesquisa_por_nome">Nome</a></li>
-								    <li><a id="pesquisa_por_matricula" href="pesquisa_por_matricula">Matrícula</a></li>
-								  </ul>
-								</div>
-							</span>
+		<section class="col-md-9">
+			<article class="row container-fluid col-md-6 float-right" style="padding-right: 0 !important;">
+				<div class="input-group input-group-md">
+					<input type="text" name="estagiario" class="form-control" placeholder="Pesquisar estagiário" id="campo_estagiario" required>
+					<span class="input-group-btn">
+						<div class="dropdown">
+						  <button class="btn sce-btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" id="botao_pesquisa">
+						    Pesquisar por
+						    <span class="caret"></span>
+						  </button>
+						  <ul class="dropdown-menu" aria-labelledby="dropdownMenu" >
+						    <li><a id="pesquisa_por_nome" class="sce-dropdown-btn" href="pesquisa_por_nome">Nome</a></li>
+						    <li><a id="pesquisa_por_matricula" class="sce-dropdown-btn" href="pesquisa_por_matricula">Matrícula</a></li>
+						  </ul>
 						</div>
+					</span>
+				</div>
+			</article>
+
+			<article>
+				<!-- Modal de remoção -->
+				<div class="modal fade" tabindex="-1" role="dialog" id="removeModal">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								<h4 class="modal-title" id="modal-titulo">Remover</h4>
+							</div>
+							<div class="modal-body sce-alert-danger">
+								Você tem certeza de que deseja remover o estagiário?<br>
+								<b>O estagiário será excluído do sistema com todas as suas informações</b>.
+							</div>
+							<div class="modal-footer">
+								<button class="btn btn-out-default" data-dismiss="modal">Não, não remova</button>
+								<button class="btn btn-out-danger">Sim, eu tenho certeza</button>
+							</div>
+						</div>
+					</div>
 				</div>
 
 				<div class="margin-top">
 					<p class="sce-hide sce-alert sce-alert-danger" data-toggle="tooltip" data-container="body" data-placement="top" title="Clique para fechar o alerta" id="error_box">
 					</p>
 
+					<!-- Taela de estagiários -->
 					<table class="sce-hide table table-striped table-bordered" id="resultado_pesquisa">
 					</table>
 				</div>
@@ -97,6 +124,8 @@
 	<script src="js/bootstrap/bootstrap.min.js"></script>
 	<script src="js/sce/base.js"></script>
 	<script src="js/sce/sockets.js"></script>
+	<script src="js/sce/notification.js"></script>
+	<script src="js/sce/acoes.js"></script>
 	<script src="js/sce/pesquisa_estagiario.js"></script>
 </body>
 </html>

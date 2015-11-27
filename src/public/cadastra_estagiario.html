@@ -23,8 +23,7 @@
 	<!-- <img class="back_img" src=""> -->
 	<div class="container-fluid">
 		<header class="row">
-			<div class="hidden text-center" id="notificacao">
-			</div>
+			<div class="sce-hide" id="notificacao"></div>
 
 			<nav class="navbar navbar-default">
 					<div class="navbar-header">
@@ -40,27 +39,30 @@
 			</nav>
 		</header>
 
-		<section class="row">
-			<article class="col-md-3">
+		<section class="col-md-3">
+			<article class="row">
+        <ul class="link-group nav nav-stacked margin-top" role="navigation">
+          <li class="link-group-title">MENU</li>
+          <li><a href="index.html">INÍCIO</a></li>
+          <li class="active"><a href="cadastra_estagiario.html">CADASTRAR ESTAGIÁRIO</a></li>
+          <li><a href="remove_estagiario.html">REMOVER ESTAGIÁRIO</a></li>
+          <li><a href="emissao_atestado.html">EMITIR ATESTADO</a></li>
+          <li class="link-group-section"><a href="#configuracoes" data-toggle="collapse" data-parent=".link-group">CONFIGURAÇÕES</a></li>
+          <div id="configuracoes" class="panel-collapse collapse">
             <ul class="link-group nav nav-stacked" role="navigation">
-              <li><a href="/">INÍCIO</a></li>
-              <li class="active"><a href="#">CADASTRAR ESTAGIÁRIO</a></li>
-              <li><a href="remove_estagiario.html">REMOVER ESTAGIÁRIO</a></li>
-              <li><a href="emissao_atestado.html">EMITIR ATESTADO</a></li>
-							<li class="link-group-title"><a href="#configuracoes" data-toggle="collapse" data-parent=".link-group">CONFIGURAÇÕES</a></li>
-							<div id="configuracoes" class="panel-collapse collapse">
-								<ul class="link-group nav nav-stacked" role="navigation">
-									<li><a href="empresas.html">EMPRESAS CONVENIADAS</a></li>
-									<li><a href="turmas.html">TURMAS</a></li>
-									<li><a href="orientadores.html">ORIENTADORES</a></li>
-							</ul>
-							</div>
-							<li class="link-group-title"><a href="ajuda.html">AJUDA</a></li>
-    				</ul>
+              <li><a href="empresas.html">EMPRESAS CONVENIADAS</a></li>
+              <li><a href="turmas.html">TURMAS</a></li>
+              <li><a href="orientadores.html">ORIENTADORES</a></li>
+              <li class="disabled"><a href="usuarios.html">USUÁRIOS</a></li>
+          	</ul>
+          </div>
+          <li class="link-group-section"><a href="ajuda.html">AJUDA</a></li>
+        </ul>
 			</article>
+    </section>
 
-			<article class="col-md-7 col-md-offset-1">
-        <div class="row">
+    <section class="col-md-7 col-md-offset-1">
+			<article class="row">
           <h4 class="title-1">
 						Cadastrar estagiário
 						<a tabindex="0" role="button" style="float:right;" class="tool-info" data-toggle="popover" data-placement="left" title="Página de cadastro de estagiário"
@@ -68,91 +70,6 @@
 							<i  class="libre libre-question"></i>
 						</a>
 					</h4>
-          <!-- <hr class="black-row"> -->
-          <form class="form-horizontal" action="/cadastra_estagiario" onsubmit="verificar_informacoes()" name="cadastra_estagiario" method="post">
-            <div class="form-group">
-              <label for="estagiario[nome]" class="col-sm-1 control-label">Nome: </label>
-              <div class="col-sm-11">
-                <input type="text" class="form-control" name="estagiario[nome]" placeholder="Exemplo: Rafael Campos Nunes" required>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="estagiario[matricula]" class="col-sm-1 control-label">Matrícula: </label>
-              <div class="col-sm-11">
-                <input type="text" class="form-control" name="estagiario[matricula]" placeholder="Exemplo: 20122280033" required>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="estagiario[turma]" class="col-sm-1 control-label">Turma: </label>
-              <div class="col-sm-11">
-								<select class="form-control" name="estagiario[turma]" id="select-turma">
-                  <option value="none" selected>Selecione uma turma</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="estagiario[turno]" class="col-sm-1 control-label">Turno: </label>
-              <div class="col-sm-5">
-                <select class="form-control" name="estagiario[turno]" data-toggle="tooltip" data-placement="right" data-container="body"
-								title="Observe que o turno pedido é o turno de trabalho do estagiário." id="select-turno" required>
-                  <option value="none" selected>Selecione um turno</option>
-                  <option value="mat">Matutino</option>
-                  <option value="ves">Vespertino</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="empresas" class="col-sm-1 control-label">Empresa: </label>
-              <div class="col-sm-5">
-                <select class="form-control" name="estagiario[empresa]" id="select-empresa" required>
-                  <option value="none" selected="">Selecione a empresa de estágio</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="estagiario[orientador]" class="col-sm-1 control-label">Orientador: </label>
-              <div class="col-sm-4 col-sm-offset-1">
-                <select class="form-control" name="estagiario[orientador]" id="select-orientador" required>
-                  <option value="none" selected>Selecione um orientador</option>
-                </select>
-              </div>
-            </div>
-
-            <p class="title-2">
-              Período de estágio
-            </p>
-            <div class="form-group">
-              <label class="col-sm-1 control-label">Início: </label>
-							<div class="col-sm-5">
-                <input type="text" name="estagiario[periodo_inicio]" class="form-control" placeholder="AAAA-MM-DD" data-toggle="tooltip" data-placement="right" data-container="body"
-								title="Coloque a data conforme descrita pelo campo de texto, no formato: ANO-MÊS-DIA. Exemplo: 2014-08-21" id="data_inicio" required>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="col-sm-1 control-label">Fim: </label>
-              <div class="col-sm-5">
-                <input type="text" name="estagiario[periodo_fim]" class="form-control" placeholder="AAAA-MM-DD" data-toggle="tooltip" data-placement="right" data-container="body"
-								title="Coloque a data conforme descrita pelo campo de texto, no formato: ANO-MÊS-DIA. Exemplo: 2015-08-21" id="data_fim" required>
-              </div>
-            </div>
-
-						<div class="form-group">
-							<textarea class="form-control" name="estagiario[observacao]" placeholder="Se houver alguma observação ao estagiário, escreva-a aqui."></textarea>
-						</div>
-
-            <div class="form-group">
-              <div class="col-sm-offset-10 col-sm-1">
-                <button type="submit" class="btn sce-btn-success" name="button" id="submit">Cadastrar  <i class="libre libre-check-yes"></i></button>
-              </div>
-            </div>
-          </div>
-        </form>
 
 				<div class="modal fade" id="cadastro-estado" tabindex="-1" role="dialog">
           <div class="modal-dialog">
@@ -165,8 +82,93 @@
             	</div>
 							<div class="modal-footer" id="modal-rodape">
 							</div>
+          	</div>
+        	</div>
+				</div>
+
+	      <form class="form-horizontal" action="/cadastra_estagiario" name="cadastra_estagiario" id="formulario_estagiario" method="post">
+          <div class="form-group">
+            <label for="estagiario[nome]" class="col-sm-1 control-label">Nome: </label>
+            <div class="col-sm-11">
+              <input type="text" class="form-control" name="estagiario[nome]" placeholder="Exemplo: Rafael Campos Nunes" required>
+            </div>
           </div>
-        </div>
+
+          <div class="form-group">
+            <label for="estagiario[matricula]" class="col-sm-1 control-label">Matrícula: </label>
+            <div class="col-sm-11">
+              <input type="text" class="form-control" name="estagiario[matricula]" placeholder="Exemplo: 20122280033" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="estagiario[turma]" class="col-sm-1 control-label">Turma: </label>
+            <div class="col-sm-11">
+							<select class="form-control" name="estagiario[turma]" id="select-turma">
+                <option value="none" selected>Selecione uma turma</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="estagiario[turno]" class="col-sm-1 control-label">Turno: </label>
+            <div class="col-sm-5">
+              <select class="form-control" name="estagiario[turno]" data-toggle="tooltip" data-placement="right" data-container="body"
+							title="Observe que o turno pedido é o turno de trabalho do estagiário." id="select-turno" required>
+                <option value="none" selected>Selecione um turno</option>
+                <option value="mat">Matutino</option>
+                <option value="ves">Vespertino</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="empresas" class="col-sm-1 control-label">Empresa: </label>
+            <div class="col-sm-5">
+              <select class="form-control" name="estagiario[empresa]" id="select-empresa" required>
+                <option value="none" selected="">Selecione a empresa de estágio</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="estagiario[orientador]" class="col-sm-1 control-label">Orientador: </label>
+            <div class="col-sm-4 col-sm-offset-1">
+              <select class="form-control" name="estagiario[orientador]" id="select-orientador" required>
+                <option value="none" selected>Selecione um orientador</option>
+              </select>
+            </div>
+          </div>
+
+          <p class="title-2">
+            Período de estágio
+          </p>
+          <div class="form-group">
+            <label class="col-sm-1 control-label">Início: </label>
+						<div class="col-sm-5">
+              <input type="text" name="estagiario[periodo_inicio]" class="form-control" placeholder="DD-MM-AAAA" data-toggle="tooltip" data-placement="right" data-container="body"
+							title="Coloque a data conforme descrita pelo campo de texto, no formato: DIA-MÊS-ANO. Exemplo: 21-08-2014" id="data_inicio" maxlength="10" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-1 control-label">Fim: </label>
+            <div class="col-sm-5">
+              <input type="text" name="estagiario[periodo_fim]" class="form-control" placeholder="DD-MM-AAAA" data-toggle="tooltip" data-placement="right" data-container="body"
+							title="Coloque a data conforme descrita pelo campo de texto, no formato: DIA-MÊS-ANO. Exemplo: 21-08-2015" id="data_fim" maxlength="10" required>
+            </div>
+          </div>
+
+					<div class="form-group">
+						<textarea class="form-control" name="estagiario[observacao]" placeholder="Se houver alguma observação ao estagiário, escreva-a aqui."></textarea>
+					</div>
+
+          <div class="form-group">
+            <div class="col-sm-offset-10 col-sm-1">
+              <button type="submit" class="btn sce-btn-success">Cadastrar  <i class="libre libre-check-yes"></i></button>
+            </div>
+          </div>
+	      </form>
 			</article>
 		</section>
 

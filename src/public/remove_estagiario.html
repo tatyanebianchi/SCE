@@ -39,20 +39,22 @@
 
 		<section class="row">
 			<article class="col-md-3">
-				<ul class="link-group nav nav-stacked" role="navigation">
-          <li><a href="/">INÍCIO</a></li>
+				<ul class="link-group nav nav-stacked margin-top" role="navigation">
+        	<li class="link-group-title">MENU</li>
+          <li><a href="index.html">INÍCIO</a></li>
           <li><a href="cadastra_estagiario.html">CADASTRAR ESTAGIÁRIO</a></li>
           <li class="active"><a href="remove_estagiario.html">REMOVER ESTAGIÁRIO</a></li>
           <li><a href="emissao_atestado.html">EMITIR ATESTADO</a></li>
-					<li class="link-group-title"><a href="#configuracoes" data-toggle="collapse" data-parent=".link-group">CONFIGURAÇÕES</a></li>
+					<li class="link-group-section"><a href="#configuracoes" data-toggle="collapse" data-parent=".link-group">CONFIGURAÇÕES</a></li>
 					<div id="configuracoes" class="panel-collapse collapse">
 						<ul class="link-group nav nav-stacked" role="navigation">
 							<li><a href="empresas.html">EMPRESAS CONVENIADAS</a></li>
 							<li><a href="turmas.html">TURMAS</a></li>
 							<li><a href="orientadores.html">ORIENTADORES</a></li>
-					</ul>
+							<li class="disabled"><a href="usuarios.html">USUÁRIOS</a></li>
+						</ul>
 					</div>
-					<li class="link-group-title"><a href="ajuda.html">AJUDA</a></li>
+					<li class="link-group-section"><a href="ajuda.html">AJUDA</a></li>
 				</ul>
 			</article>
 
@@ -74,11 +76,31 @@
 								<span class="caret"></span>
 							</button>
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-								<li><a id="pesquisa_por_nome" href="pesquisa_por_nome">Nome</a></li>
-								<li><a id="pesquisa_por_matricula" href="pesquisa_por_matricula">Matrícula</a></li>
+								<li><a id="pesquisa_por_nome" class="sce-dropdown-btn" href="pesquisa_por_nome">Nome</a></li>
+								<li><a id="pesquisa_por_matricula" class="sce-dropdown-btn" href="pesquisa_por_matricula">Matrícula</a></li>
 							</ul>
 						</div>
 					</span>
+				</div>
+
+				<!-- Modal de remoção -->
+				<div class="modal fade" tabindex="-1" role="dialog" id="removeModal">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								<h4 class="modal-title" id="modal-titulo">Remover</h4>
+							</div>
+							<div class="modal-body sce-alert-danger">
+								Você tem certeza de que deseja remover o estagiário?<br>
+								<b>O estagiário será excluído do sistema com todas as suas informações</b>.
+							</div>
+							<div class="modal-footer">
+								<button class="btn btn-out-default" data-dismiss="modal">Não, não remova</button>
+								<button class="btn btn-out-danger">Sim, eu tenho certeza</button>
+							</div>
+						</div>
+					</div>
 				</div>
 
 				<!--  Tabela de estagiários -->
@@ -102,6 +124,8 @@
 	<script src="js/bootstrap/bootstrap.min.js"></script>
 	<script src="js/sce/base.js"></script>
 	<script src="js/sce/sockets.js"></script>
+	<script src="js/sce/acoes.js"></script>
+	<script src="js/sce/notification.js"></script>
 	<script src="js/sce/pesquisa_estagiario.js"></script>
 </body>
 </html>

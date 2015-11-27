@@ -31,28 +31,30 @@
 					</div>
 
 	        <ul class="nav navbar-nav" style="float: right !important;">
-						<li><a href="#"></a></li>
-						<li><a href="/logout" title="Fazer logout da aplicação">Sair <i class="libre libre-log-out"></i></a></li>
+				<li><a href="#"></a></li>
+				<li><a href="/logout" title="Fazer logout da aplicação">Sair <i class="libre libre-log-out"></i></a></li>
 	        </ul>
 			</nav>
 		</header>
 
 		<section class="col-md-3">
 			<article class="row">
-				<ul class="link-group nav nav-stacked" role="navigation">
-          <li><a href="/">INÍCIO</a></li>
+				<ul class="link-group nav nav-stacked margin-top" role="navigation">
+        	<li class="link-group-title">MENU</li>
+          <li><a href="index.html">INÍCIO</a></li>
           <li><a href="cadastra_estagiario.html">CADASTRAR ESTAGIÁRIO</a></li>
           <li><a href="remove_estagiario.html">REMOVER ESTAGIÁRIO</a></li>
           <li><a href="emissao_atestado.html">EMITIR ATESTADO</a></li>
-					<li class="link-group-title"><a href="#configuracoes" data-toggle="collapse" data-parent=".link-group">CONFIGURAÇÕES</a></li>
+					<li class="link-group-section"><a href="#configuracoes" data-toggle="collapse" data-parent=".link-group">CONFIGURAÇÕES</a></li>
 					<div id="configuracoes" class="panel-collapse collapse in">
 						<ul class="link-group nav nav-stacked" role="navigation">
 							<li><a href="empresas.html">EMPRESAS CONVENIADAS</a></li>
 							<li><a href="turmas.html">TURMAS</a></li>
 							<li class="active"><a href="orientadores.html">ORIENTADORES</a></li>
-					</ul>
+							<li class="disabled"><a href="usuarios.html">USUÁRIOS</a></li>
+						</ul>
 					</div>
-					<li class="link-group-title"><a href="ajuda.html">AJUDA</a></li>
+					<li class="link-group-section"><a href="ajuda.html">AJUDA</a></li>
 				</ul>
 			</article>
     </section>
@@ -77,8 +79,8 @@
 							    <span class="caret"></span>
 							  </button>
 							  <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-							    <li><a id="pesquisa_por_nome" href="pesquisa_por_nome">Nome</a></li>
-							    <li><a id="pesquisa_por_siap" href="pesquisa_por_siap">SIAP</a></li>
+							    <li><a id="pesquisa_por_nome" class="sce-dropdown-btn" href="pesquisa_por_nome">Nome</a></li>
+							    <li><a id="pesquisa_por_siap" class="sce-dropdown-btn" href="pesquisa_por_siap">SIAP</a></li>
 							  </ul>
 							</div>
 						</span>
@@ -92,16 +94,16 @@
 			</article>
 
       <article class="row">
-        <!--  Tabela de empresas vinculadas -->
         <div class="margin-top">
 					<p class="sce-hide sce-alert sce-alert-danger" data-toggle="tooltip" data-container="body" data-placement="top" title="Clique para fechar o alerta" id="error_box">
 					</p>
 
+					<!--  Tabela de orientadores -->
 					<table class="sce-hide table table-striped table-bordered" id="resultado_pesquisa">
 					</table>
         </div>
 
-        <!-- Modal para cadastro de uma nova empresa  -->
+        <!-- Modal para cadastro de um novo orientador  -->
         <div class="modal fade" id="cadastra-orientador" tabindex="-1" role="dialog">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -145,6 +147,8 @@
 	<script src="js/bootstrap/bootstrap.min.js"></script>
 	<script src="js/sce/base.js"></script>
 	<script src="js/sce/sockets.js"></script>
+	<script src="js/sce/acoes.js"></script>
+	<script src="js/sce/notification.js"></script>
 	<script src="js/sce/orientadores.js"></script>
 </body>
 </html>

@@ -19,9 +19,11 @@
 
  'use strict'
 
-// Verificando se o objeto sockets existe na página.
 if(typeof sockets == 'undefined') {
    throw new Error('This script requires sockets.js, verify if it was included.');
+}
+if (typeof notificacao == 'undefined') {
+  throw new Error("This script requires notification.js, verify if it was included.");
 }
 else {
   $(document).ready(function() {
@@ -48,26 +50,26 @@ else {
             case 'estagiarios':
               // HACK: Estou quebrando o padrão (W3C) sobre IDs únicas nesse algorítmo.
               for(var i = 0; i < data.value.length; i++) {
-                if(pageUrl == '/') {
+                if(pageUrl == '/' || pageUrl == '/index.html') {
                   $('#resultado_pesquisa').append(
                     '<tr>' +
-                        '<td>' +
-                          data.value[i].nome +
-                        '</td>' +
-                        '<td>' +
-                          data.value[i].turma_id_turma +
-                        '</td>' +
-                        '<td>' +
-                          data.value[i].matricula +
-                        '</td>' +
-                        '<td class="text-center">' +
-                        ' <div class="btn-group btn-group-lg" role="group" id="grupoAcoes">' +
-                        '  <button class="btn sce-btn-primary" title="Editar informações do estagiário" data-toggle="tooltip" data-container="body" data-matricula="'+ data.value[i].matricula +'" id="botaoEdita"><i class="libre libre-edit"></i></button>' +
-                        '  <button class="btn sce-btn-default" title="Ver informações do estagiário" data-toggle="tooltip" data-container="body" data-matricula="'+ data.value[i].matricula +'" id="botaoVer"><i class="libre libre-content"></i></button>' +
-                        '  <button class="btn sce-btn-danger" title="Excluir estagiário" data-toggle="tooltip" data-container="body" data-matricula="'+ data.value[i].matricula +'" id="botaoRemove"><i class="libre libre-trash"></i></button>' +
-                        ' </div>' +
-                        ' </td>' +
-                      '</tr>'
+                      '<td>' +
+                        data.value[i].nome +
+                      '</td>' +
+                      '<td>' +
+                        data.value[i].turma_id_turma +
+                      '</td>' +
+                      '<td>' +
+                        data.value[i].matricula +
+                      '</td>' +
+                      '<td class="text-center">' +
+                      ' <div class="btn-group btn-group-lg" role="group" id="grupoAcoes">' +
+                      '  <button class="btn sce-btn-primary disabled" title="Editar informações do estagiário" data-toggle="tooltip" data-container="body" data-matricula="'+ data.value[i].matricula +'" id="botaoEdita"><i class="libre libre-edit"></i></button>' +
+                      '  <button class="btn sce-btn-default disabled" title="Ver informações do estagiário" data-toggle="tooltip" data-container="body" data-matricula="'+ data.value[i].matricula +'" id="botaoVer"><i class="libre libre-content"></i></button>' +
+                      '  <button class="btn sce-btn-danger" title="Excluir estagiário" data-toggle="tooltip" data-container="body" data-matricula="'+ data.value[i].matricula +'" id="botaoRemove"><i class="libre libre-trash"></i></button>' +
+                      ' </div>' +
+                      '</td>' +
+                    '</tr>'
                   ).fadeIn(250);
                 }
                 else if(pageUrl == '/remove_estagiario.html') {
@@ -85,7 +87,7 @@ else {
                       '<td class="text-center">' +
                       // HACK: Olha isso, que gambi.
                       ' <div id="grupoAcoes">' +
-                      '   <button class="btn sce-btn-danger" title="Excluir estagiário" data-toggle="tooltip" data-matricula="'+ data.value[i].matricula +'" id="botaoRemove">Remover estagiário <i class="libre libre-trash"></i></button>' +
+                      '   <button class="btn sce-btn-danger" title="Excluir estagiário" data-toggle="tooltip" data-matricula="'+ data.value[i].matricula +'" data-row="'+ i +'" id="botaoRemove">Remover estagiário <i class="libre libre-trash"></i></button>' +
                       ' </div>' +
                       '</td>' +
                     '</tr>'
@@ -95,7 +97,12 @@ else {
               // habilitando o uso do botão novamente.
               $('#botao_pesquisa').removeClass('disabled');
               break;
-            }
+
+            case 'delete_estagiario':
+              notificacao_sucesso('Estagiário removido <i class="libre libre-check-yes"></i>');
+              esconder_notificacao(1500);
+              break;
+          } // switch data.desc
           break;
         case '1004':
           if(typeof data.value.code == 'undefined') {
@@ -114,9 +121,10 @@ else {
           break;
       }
 
-      $("table tr td #grupoAcoes").on('click', function(e) {
+      $("table tbody tr td #grupoAcoes").on('click', function(e) {
         if(e.target !== e.currentTarget) {
-          var clickedItem = e.target.id;
+          var clickedItem = e.target.id,
+              linhaNumero = parseInt(e.target.dataset.row) + 1;
 
           if(clickedItem === 'botaoVer') {
             acaoVer('estagiario', e.target.dataset.matricula);
@@ -126,6 +134,7 @@ else {
           }
           else if(clickedItem === 'botaoRemove') {
             acaoRemove('estagiario', e.target.dataset.matricula);
+            getElementById('resultado_pesquisa').deleteRow(linhaNumero);
           }
         }
         e.stopPropagation();
@@ -170,9 +179,9 @@ else {
       }
 
       ws.send(JSON.stringify({
-          code: '1006',
-          desc: 'search',
-          value: pesquisa
+        code: '1006',
+        desc: 'search',
+        value: pesquisa
       }));
     }
   });

@@ -25,22 +25,6 @@ if (typeof sockets == 'undefined') {
 }
 else {
   $(document).ready(function() {
-    ws.onopen = function(e) {
-        console.log("Conexão com o web socket bem sucedida na porta %s", ws_port);
-    }
-
-    ws.onerror = function(e) {
-        console.log("Erro de conexão com o websocket, provavelmente o servidor foi desligado.");
-    }
-
-    ws.onclose = function(e) {
-      console.log("Conexão com o websocket fechada.");
-    }
-
-    ws.onmessage = function(data) {
-
-    }
-
     // NOTE: O nome dos modais podem não estar semânticamente claros.
 
     /**
@@ -49,7 +33,40 @@ else {
      * uma chave única.
      */
     window.acaoRemove = function(what, key) {
-      $('#removeModal').modal('show');
+      //$('#removeModal').modal('show');
+
+      var descricaoRequisicao = null;
+
+      switch(what) {
+        case 'estagiario':
+          descricaoRequisicao = 'delete_estagiario';
+          break;
+
+        case 'orientador':
+          descricaoRequisicao = 'delete_orientador';
+          break;
+
+        case 'empresa':
+          descricaoRequisicao = 'delete_empresa';
+        break;
+
+        case 'turma':
+          descricaoRequisicao = 'delete_turma';
+          break;
+
+        case 'usuario':
+          descricaoRequisicao = 'delete_usuario';
+          break;
+      }
+
+
+      if (descricaoRequisicao !== null) {
+        ws.send(JSON.stringify({
+          code: '1006',
+          desc: descricaoRequisicao,
+          value: key
+        }));
+      }
     }
 
     /**

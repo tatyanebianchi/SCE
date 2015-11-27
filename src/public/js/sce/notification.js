@@ -23,52 +23,64 @@ if(typeof jQuery == "undefined") {
   throw new Error("notification.js needs jQuery to work");
 }
 else {
-  var animationTime = 500;
+  var animationTime = 500,
+  	  notificacao = true;
 
-  var classes = 'sce-alert sce-alert-danger sce-alert-warning sce-alert-info' +
-                'sce-alert-success'
+  var classes = 'sce-alert sce-notification-danger sce-notification-warning ' +
+  							'sce-notification-info sce-notification-success';
 
   $(document).ready(function() {
-  	$('#notificacao').addClass('text-center');
-
   	/**
   	 *
   	 */
+  	 function limpaNotificacao(callback) {
+  	 	$("#notificacao").removeClass(classes);
+  	 	callback();
+  	 }
+
 	  window.notificacao_erro = function(mensagem) {
-	    $("#notificacao").addClass("sce-alert sce-alert-danger")
-	    .html(mensagem)
-	    .slideDown(animationTime)
-	    .removeClass("sce-hide");
+	  	limpaNotificacao(function() {
+	  		$("#notificacao").addClass("sce-notification sce-notification-danger")
+		    .html(mensagem)
+		    .slideDown(animationTime)
+		    .removeClass("sce-hide");
+	  	});
 	  }
 
 	  /**
   	 *
   	 */
 	  window.notificacao_alerta = function(mensagem) {
-	    $("#notificacao").addClass("sce-alert sce-alert-warning")
-	    .html(mensagem)
-	    .slideDown(animationTime)
-	    .removeClass("sce-hide");
+	  	limpaNotificacao(function() {
+		    $("#notificacao").addClass("sce-notification sce-notification-warning")
+		    .html(mensagem)
+		    .slideDown(animationTime)
+		    .removeClass("sce-hide");
+	  	});
 	  }
 
 	  /**
   	 *
   	 */
 	  window.notificacao_informacao = function(mensagem) {
-	    $("#notificacao").addClass("sce-alert sce-alert-info")
-	    .html(mensagem)
-	    .slideDown(animationTime)
-	    .removeClass("sce-hide");
+	  	limpaNotificacao(function() {
+		    $("#notificacao").addClass("sce-notification sce-notification-info")
+		    .html(mensagem)
+		    .slideDown(animationTime)
+		    .removeClass("sce-hide");
+		  });
 	  }
 
 	  /**
   	 * 
   	 */
 	  window.notificacao_sucesso = function(mensagem) {
-	    $("#notificacao").addClass("sce-alert sce-alert-success")
-	    .html(mensagem)
-	    .slideDown(animationTime)
-	    .removeClass("sce-hide");
+	    limpaNotificacao(function() {
+		    $("#notificacao").addClass("sce-notification sce-notification-success")
+		    .html(mensagem)
+		    .slideDown(animationTime)
+		    .removeClass("sce-hide");
+		  });
 	  }
 
 	  /**
@@ -87,5 +99,7 @@ else {
 	    .delay(delayTime)
 	    .slideUp(animationTime);
 	  }
+
+	  window.notificacao = notificacao;
   });
 }

@@ -19,9 +19,11 @@
  
 'use strict'
 
-// Verificando se o objeto sockets existe na página.
 if(typeof sockets == "undefined") {
   throw new Error("This script requires sockets.js, verify if it was included.");
+}
+if(typeof notificacao == "undefined") {
+  throw new Error("This script requires notification.js, verify if it was included.");
 }
 else {
   $(document).ready(function() {
@@ -56,15 +58,20 @@ else {
                   ' <td>' + data.value[i].email + '</td>' +
                   ' <td class="text-center">' +
                   '   <div class="btn-group btn-group-lg" role="group" id="grupoAcoes">' +
-                  '     <button class="btn sce-btn-primary" data-toggle="tooltip" data-container="body" title="Editar informações da empresa" data-id='+ data.value[i].id_empresa +' id="botaoEdita"><i class="libre libre-edit"></i></button>' +
-                  '     <button class="btn sce-btn-default" data-toggle="tooltip" data-container="body" title="Ver informações da empresa" data-id='+ data.value[i].id_empresa +' id="botaoVer"><i class="libre libre-content"></i></button>' +
-                  '     <button class="btn sce-btn-danger" data-toggle="tooltip" data-container="body" title="Excluir empresa" data-id='+ data.value[i].id_empresa +' id="botaoRemove"><i class="libre libre-trash"></i></button></div>' +
+                  '     <button class="btn sce-btn-primary disabled" data-toggle="tooltip" data-container="body" title="Editar informações da empresa" data-id='+ data.value[i].id_empresa +' data-row="'+ i +'" id="botaoEdita"><i class="libre libre-edit"></i></button>' +
+                  '     <button class="btn sce-btn-default disabled" data-toggle="tooltip" data-container="body" title="Ver informações da empresa" data-id='+ data.value[i].id_empresa +' data-row="'+ i +'" id="botaoVer"><i class="libre libre-content"></i></button>' +
+                  '     <button class="btn sce-btn-danger" data-toggle="tooltip" data-container="body" title="Excluir empresa" data-id='+ data.value[i].id_empresa +' data-row="'+ i +'" id="botaoRemove"><i class="libre libre-trash"></i></button></div>' +
                   ' </td>' +
                   '</tr>'
                 );
               }
 
               $('#tabela-empresas').fadeIn(350); 
+              break;
+
+            case 'delete_empresa':
+              notificacao_sucesso('Empresa removida');
+              esconder_notificacao(1500);
               break;
             }
           break;
@@ -79,7 +86,8 @@ else {
 
       $("table tr td #grupoAcoes").on('click', function(e) {
         if(e.target !== e.currentTarget) {
-          var clickedItem = e.target.id
+          var clickedItem = e.target.id,
+              linhaNumero = parseInt(e.target.dataset.row) + 1;
 
           if(clickedItem === 'botaoVer') {
             acaoVer('empresa', e.target.dataset.id);
@@ -89,6 +97,7 @@ else {
           }
           else if(clickedItem === 'botaoRemove') {
             acaoRemove('empresa', e.target.dataset.id);
+            getElementById('tabela-empresas').deleteRow(linhaNumero);
           }
         }
         e.stopPropagation();
