@@ -32,6 +32,7 @@
 ## TODO:
 
   - [ ] Usar Sass no CSS.
+  - [ ] Reescrever a aplicação utilizando Handlebars.
 
 
 ## Quer contribuir?
