@@ -26,7 +26,7 @@ var path        = require('path'),
 // SCE
 var utils       = require('./server_utils.js');
 
-if (process.argv[2] == "-d" || process.argv[2] == "-debug") {
+if (process.argv[2] == '-d' || process.argv[2] == '-debug') {
   utils.setDebug(true);
   utils.writeLog('Servidor iniciando em modo debug. Informações adicionais serão mostradas no console.', '900');
 }
@@ -39,7 +39,7 @@ else if (process.argv[2] == '-h') {
   console.log('    -h: opção ajuda, mostra esse menu.');
   process.exit();
 }
-else {
+else if (process.argv[2]) {
   console.error('Flag ' + process.argv[2] + ' inválida.\n');
   console.log('Uso: ');
   console.log('    nodejs server <opções>');
@@ -78,7 +78,9 @@ if (cluster.isMaster) {
   });
 
   cluster.on('online', function(worker) {
-      node_utils.log('O worker ' + worker.id + ' está executando.');
+      if(utils.isDebug()) {
+        node_utils.log('O worker ' + worker.id + ' está executando.');
+      }
   });
 }
 else {
