@@ -31,13 +31,16 @@ else {
 
   $(document).ready(function() {
   	/**
-  	 *
+  	 * Limpa as classes do elemento com o id notificacao.
   	 */
   	 function limpaNotificacao(callback) {
   	 	$("#notificacao").removeClass(classes);
   	 	callback();
   	 }
 
+  	/**
+  	 * Mostra uma notificação com o estado de erro.
+  	 */
 	  window.notificacao_erro = function(mensagem) {
 	  	limpaNotificacao(function() {
 	  		$("#notificacao").addClass("sce-notification sce-notification-danger")
@@ -48,7 +51,7 @@ else {
 	  }
 
 	  /**
-  	 *
+  	 * Mostra uma notificação com o estado de alerta.
   	 */
 	  window.notificacao_alerta = function(mensagem) {
 	  	limpaNotificacao(function() {
@@ -60,7 +63,7 @@ else {
 	  }
 
 	  /**
-  	 *
+  	 * Mostra uma notificação com o estado de informação.
   	 */
 	  window.notificacao_informacao = function(mensagem) {
 	  	limpaNotificacao(function() {
@@ -72,7 +75,7 @@ else {
 	  }
 
 	  /**
-  	 * 
+  	 * Mostra uma notificação com o estado de sucesso.
   	 */
 	  window.notificacao_sucesso = function(mensagem) {
 	    limpaNotificacao(function() {
