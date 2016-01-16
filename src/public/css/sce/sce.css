@@ -88,6 +88,22 @@ th {
   padding: 3% !important;
 }
 
+.padding-2 {
+  padding: 2% !important;
+}
+
+.padding-3 {
+  padding: 1% !important;
+}
+
+.white-bg {
+  background: #f2f2f2;
+}
+
+.black-bg {
+  background: #202020;
+}
+
 .title-1 {
   text-decoration: underline;
   font-size: 40px !important;
@@ -125,8 +141,12 @@ th {
   margin-top: 1px;
 }
 
+.margin-left {
+  margin-left: 25px;
+}
+
 .margin-top {
-  margin-top: 100px;
+  margin-top: 70px;
 }
 
 .margin-bottom {
@@ -470,7 +490,7 @@ th {
 }
 
 .sce-alert-danger {
-  background-color: rgba(255, 54, 0, .5);
+  background-color: rgba(255, 54, 0, 0.5);
   color: rgba(205, 1, 1, 1);
 }
 
@@ -485,9 +505,33 @@ th {
 }
 
 .sce-notification {
-  border-radius: 0 !important;
+  width: 100%;
+  z-index: 999;
+  padding: 15px;
+  position: fixed;
   text-align: center;
-  opacity: .7 !important;
+  opacity: 1 !important;
+  border-radius: 0 !important;
+}
+
+.sce-notification-warning {
+  background-color: rgba(249, 230, 104, 1);
+  color: rgba(195, 147, 3, 1);
+}
+
+.sce-notification-danger {
+  background-color: rgba(255, 156, 156, 1);
+  color: rgba(205, 1, 1, 1);
+}
+
+.sce-notification-info {
+  background-color: rgba(142, 173, 255, 1);
+  color: rgba(2, 84, 161, 1);
+}
+
+.sce-notification-success {
+  background-color: rgba(160, 255, 108, 1);
+  color: rgba(14, 173, 0, 1);
 }
 
 .link-group {
@@ -537,6 +581,14 @@ th {
 }
 
 .link-group-title {
+  padding: 3%;
+  color: #f2f2f2;
+  text-align: center;
+  background: #25364a;
+  margin: 0px !important;
+}
+
+.link-group-section {
   color: #f2f2f2;
   text-align: center;
   background: #25364a;
@@ -544,12 +596,12 @@ th {
   border-left: 0 !important;
 }
 
-.link-group-title > a {
+.link-group-section > a {
   color: white;
   padding: 2%;
 }
 
-.link-group-title > a:focus {
+.link-group-section > a:focus {
   color: #25364a;
 }
 
@@ -583,7 +635,7 @@ th {
 }
 
 .dev-background {
-  background: linear-gradient(
+  background-image: linear-gradient(
       rgba(0, 0, 0, 0.6),
       rgba(0, 0, 0, 0.6)
     ),
@@ -598,7 +650,7 @@ th {
 /**
   *
   *  Bootstrap overrides
-  *
+  *  Obs: In the future I will make the SCE bootstrap version
   */
 
 .nav-pills > li > a {
@@ -611,12 +663,17 @@ th {
   border-radius: 2px !important;
 }
 
-.navbar-default {
+.navbar-default,
+.navbar-inverse {
   box-shadow: 0 !important;
   border-top-left-radius: 0 !important;
   border-top-right-radius: 0 !important;
   border-bottom-left-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
+}
+
+.navbar-inverse {
+   background: #202020 !important;
 }
 
 .form-control {
