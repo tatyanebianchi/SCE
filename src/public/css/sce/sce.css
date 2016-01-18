@@ -96,6 +96,18 @@ th {
   padding: 1% !important;
 }
 
+.padding-4 {
+  padding: 10px !important;
+}
+
+.padding-5 {
+  padding: 7px !important;
+}
+
+.padding-6 {
+  padding: 5px !important;
+}
+
 .white-bg {
   background: #f2f2f2;
 }
@@ -253,6 +265,11 @@ th {
 .quote-danger {
   border-left: 3px solid rgb(198, 42, 0) !important;
   background: rgba(255, 54, 0, .2);
+}
+
+.quote-default {
+  border-left: 3px solid rgb(195, 195, 195) !important;
+  background: rgba(195, 195, 195, .2);
 }
 
 .panel {
