@@ -1,6 +1,8 @@
-# Comunicação: cliente < - > servidor
+# Comunicação: cliente < - > servidor 
+  
+  *__(SCEPC - SCE Protocolo de Comunicação)__*
 
-  A comunicação entre o cliente e o servidor é feita via web sockets, utilizando-se de trocas de mensagens em *JSON*. As mensagens *JSON* utilizadas pelo SCE são descritas abaixo:
+  A comunicação entre o cliente e o servidor é feita via WebSockets, utilizando-se de trocas de mensagens em *JSON*. As mensagens *JSON* utilizadas pelo SCE são descritas abaixo:
 
   `{
     code: '1000',
@@ -16,8 +18,17 @@
     }`
 
 
-
- Quando o servidor/cliente utiliza-se de códigos para se comunicar precisamos saber o significado de cada um. Abaixo temos uma tabela dos significados de cada código.
+  O protocolo não é rigoroso, não verifica nem padroniza a tipagem dos campos `code`, `desc`, `value`. Entretanto é recomendado que se utilize a seguinte tipagem:
+  
+  Parâmetro da mensagem | Tipagem
+  --------------------- | -------
+  code                  | String
+  desc                  | String
+  value                 | Object
+   
+  Essa recomendação é proprosta afim de facilitar o tratamento das mensagens no cliente. No futuro quem sabe isso vá ser padronizado e terá uma *lib* específica para a
+  troca de mensagens entre cliente e servidor.
+  Quando o servidor/cliente utiliza-se de códigos para se comunicar precisamos saber o significado de cada um. Abaixo temos uma tabela dos significados de cada código.
 
   Código  | Significado
   ------  | -----------
@@ -28,6 +39,8 @@
   1007    | Representa uma *resposta*, geralmente vinda do servidor ao cliente.
 
 # Log do servidor
+
+  __Nota: Os diretórios e nomes dos logs vão ser modificados ao longo do desenvolvimento do SCE, não há conscenso quanto ao estado atual dos logs.__
 
   O log do servidor é escrito na pasta `./log`, com o nome `server.log`, esse
   arquivo tem como função principal notificar qualquer modificação de estado do
