@@ -36,8 +36,8 @@
 			</nav>
 		</header>
 
-		<section class="row">
-			<article class="col-md-3">
+		<section class="col-md-3">
+			<article class="row">
 				<ul class="link-group nav nav-stacked" role="navigation">
         	<li class="link-group-title">MENU</li>
           <li><a href="index.html">INÍCIO</a></li>
@@ -57,8 +57,10 @@
 					<li class="link-group-section"><a href="ajuda.html">AJUDA</a></li>
 				</ul>
 			</article>
+		</section>
 
-			<article class="col-md-7 col-md-offset-1">
+		<section class="col-md-7 col-md-offset-1">
+			<article class="row">
 				<h4 class="title-1">
 					Remover estagiário
 					<a tabindex="0" role="button" style="float:right;" class="tool-info" data-toggle="popover" data-placement="left" title="Página para remoção de estagiário"
@@ -82,27 +84,9 @@
 						</div>
 					</span>
 				</div>
+			</article>
 
-				<!-- Modal de remoção -->
-				<div class="modal fade" tabindex="-1" role="dialog" id="removeModal">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-								<h4 class="modal-title" id="modal-titulo">Remover</h4>
-							</div>
-							<div class="modal-body sce-alert-danger">
-								Você tem certeza de que deseja remover o estagiário?<br>
-								<b>O estagiário será excluído do sistema com todas as suas informações</b>.
-							</div>
-							<div class="modal-footer">
-								<button class="btn btn-out-default" data-dismiss="modal">Não, não remova</button>
-								<button class="btn btn-out-danger">Sim, eu tenho certeza</button>
-							</div>
-						</div>
-					</div>
-				</div>
-
+			<article class="row">
 				<!--  Tabela de estagiários -->
         <div class="margin-top">
 					<p class="sce-hide sce-alert sce-alert-danger" data-toggle="tooltip" data-container="body" data-placement="top" title="Clique para fechar o alerta" id="error_box">
