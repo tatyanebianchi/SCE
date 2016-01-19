@@ -22,239 +22,159 @@
  */
 
 // SCE
-var db_api  = require('./db_api.js'),
-    utils   = require('./server_utils.js'),
-    ws      = require('./web_socket.js');
+var sceDB = require('./db_api.js')
+var utils = require('./server_utils.js')
+var ws = require('./web_socket.js')
 
 
-exports.cadastraEstagiario = function(req, res) {
-  utils.write_log('Requisição de cadastro de estagiario recebido', '906');
+exports.cadastraEstagiario = function (req, res) {
+  utils.writeLog('Requisição de cadastro de estagiario recebido', '906')
 
-  var empresa_siap = null;
+  var empresa_siap = null
   // Dados do estagiário a ser enviado ao banco de dados.
-  var estagiario = [];
+  var estagiario = []
 
-  // NOTE: sql_injection abaixo.
-  db_api.query("SELECT id_empresa FROM sce.empresa WHERE nome = \""
-               + req.estagiario.empresa + "\"",
-               function(empresa_query_data,  empresa_query_err) {
-                   if(empresa_query_data) {
-                      empresa_siap = empresa_query_data[0].id_empresa;
+  // NOTE: sql injection abaixo.
+  sceDB.query('SELECT id_empresa FROM sce.empresa WHERE nome = \"' +
+               req.estagiario.empresa + '\"',
+               function (empresa_query_data, empresa_query_err) {
+                 if (empresa_query_data) {
+                   empresa_siap = empresa_query_data[0].id_empresa
 
-                      estagiario.push(req.estagiario.matricula);
-                      estagiario.push(req.estagiario.nome);
-                      estagiario.push(req.estagiario.periodo_inicio);
-                      estagiario.push(req.estagiario.periodo_fim);
-                      estagiario.push(req.estagiario.empresa);
-                      estagiario.push(""); // foto, por enquanto a função não vai ser implementada.
-                      estagiario.push(req.estagiario.observacao);
-                      estagiario.push(empresa_siap);
-                      estagiario.push(req.estagiario.turma);
-                      estagiario.push(req.estagiario.orientador);
+                   estagiario.push(req.estagiario.matricula)
+                   estagiario.push(req.estagiario.nome)
+                   estagiario.push(req.estagiario.periodo_inicio)
+                   estagiario.push(req.estagiario.periodo_fim)
+                   estagiario.push(req.estagiario.empresa)
+                   estagiario.push('') // foto, por enquanto a função não vai ser implementada.
+                   estagiario.push(req.estagiario.observacao)
+                   estagiario.push(empresa_siap)
+                   estagiario.push(req.estagiario.turma)
+                   estagiario.push(req.estagiario.orientador)
 
-                      db_api.insert_estagiario(estagiario, function(data, err) {
-                        if(data) {
-                          utils.write_log('Estagiário(a) ' +  estagiario[1] + ' inserido(a) no sistema', '903');
-                          res.sendFile(utils.getFile('cadastra_estagiario.html'));
+                   sceDB.insert_estagiario(estagiario, function (data, err) {
+                     if (data) {
+                       utils.writeLog('Estagiário(a) ' + estagiario[1] + ' inserido(a) no sistema', '903')
+                       res.sendFile(utils.getFile('cadastra_estagiario.html'))
 
-                          ws.send_json({
-                              code: '1000',
-                              desc: 'Cadastro bem sucedido'
-                          });
-                        }
-                        else {
-                          if(utils.is_debug()) {
-                            console.log("Erro ao inserir estagiário: " + err);
-                          }
-
-                          utils.write_log('[DB_API_ERR] ' + err, '904');
-                          res.sendFile(utils.getFile('cadastra_estagiario.html'));
-
-                          ws.send_json({
-                              code: '1004',
-                              desc: '[DB_API_ERR]',
-                              value: err
-                          });
-
-                          // ws.send(JSON.stringify({
-                          //     code:  '1004',
-                          //     desc:  '[DB_API_ERR]',
-                          //     value: err
-                          // }), function(error) {
-                          //     utils.write_log("Erro ao enviar informação ao cliente: " + error, '904');
-                          //     if(utils.is_debug()) {
-                          //         console.log("Erro ao enviar mensagem ao cliente: " + error);
-                          //     }
-                          // });
-                        }
-                      });
-                   }
-                   else {
-                       if(utils.is_debug()) {
-                           console.log("Erro ao buscar id da empresa: " + empresa_query_err);
+                       ws.sendClientMessage('1000', 'Cadastro bem sucedido', '')
+                     } else {
+                       if (utils.isDebug()) {
+                         console.log('Erro ao inserir estagiário: ' + err)
                        }
 
-                      utils.write_log('[DB_API_ERR] ' + empresa_query_err, '904');
-                      res.sendFile(utils.getFile('cadastra_estagiario.html'));
+                       utils.writeLog('[DB_API_ERR] ' + err, '904')
+                       res.sendFile(utils.getFile('cadastra_estagiario.html'))
 
-                      ws.send_json({
-                        code: '1004',
-                        desc: '[DB_API_ERR]',
-                        value: empresa_query_err
-                      });
-
-                      // ws.send(JSON.stringify({
-                      //     code:  '1004',
-                      //     desc:  '[DB_API_ERR]',
-                      //     value: err
-                      // }), function(error) {
-                      //     utils.write_log("Erro ao enviar informação ao cliente: " + error, '904');
-                      //     if(utils.is_debug()) {
-                      //         console.log("Erro ao enviar mensagem ao cliente: " + error);
-                      //     }
-                      // });
+                       ws.sendClientMessage('1004', '[DB_API_ERR]', err)
+                     }
+                   })
+                 } else {
+                   if (utils.isDebug()) {
+                     console.log('Erro ao buscar id da empresa: ' + empresa_query_err)
                    }
-               });
+
+                   utils.writeLog('[DB_API_ERR] ' + empresa_query_err, '904')
+                   res.sendFile(utils.getFile('cadastra_estagiario.html'))
+
+                   ws.sendClientMessage('1004', '[DB_API_ERR]', empresa_query_err)
+                 }
+               })
 }
 
-exports.cadastraEmpresa = function(req, res) {
-  utils.write_log('Requisição de cadastro de empresa recebido', '906');
+exports.cadastraEmpresa = function (req, res) {
+  utils.writeLog('Requisição de cadastro de empresa recebido', '906')
 
   // dados da empresa
-  var empresa = [];
+  var empresa = []
 
-  empresa.push(req.empresa.nome);
-  empresa.push(req.empresa.razao_social);
-  empresa.push(req.empresa.cnpj);
-  empresa.push(req.empresa.email);
-  empresa.push(req.empresa.telefone);
-  empresa.push(req.empresa.telefone_2);
-  empresa.push(req.empresa.rua);
-  empresa.push(req.empresa.numero);
-  empresa.push(req.empresa.bairro);
-  empresa.push(req.empresa.cep);
+  empresa.push(req.empresa.nome)
+  empresa.push(req.empresa.razao_social)
+  empresa.push(req.empresa.cnpj)
+  empresa.push(req.empresa.email)
+  empresa.push(req.empresa.telefone)
+  empresa.push(req.empresa.telefone_2)
+  empresa.push(req.empresa.rua)
+  empresa.push(req.empresa.numero)
+  empresa.push(req.empresa.bairro)
+  empresa.push(req.empresa.cep)
 
-  db_api.insert_empresa(empresa, function(data, err) {
-    if(data) {
-      utils.write_log('Empresa ' +  empresa[0] + ' inserida no sistema', '903');
-      res.sendFile(utils.getFile('empresas.html'));
+  sceDB.insert_empresa(empresa, function (data, err) {
+    if (data) {
+      utils.writeLog('Empresa ' + empresa[0] + ' inserida no sistema', '903')
+      res.sendFile(utils.getFile('empresas.html'))
 
-      ws.send_json({
-          code: '1000',
-          desc: 'Cadastro bem sucedido'
-      });
-
-      // ws.send(JSON.stringify({
-      //     code: '1000',
-      //     desc: 'Cadastro bem sucedido'
-      // }), function(error) {
-      //     utils.write_log("Erro ao enviar informação ao cliente: " + error, '904');
-      //     if(utils.is_debug()) {
-      //         console.log("Erro ao enviar mensagem ao cliente: " + error);
-      //     }
-      // });
-    }
-    else {
-      if(utils.is_debug()) {
-        console.log("Erro ao inserir estagiário: " + err);
+      ws.sendClientMessage('1000', 'Cadastro bem sucedido', '')
+    } else {
+      if (utils.isDebug()) {
+        console.log('Erro ao inserir estagiário: ' + err)
       }
 
-      utils.write_log('[DB_API_ERR] ' + err, '904');
-      res.sendFile(utils.getFile('empresas.html'));
+      utils.writeLog('[DB_API_ERR] ' + err, '904')
+      res.sendFile(utils.getFile('empresas.html'))
 
-      ws.send_json({
-        code: '1004',
-        desc: '[DB_API_ERR]',
-        value: err
-      });
-
-      // ws.send(JSON.stringify({
-      //     code:  '1004',
-      //     desc:  '[DB_API_ERR]',
-      //     value: err
-      // }), function(error) {
-      //     utils.write_log("Erro ao enviar informação ao cliente: " + error, '904');
-      //     if(utils.is_debug()) {
-      //         console.log("Erro ao enviar mensagem ao cliente: " + error);
-      //     }
-      // });
+      ws.sendClientMessage('1004', '[DB_API_ERR]', err)
     }
-  });
+  })
 }
 
 
-exports.cadastraOrientador = function(req, res) {
-    utils.write_log('Requisição de cadastro de orientador recebido', '906');
-    // dados que irão para o banco de dados.
-    var orientador = [];
+exports.cadastraOrientador = function (req, res) {
+  utils.writeLog('Requisição de cadastro de orientador recebido', '906')
+  // dados que irão para o banco de dados.
+  var orientador = []
 
-    orientador[0] = req.orientador.siap;
-    orientador[1] = req.orientador.nome;
+  orientador[0] = req.orientador.siap
+  orientador[1] = req.orientador.nome
 
-    db_api.insert_orientador(orientador, function(data, err) {
-        if(data) {
-            utils.write_log('Orientador ' +  orientador[1] + ' inserido no sistema', '903');
-            res.sendFile(utils.getFile('orientadores.html'));
+  sceDB.insert_orientador(orientador, function (data, err) {
+    if (data) {
+      utils.writeLog('Orientador ' + orientador[1] + ' inserido no sistema', '903')
+      res.sendFile(utils.getFile('orientadores.html'))
 
-            ws.send_json({
-                code: '1000',
-                desc: 'Cadastro bem sucedido'
-            });
-        }
-        else {
-            if(utils.is_debug()) {
-              console.log("Erro ao inserir orientador: " + err);
-            }
+      ws.sendClientMessage('1000', 'Cadastro bem sucedido', '')
+    } else {
+      if (utils.isDebug()) {
+        console.log('Erro ao inserir orientador: ' + err)
+      }
 
-            utils.write_log('[DB_API_ERR] ' + err, '904');
-            res.sendFile(utils.getFile('orientadores.html'));
+      utils.writeLog('[DB_API_ERR] ' + err, '904')
+      res.sendFile(utils.getFile('orientadores.html'))
 
-            ws.send_json({
-                code: '1004',
-                desc: '[DB_API_ERR]',
-                value: err
-            });
-        }
-    });
+      ws.sendClientMessage('1004', '[DB_API_ERR]', err)
+    }
+  })
 }
 
-exports.cadastraTurma = function(req, res) {
-    utils.write_log('Requisição de cadastro de turma recebido', '906');
-    // dados que irão para o banco de dados.
-    var turma = [];
+exports.cadastraTurma = function (req, res) {
+  utils.writeLog('Requisição de cadastro de turma recebido', '906')
+  // dados que irão para o banco de dados.
+  var turma = []
 
-    turma[0] = req.turma.id_turma;
-    turma[1] = req.turma.turno;
-    turma[2] = req.turma.curso;
+  turma[0] = req.turma.id_turma
+  turma[1] = req.turma.turno
+  turma[2] = req.turma.curso
 
-    db_api.insert_turma(turma, function(data, err) {
-        if(data) {
-            utils.write_log('Turma ' +  turma[2] + ' inserida no sistema', '903');
-            res.sendFile(utils.getFile('turmas.html'));
+  sceDB.insert_turma(turma, function (data, err) {
+    if (data) {
+      utils.writeLog('Turma ' + turma[2] + ' inserida no sistema', '903')
+      res.sendFile(utils.getFile('turmas.html'))
 
-            ws.send_json({
-                code: '1000',
-                desc: 'Cadastro bem sucedido'
-            });
-        }
-        else {
-            if(utils.is_debug()) {
-              console.log("Erro ao inserir turma: " + err);
-            }
+      ws.sendClientMessage('1000', 'Cadastro bem sucedido', '')
+    } else {
+      if (utils.isDebug()) {
+        console.log('Erro ao inserir turma: ' + err)
+      }
 
-            utils.write_log('[DB_API_ERR] ' + err, '904');
-            res.sendFile(utils.getFile('turmas.html'));
+      utils.writeLog('[DB_API_ERR] ' + err, '904')
+      res.sendFile(utils.getFile('turmas.html'))
 
-            ws.send_json({
-                code: '1004',
-                desc: '[DB_API_ERR]',
-                value: err
-            });
-        }
-    });
+      ws.sendClientMessage('1004', '[DB_API_ERR]', err)
+    }
+  })
 }
 
 // TODO: implementar depois
-exports.cadastraUsuario = function(req, res) {
+exports.cadastraUsuario = function (req, res) {
 
 }

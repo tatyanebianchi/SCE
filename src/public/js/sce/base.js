@@ -20,16 +20,15 @@
 'use strict'
 
 // Definindo uma variável basejs global para uso posterior.
-window.basejs = true;
+window.basejs = true
 
-document.body.ondragstart = false;
+document.body.ondragstart = false
 
-if(typeof jQuery === "undefined") {
-  throw new Error("base.js need jQuery in order to some functions work.")
-}
-else {
+if (typeof jQuery === 'undefined') {
+  throw new Error('base.js need jQuery in order to some functions work.')
+} else {
   // Um pouco de falso positivo aqui.
-  var bootstrap = (typeof $().popover == 'function');
+  var bootstrap = (typeof $().popover == 'function')
 
   if(bootstrap === 'undefined' || bootstrap) {
     $(function () {
@@ -49,40 +48,40 @@ else {
 
   $(document).ready(function() {
     // Eventos em botões desabilitados não irão disparar.
-    $('.disabled').click(function(ev) {
-      ev.preventDefault();
-      ev.stopPropagation();
+    $('.disabled').click(function (ev) {
+      ev.preventDefault()
+      ev.stopPropagation()
     })
 
-    var animation_time = 550;
+    var animationTime = 550
 
     // alerts são ignoráveis
-    $('.sce-alert').click(function() {
-        $(this).slideUp(animation_time);
-    });
-  });
+    $('.sce-alert').click(function () {
+        $(this).slideUp(animationTime)
+    })
+  })
 }
 
 /**
- *
- * @param elemento_id
- * @param valor
+ * Função para "setar" o valor a um elemento com uma ID específica
+ * @param elementID O id do elemento a ser buscado.
+ * @param value O novo valor que o elemento vai assumir.
  */
-function setElementValue(elemento_id, valor) {
-  var elemento = document.getElementById(elemento_id);
-  if(elemento === 'null') {
-    console.error('O elemento ' + elemento_id + ' procurado não foi encontrado.');
-  }
-  else {
-    elemento.value = valor;
+window.setElementValue = function (elementID, value) {
+  var elemento = document.getElementById(elementID)
+  if (elemento === 'null') {
+    console.error('O elemento ' + elementID + ' procurado não foi encontrado.')
+  } else {
+    elemento.value = value
   }
 }
 
-function getElementById(elemento_id) {
-  if(elemento_id !== 'null') {
-    return document.getElementById(elemento_id);
-  }
-  else {
-    console.error('elemento_id não pode ser nulo.');
+window.reconectar = function () {
+  if (window.ws.readyState === 3) {
+    for (var i = 0; i < 3; i++) {
+      if (window.ws.readyState === 3) {
+        window.ws = window.bootWebSocket()
+      }
+    }
   }
 }
