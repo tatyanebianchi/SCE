@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SCE - Estado do sistema</title>
+	<meta charset="utf-8">
+
+	<!-- mobile stuff -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Bootstrap -->
+	<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.min.css">
+
+	<!-- Libre icons -->
+	<link rel="stylesheet" type="text/css" href="css/libre-icons/libreicons.css">
+
+	<!-- SCE CSS -->
+	<link rel="stylesheet" type="text/css" href="css/sce/sce.css">
+</head>
+
+<body ondragstart="false" class="black-bg">
+	<div class="container-fluid">
+		<header class="row">
+			<div class="sce-hide" id="notificacao"></div>
+
+			<nav class="navbar navbar-inverse">
+				<div class="navbar-header">
+					<div class="navbar-brand" href="/">
+            SCE - Sistema de Controle de Estágio
+          </div>
+				</div>
+			</nav>
+		</header>
+
+		<section class="col-md-12" style="border-radius:2px;">
+			<div class="padding-4 white-bg" style="border-radius:2px;">
+				<div>
+					<div class="label label-default" id="contador">
+					</div>
+
+					<h2>
+						<i class="libre libre-database"></i>
+						Banco de dados
+					</h2>
+					<p class="margin-left">
+						<i class="libre libre-2x libre-tech-mysql"></i> MySQL
+					</p>
+
+					<div class="margin-left" id="resultadoBD">
+            Estado de conexão: <i class="label label-danger" id="conexao-bd">sem conexão</i><br>
+            Versão do banco de dados: <i class="label label-default" id="versao-bd">desconhecida</i><br><br>
+					
+            <p class="sce-hide padding-5 quote-warning" id="erro-bd">
+              
+            </p>
+          </div>
+				</div>
+
+				<div>
+					<h2>
+						<i class="libre libre-gears"></i>
+						Servidor
+					</h2>
+					<div class="margin-left">
+						<i class="libre libre-2x libre-tech-nodejs"></i> NodeJS<br>
+						Estado do servidor: <i class="label label-danger" id="conexao-servidor">offline</i>
+           
+            <ul style="margin-left:0px important!;">
+              <li>Versão do NodeJS: <i id="nodejs-ver" class="label label-default"></i></li>
+              <li>Log do servidor encontra-se em: <i id="sce-logdir" class="label label-default"></i></li>
+              <li>Número de exceções: <i id="sce-contador-excecao" class="label label-default"></i></li>
+            </ul>
+            
+            <p class="sce-hide padding-5 quote-warning" id="erro-servidor">  
+            </p>
+					</div>
+				</div>
+
+				<ul class="list-unstyled list-inline text-right">
+					<li>
+						<button type="button" class="btn sce-btn-primary" onclick="window.history.back();">
+							Voltar a página anterior
+						</button>
+					</li>
+				</ul>
+			</div>
+		</section>
+	</div>
+
+	<script src="js/jquery-2.1.4.min.js"></script>
+	<script src="js/bootstrap/bootstrap.min.js"></script>
+	<script src="js/sce/sockets.js"></script>
+	<script src="js/sce/base.js"></script>
+	<script src="js/sce/status.js"></script>
+</html>

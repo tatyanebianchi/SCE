@@ -19,65 +19,86 @@
  * Arquivo para prover diversas utilidades ao servidor.
  */
 
-var path = require('path'),
-    fs   = require('fs'),
-    util = require('util');
+'use strict'
+
+var path = require('path')
+var fs = require('fs')
+var util = require('util')
 
 // variável que controla se o sce está em modo debug.
-var sce_debug = false;
+var sce_debug = false
 
 // Caminho relativo para o arquivo server.log
-var log_file = './log/server.log';
+var log_file = './log/server.log'
+
+// Número de exceções que o servidor sofreu.
+var exceptionsCounter = 0
 
 // Diretório absoluto para a pasta pública - do cliente -.
-exports.publicDir = function() {
-    return path.join(process.cwd(), "../public/");
+exports.publicDir = function () {
+  return path.join(process.cwd(), '../public/')
 }
 
 /**
- * @param file
+ * Função que retorna o caminho absoluto para um arquivo na pasta public.
+ * @param file Arquivo a ser buscado.
  */
-exports.getFile = function(file) {
-    var public_dir = path.join(process.cwd(), "../public/");
-    return path.join(public_dir, file);
+exports.getFile = function (file) {
+  var public_dir = path.join(process.cwd(), '../public/')
+  return path.join(public_dir, file)
 }
 
 /**
  * Função que escreve na saída padrão uma mensagem juntamente com a tipagem do
- * parâmetro data.
- * @param mensagem
- * @param data
+ * parâmetro variable.
+ * @param message O nome da variável a ser testada.
+ * @param variable A variável em que será aplicada o typeof.
  */
-exports.type = function(mensagem, data) {
-    util.log(mensagem + " typeof -> " + typeof(data));
+exports.type = function (message, variable) {
+  util.log(message + ' typeof -> ' + typeof (variable))
 }
 
-exports.isDebug = function() {
-  return sce_debug;
+exports.isDebug = function () {
+  return sce_debug
 }
 
-exports.setDebug = function(boolean) {
-  sce_debug = boolean;
+exports.setDebug = function (boolean) {
+  sce_debug = boolean
 }
 
-exports.writeLog = function(message, error_code) {
+/**
+ * Função que retorna as propriedades do servidor ao cliente.
+ */
+exports.getProperties = function () {
+  var Properties = {
+    exceptions: 0,
+    logDir: undefined,
+    nodejsVer: undefined,
+    execPath: undefined
+  }
+
+  Properties.exceptions = exceptionsCounter
+  Properties.logDir = log_file
+  Properties.nodejsVer = process.version
+  Properties.execPath = process.cwd()
+  return Properties
+}
+
+exports.writeLog = function (message, errorCode) {
    // TODO: Criar log com nome: dia-mes-ano-log.log
-    var date = Date();
-    fs.open(log_file, 'a', function(err, fd) {
-        if(err) {
-            util.log('Erro ao abrir o arquivo ' + log_file + ' para escrita.');
-        }
-        else {
-            var log_message = date + ' LOG: ' + error_code + ' -> ' + message +
-                              '\n';
+  var date = Date()
+  fs.open(log_file, 'a', function (err, fd) {
+    if (err) {
+      util.log('Erro ao abrir o arquivo ' + log_file + ' para escrita.')
+    } else {
+      var log_message = date + ' LOG: ' + errorCode + ' -> ' + message + '\n'
 
-            fs.appendFileSync(log_file, log_message, 'utf8',
-                              function(err) {
-                                  if(err) {
-                                      util.log("Erro ao adicionar texto para"
-                                      + " o arquivo.")
-                                  }
-                              });
+      fs.appendFileSync(log_file, log_message, 'utf8',
+      function (err) {
+        if (err) {
+          util.log('Erro ao adicionar texto para o arquivo.')
         }
-    })
+      })
+    }
+  })
 }
