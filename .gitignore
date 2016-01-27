@@ -7,6 +7,7 @@
 *.exe
 *.o
 *.so
+*.td
 
 
 # Packages #
@@ -32,3 +33,5 @@
 src/public/css/bootstrap/node_modules/
 src/server/log/
 LibreICONS-master/
+src/public/img/Thumbs.db
+src/public/img/Thumbs.db
