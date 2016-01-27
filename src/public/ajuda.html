@@ -3,7 +3,10 @@
 <head>
   <title>SCE - Ajuda</title>
   <meta charset="utf-8">
-
+  
+  <!-- mobile stuff -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  
   <!-- Bootstrap -->
   <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.min.css">
@@ -20,16 +23,24 @@
   <header class="">
     <nav class="navbar navbar-default">
         <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
           <a class="navbar-brand" href="/">
-            <img src="img/" alt="SCE" class="img-responsive"/>
+            <img src="" alt="SCE" class="img-responsive"/>
           </a>
         </div>
-        <ul class="nav navbar-nav float-right">
-          <li><a href="/">Início</a></li>
-          <li><a href="desenvolvedores.html">Desenvolvedores</a></li>
-          <li class="active"><a href="#">Ajuda</a></li>
-          <li><a href="javascript:window.history.back();">Voltar à página anterior</a></li>
-        </ul>
+        <div class="collapse navbar-collapse" id="navbar-collapse">
+          <ul class="nav navbar-nav text-right">
+            <li><a href="/">Início</a></li>
+            <li><a href="desenvolvedores.html">Desenvolvedores</a></li>
+            <li class="active"><a href="#">Ajuda</a></li>
+            <li><a href="javascript:window.history.back();">Voltar à página anterior</a></li>
+          </ul>
+        </div>
     </nav>
   </header>
 
@@ -37,7 +48,7 @@
     <section class="row">
       <article class="col-md-3">
         <!-- <ul class="nav nav-pills nav-stacked bs-docs-sidenav" role="navigation"> -->
-        <ul class="nav affix help-nav" role="navigation">
+        <ul class="nav affix help-nav" role="navigation" >
           <li><a href="#title-1">Compatibilidade entre browsers</a></li>
           <li><a href="#title-2">O Login</a></li>
           <li><a href="#title-3">Por dentro da aplicação</a></li>
@@ -47,11 +58,10 @@
           <li><a href="#title-7">Empresas Conveniadas</a></li>
           <li><a href="#title-8">Erros da aplicação</a></li>
           <li><a href="#title-9">Erro 404</a></li>
-
         </ul>
       </article>
 
-      <article class="col-md-7 help-block">
+      <article class="col-md-7 col-md-offset-1 help-block">
         <div class="jumbotron">
           <h1 class="text-center"><i class="libre libre-info"></i></h1>
           <h2>Olá, seja bem-vindo(a) a página de ajuda.</h2>
@@ -132,12 +142,12 @@
           </ul>
           <p>
             A interface é fácil de ser utilizada, é possível escolher o turno (vespertino, matutino, diurno e noturno), a empresa, o orientador
-         e a turma. Vale ressaltar que esses ítens são previamente cadastrados no sistema, na aba configurações. Ao término do cadastro basta concluir
-         clicando no botão "cadastrar", como está demonstrado na imagem a seguir.
+            e a turma. Vale ressaltar que esses ítens são previamente cadastrados no sistema, na aba configurações. Ao término do cadastro basta concluir
+            clicando no botão "cadastrar", como está demonstrado na imagem a seguir.
           </p>
          <img src="" alt="Cadastro de estagiário" class="" width="" height="">
         </div>
-      </div>
+        </div>
 
         <div id="title-5">
           <h3 class="help-title">Remoção de estagiário</h3>
@@ -223,9 +233,8 @@
         </div>
       </article>
     </section>
-
-    <footer class="margin-bottom">
-
-    </footer>
-  </body>
+  </div>
+  <script src="js/jquery-2.1.4.min.js"></script>
+  <script src="js/bootstrap/bootstrap.min.js"></script>
+</body>
 </html>

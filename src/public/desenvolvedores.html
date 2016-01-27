@@ -3,7 +3,10 @@
 <head>
   <title>Desenvolvedores</title>
   <meta charset="utf-8">
-
+  
+  <!-- mobile stuff -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  
   <!-- Bootstrap -->
   <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.min.css">
@@ -20,17 +23,24 @@
   <header class="">
     <nav class="navbar navbar-default">
         <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
           <a class="navbar-brand" href="/">
-            <img src="img/" alt="SCE" class="img-responsive"/>
+            <img src="" alt="SCE" class="img-responsive"/>
           </a>
         </div>
-
-        <ul class="nav navbar-nav float-right">
-          <li><a href="/">Início</a></li>
-          <li class="active"><a href="#">Desenvolvedores</a></li>
-          <li class=""><a href="/ajuda.html">Ajuda</a></li>
-          <li><a href="javascript:window.history.back();">Voltar à página anterior</a></li>
-        </ul>
+        <div class="collapse navbar-collapse" id="navbar-collapse">
+          <ul class="nav navbar-nav text-right">
+            <li><a href="/">Início</a></li>
+            <li class="active"><a href="#">Desenvolvedores</a></li>
+            <li><a href="ajuda.html">Ajuda</a></li>
+            <li><a href="javascript:window.history.back();">Voltar à página anterior</a></li>
+          </ul>
+        </div>
     </nav>
   </header>
   <div class="container-fluid">
@@ -90,7 +100,7 @@
                   <img src="img/dev_pic/nicole.jpg" class="panel-profile-img img-medium" alt="" />
                   <p>
                       <strong>Nicole Magny</strong>
-                      <h4>Desenvolveu o back-end do SCE.</h4>
+                      <h4>Desenvolveu o front-end do SCE.</h4>
                   </p>
                   <hr>
                   <p>
@@ -109,7 +119,7 @@
                   <img src="img/dev_pic/profile.jpg" class="panel-profile-img img-medium" alt="" />
                   <p>
                       <strong>Isabela Brito</strong>
-                      <h4>Desenvolveu o back-end do SCE.</h4>
+                      <h4>.</h4>
                   </p>
                 </div>
               </div>
@@ -131,9 +141,8 @@
           </ul>
       </article>
     </section>
-
-    <footer class="margin-bottom">
-    </footer>
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/bootstrap/bootstrap.min.js"></script>
   <div>
 </body>
 </html>

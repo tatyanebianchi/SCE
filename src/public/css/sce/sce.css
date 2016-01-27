@@ -1,7 +1,6 @@
 /*
  * SCE definitions
  */
-
  @font-face {
  font-family: 'Ubuntu';
  src: url('../fonts/Ubuntu-Light.ttf') format('truetype');
@@ -758,4 +757,12 @@ input[type="password"]:focus {
 
 a:hover {
   color: rgba(37, 54, 74, 1) !important;
+}
+
+@media(max-width:1032px) {
+  .affix {
+    position: static;
+    width: auto;
+    top: 0;
+  }
 }
