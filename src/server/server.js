@@ -24,146 +24,126 @@ var cluster = require('cluster')
 var node_utils = require('util')
 var os = require('os')
 
-// SCE
-var utils = require('./server_utils.js')
+var sceUtils = require('./server_utils.js')
 
-if (process.argv[2] === '-d' || process.argv[2] === '-debug') {
-  utils.setDebug(true)
-  utils.writeLog('Servidor iniciando em modo debug. Informações adicionais serão mostradas no console.', '900')
-} else if (process.argv[2] === '-h') {
-  console.log('Uso: ')
-  console.log('    nodejs server <opções>')
-  console.log('Opções: ')
-  console.log('    -d: opção debug, o servidor vai funcionar em modo debug, o que o fará ')
-  console.log('emitir mensagens de aviso/erro na stdout.')
-  console.log('    -h: opção ajuda, mostra esse menu.')
-  process.exit()
-} else if (process.argv[2]) {
-  console.error('Flag ' + process.argv[2] + ' inválida.\n')
-  console.log('Uso: ')
-  console.log('    nodejs server <opções>')
-  console.log('Opções: ')
-  console.log('    -d: opção debug, o servidor vai funcionar em modo debug, o que o fará ')
-  console.log('emitir mensagens de aviso/erro na stdout.')
-  console.log('    -h: opção ajuda, mostra esse menu.')
-  process.exit(1)
-}
+exports.bootSCE = function () {
+  if (cluster.isMaster) {
+    sceUtils.writeLog('\n\n\n\n\n=================== SERVER INIT: ' + Date() + '====================')
+    sceUtils.writeLog('Iniciando servidor com ' + os.cpus().length + ' workers', '900')
+    sceUtils.writeLog('A aplicação está executando em: ' + process.cwd(), '900')
 
-if (cluster.isMaster) {
-  // Início da escrita no log.
-  utils.writeLog('\n\n\n\n\n=================== SERVER INIT: ' + Date() + '====================')
-
-  utils.writeLog('Iniciando servidor com ' + os.cpus().length + ' workers', '900')
-
-  /* Inicia um processo adjacente ao processo mestre. Optimizando para máquinas
-   * com mais de um núcleo.
-   */
-  for (var i = 0; i < os.cpus().length; i++) {
-    cluster.fork()
-  }
+    /* Inicia um processo adjacente ao processo mestre. Optimizando para máquinas
+    * com mais de um núcleo.
+    */
+    for (var i = 0; i < os.cpus().length; i++) {
+      cluster.fork()
+    }
 
 
-  // Reiniciando o processo se houver exceção.
-  cluster.on('exit', function (worker, code, signal) {
-    setTimeout(function () {
-      if (utils.isDebug()) {
-        node_utils.log('worker ' + worker.process.pid + ' morreu (' + (signal || code) + '). Reiniciando...')
+    // Reiniciando o processo se houver exceção.
+    cluster.on('exit', function (worker, code, signal) {
+      setTimeout(function () {
+        if (sceUtils.isDebug()) {
+          node_utils.log('worker ' + worker.process.pid + ' morreu (' + (signal || code) + '). Reiniciando...')
+        }
+
+        sceUtils.writeLog('Algo sério aconteceu e o cluster está reiniciando o worker.', '904')
+
+        cluster.fork()
+      }, 500)
+    })
+
+    cluster.on('online', function (worker) {
+      if (sceUtils.isDebug()) {
+        node_utils.log('O worker ' + worker.id + ' está executando.')
       }
 
-      utils.writeLog('Algo sério aconteceu e o cluster está reiniciando o worker.', '904')
+      sceUtils.writeLog('O worker ' + worker.id + ' está executando.', '900')
+    })
+  } else {
+    // SCE
+    var ws = require('./web_socket.js')
+    var login = require('./login.js')
+    var cadastro = require('./cadastro.js')
 
-      cluster.fork()
-    }, 500)
-  })
+    // express e middleware
+    var express = require('express')
+    var bodyParser = require('body-parser')
 
-  cluster.on('online', function (worker) {
-    if (utils.isDebug()) {
-      node_utils.log('O worker ' + worker.id + ' está executando.')
-    }
-  })
-} else {
-  // SCE
-  var ws = require('./web_socket.js')
-  var login = require('./login.js')
-  var cadastro = require('./cadastro.js')
+    var app = express()
 
-  // express e middleware
-  var express = require('express')
-  var bodyParser = require('body-parser')
+    // Pasta padrão para os arquivos do cliente.
+    app.use(express.static('./src/public/'))
 
-  var app = express()
+    // Middleware bodyParser
+    app.use(bodyParser.urlencoded({ extended: true }))
+    app.use(bodyParser.json())
 
-  // Pasta padrão para os arquivos do cliente.
-  app.use(express.static('../public'))
+    // Inicializando o web socket.
+    ws.init()
 
-  // Middleware bodyParser
-  app.use(bodyParser.urlencoded({ extended: true }))
-  app.use(bodyParser.json())
+    app.get('/', function (req, res) {
+    })
 
-  // Inicializando o web socket.
-  ws.init()
+    app.get('/logout', function (req, res) {
+      // TODO: logout. Destruir sessão e cookies.
+      login.logout(req, res)
+    })
 
-  app.get('/', function (req, res) {
-  })
+    app.post('/login', function (req, res) {
+      // TODO: Login. Criar sessão e armazenar cookies
+      login.do_login(req.body, res)
+    })
 
-  app.get('/logout', function (req, res) {
-    // TODO: logout. Destruir sessão e cookies.
-    login.logout(req, res)
-  })
+    app.post('/cadastra_empresa', function (req, res) {
+      cadastro.cadastraEmpresa(req.body, res)
+    })
 
-  app.post('/login', function (req, res) {
-    // TODO: Login. Criar sessão e armazenar cookies
-    login.do_login(req.body, res)
-  })
+    app.post('/cadastra_estagiario', function (req, res) {
+      cadastro.cadastraEstagiario(req.body, res)
+    })
 
-  app.post('/cadastra_empresa', function (req, res) {
-    cadastro.cadastraEmpresa(req.body, res)
-  })
+    app.post('/cadastra_orientador', function (req, res) {
+      cadastro.cadastraOrientador(req.body, res)
+    })
 
-  app.post('/cadastra_estagiario', function (req, res) {
-    cadastro.cadastraEstagiario(req.body, res)
-  })
+    app.post('/cadastra_turma', function (req, res) {
+      cadastro.cadastraTurma(req.body, res)
+    })
 
-  app.post('/cadastra_orientador', function (req, res) {
-    cadastro.cadastraOrientador(req.body, res)
-  })
+    /**
+     * Seção do software a ser implementada posteriormente
+     */
+    app.post('/cadastra_usuario', function (req, res) {
+      cadastro.cadastraUsuario(req.body, res)
+    })
 
-  app.post('/cadastra_turma', function (req, res) {
-    cadastro.cadastraTurma(req.body, res)
-  })
+    // Capturando o erro 404.
+    app.use(function (req, res, next) {
+      res.status(404)
+      res.sendFile(sceUtils.getFile('404.html'))
+    })
 
-  /**
-   * Seção do software a ser implementada posteriormente
-   */
-  app.post('/cadastra_usuario', function (req, res) {
-    cadastro.cadastraUsuario(req.body, res)
-  })
+    var server = app.listen(9000, function () {
+      var host = server.address().address
+      var port = server.address().port
 
-  // Capturando o erro 404.
-  app.use(function (req, res, next) {
-    res.status(404)
-    res.sendFile(utils.getFile('404.html'))
-  })
+      sceUtils.writeLog('Servidor executando em: ' + process.cwd(), '900')
+      sceUtils.writeLog('Servidor escutando em: http://' + host + ':' + port, '900')
+    })
 
-  var server = app.listen(9000, function () {
-    var host = server.address().address
-    var port = server.address().port
+    process.on('uncaughtException', function (err) {
+      // construindo a pilha de rastreamento (I know, it sounds weird in portuguese)
+      var stack = err.stack
 
-    utils.writeLog('Servidor executando em: ' + process.cwd(), '900')
-    utils.writeLog('Servidor escutando em: http://' + host + ':' + port, '900')
-  })
+      ws.sendClientMessage('1004', '[INTERNAL_SERVER_ERROR]',
+      'O servidor sofreu um problema grave, por favor, contate o administrador.')
 
-  process.on('uncaughtException', function (err) {
-    // construindo a pilha de rastreamento (I know, it sounds weird in portuguese)
-    var stack = err.stack
-
-    ws.sendClientMessage('1004', '[INTERNAL_SERVER_ERROR]',
-    'O servidor sofreu um problema grave, por favor, contate o administrador.')
-
-    utils.exceptionsCounter += 1
-    utils.writeLog('Exceção: ' + stack, '904')
-    node_utils.log('Exceção: ' + stack)
-    node_utils.inspect(stack)
-    process.exit(7)
-  })
+      sceUtils.exceptionsCounter += 1
+      sceUtils.writeLog('Exceção: ' + stack, '904')
+      node_utils.log('Exceção: ' + stack)
+      node_utils.inspect(stack)
+      process.exit(7)
+    })
+  }
 }

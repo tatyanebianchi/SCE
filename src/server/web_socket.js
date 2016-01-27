@@ -23,8 +23,8 @@
 'use strict'
 
 // SCE
-var sceDB = require('./db_api.js')
-var sceUtils = require('./server_utils.js')
+var SCEDb = require('./db_api.js')
+var SCEUtils = require('./server_utils.js')
 
 // nodejs
 var util = require('util')
@@ -35,11 +35,11 @@ var wss = new WebSocketServer({
 })
 
 exports.init = function () {
-  if (sceUtils.isDebug()) {
+  if (SCEUtils.isDebug()) {
     util.log('Web socket inicializado')
   }
 
-  sceUtils.writeLog('Web socket inicializado', '900')
+  SCEUtils.writeLog('Web socket inicializado', '900')
 }
 
 /**
@@ -80,11 +80,11 @@ wss.on('connection', function connection (ws) {
   })
 
   ws.on('message', function (message) {
-    if (sceUtils.isDebug()) {
+    if (SCEUtils.isDebug()) {
       util.log('Mensagem do cliente recebida: ' + message)
     }
 
-    sceUtils.writeLog('Mensagem do cliente recebida: ' + message, '906')
+    SCEUtils.writeLog('Mensagem do cliente recebida: ' + message, '906')
 
     message = JSON.parse(message)
 
@@ -93,10 +93,10 @@ wss.on('connection', function connection (ws) {
       case '1006': // requisição
         switch (message.desc) {
           case 'get_companies':
-            sceDB.get_empresas(function (data, err) {
-              if (sceUtils.isDebug()) {
-                sceUtils.type('Objeto retornado do banco de dados', data)
-                sceUtils.type('Erro no banco de dados', err)
+            SCEDb.get_empresas(function (data, err) {
+              if (SCEUtils.isDebug()) {
+                SCEUtils.type('Objeto retornado do banco de dados', data)
+                SCEUtils.type('Erro no banco de dados', err)
               }
 
               if (data) {
@@ -105,21 +105,21 @@ wss.on('connection', function connection (ws) {
 
                 sendMessage(ws, 'empresas', empresas, 'get_companies')
               } else {
-                if (sceUtils.isDebug()) {
+                if (SCEUtils.isDebug()) {
                   util.log('Erro em \'get_companies\': ' + err)
                 }
 
                 sendError(ws, '[DB_API_ERR]', err, 'get_companies')
-                sceUtils.writeLog('[DB_API_ERR] ' + err, '904')
+                SCEUtils.writeLog('[DB_API_ERR] ' + err, '904')
               }
             })
             break
           case 'search':
             if (message.value.search_for[0] === 'estagiario') {
-              sceDB.search('estagiario', message.value, function (data, err) {
-                if (sceUtils.isDebug()) {
-                  sceUtils.type('Objeto retornado do banco de dados', data)
-                  sceUtils.type('Erro no banco de dados', err)
+              SCEDb.search('estagiario', message.value, function (data, err) {
+                if (SCEUtils.isDebug()) {
+                  SCEUtils.type('Objeto retornado do banco de dados', data)
+                  SCEUtils.type('Erro no banco de dados', err)
                 }
 
                 if (data) {
@@ -128,19 +128,19 @@ wss.on('connection', function connection (ws) {
 
                   sendMessage(ws, 'estagiarios', pesquisa_estagiarios, 'search')
                 } else {
-                  if (sceUtils.isDebug()) {
+                  if (SCEUtils.isDebug()) {
                     util.log('Erro em \'search\': ' + err)
                   }
 
                   sendError(ws, '[DB_API_ERR]', err, 'search')
-                  sceUtils.writeLog('[DB_API_ERR]' + err, '904')
+                  SCEUtils.writeLog('[DB_API_ERR]' + err, '904')
                 }
               })
             } else if (message.value.search_for[0] === 'turma') {
-              sceDB.search('turma', message.value, function (data, err) {
-                if (sceUtils.isDebug()) {
-                  sceUtils.type('Objeto retornado do banco de dados', data)
-                  sceUtils.type('Erro no banco de dados', err)
+              SCEDb.search('turma', message.value, function (data, err) {
+                if (SCEUtils.isDebug()) {
+                  SCEUtils.type('Objeto retornado do banco de dados', data)
+                  SCEUtils.type('Erro no banco de dados', err)
                 }
 
                 if (data) {
@@ -149,19 +149,19 @@ wss.on('connection', function connection (ws) {
 
                   sendMessage(ws, 'turmas', turmas, 'search')
                 } else {
-                  if (sceUtils.isDebug()) {
+                  if (SCEUtils.isDebug()) {
                     util.log('Erro em \'search\': ' + err)
                   }
 
                   sendError(ws, '[DB_API_ERR]', err, 'search')
-                  sceUtils.writeLog('[DB_API_ERR]' + err, '904')
+                  SCEUtils.writeLog('[DB_API_ERR]' + err, '904')
                 }
               })
             } else if (message.value.search_for[0] === 'orientador') {
-              sceDB.search('orientador', message.value, function (data, err) {
-                if (sceUtils.isDebug()) {
-                  sceUtils.type('Objeto retornado do banco de dados', data)
-                  sceUtils.type('Erro no banco de dados', err)
+              SCEDb.search('orientador', message.value, function (data, err) {
+                if (SCEUtils.isDebug()) {
+                  SCEUtils.type('Objeto retornado do banco de dados', data)
+                  SCEUtils.type('Erro no banco de dados', err)
                 }
 
                 if (data) {
@@ -170,12 +170,12 @@ wss.on('connection', function connection (ws) {
 
                   sendMessage(ws, 'orientadores', orientadores, 'search')
                 } else {
-                  if (sceUtils.isDebug()) {
+                  if (SCEUtils.isDebug()) {
                     util.log('Erro em \'search\': ' + err)
                   }
 
                   sendError(ws, '[DB_API_ERR]', err, 'search')
-                  sceUtils.writeLog('[DB_API_ERR]' + err, '904')
+                  SCEUtils.writeLog('[DB_API_ERR]' + err, '904')
                 }
               })
             } else {
@@ -183,10 +183,10 @@ wss.on('connection', function connection (ws) {
             }
             break
           case 'get_tutors':
-            sceDB.get_orientadores(function (data, err) {
-              if (sceUtils.isDebug()) {
-                sceUtils.type('Objeto retornado do banco de dados', data)
-                sceUtils.type('Erro no banco de dados', err)
+            SCEDb.get_orientadores(function (data, err) {
+              if (SCEUtils.isDebug()) {
+                SCEUtils.type('Objeto retornado do banco de dados', data)
+                SCEUtils.type('Erro no banco de dados', err)
               }
 
               if (data) {
@@ -195,20 +195,20 @@ wss.on('connection', function connection (ws) {
 
                 sendMessage(ws, 'orientadores', orientadores, 'get_tutors')
               } else {
-                if (sceUtils.isDebug()) {
+                if (SCEUtils.isDebug()) {
                   util.log('Erro em \'get_tutors\': ' + err)
                 }
 
                 sendError(ws, '[DB_API_ERR]', err, 'get_tutors')
-                sceUtils.writeLog('[DB_API_ERR] ' + err, '904')
+                SCEUtils.writeLog('[DB_API_ERR] ' + err, '904')
               }
             })
             break
           case 'get_classes':
-            sceDB.get_classes(function (data, err) {
-              if (sceUtils.isDebug()) {
-                sceUtils.type('Objeto retornado do banco de dados', data)
-                sceUtils.type('Erro no banco de dados', err)
+            SCEDb.get_classes(function (data, err) {
+              if (SCEUtils.isDebug()) {
+                SCEUtils.type('Objeto retornado do banco de dados', data)
+                SCEUtils.type('Erro no banco de dados', err)
               }
 
               if (data) {
@@ -217,97 +217,97 @@ wss.on('connection', function connection (ws) {
 
                 sendMessage(ws, 'classes', classes, 'get_classes')
               } else {
-                if (sceUtils.isDebug()) {
+                if (SCEUtils.isDebug()) {
                   util.log('Erro em \'get_classes\': ' + err)
                 }
 
                 sendError(ws, '[DB_API_ERR]', err, 'get_classes')
-                sceUtils.writeLog('[DB_API_ERR] ' + err, '904')
+                SCEUtils.writeLog('[DB_API_ERR] ' + err, '904')
               }
             })
             break
           case 'delete_turma':
-            sceDB.delete_turma(message.value, function (data, err) {
-              if (sceUtils.isDebug()) {
-                sceUtils.type('Objeto retornado do banco de dados', data)
-                sceUtils.type('Erro no banco de dados', err)
+            SCEDb.delete_turma(message.value, function (data, err) {
+              if (SCEUtils.isDebug()) {
+                SCEUtils.type('Objeto retornado do banco de dados', data)
+                SCEUtils.type('Erro no banco de dados', err)
               }
 
               if (data) {
                 sendMessage(ws, 'delete_turma', null, 'delete_turma')
               } else {
-                if (sceUtils.isDebug()) {
+                if (SCEUtils.isDebug()) {
                   util.log('Erro em \'delete_turma\': ' + err)
                 }
 
                 sendError(ws, '[DB_API_ERR]', err, 'delete_turma')
-                sceUtils.writeLog('[DB_API_ERR] ' + err, '904')
+                SCEUtils.writeLog('[DB_API_ERR] ' + err, '904')
               }
             })
             break
           case 'delete_estagiario':
-            sceDB.delete_estagiario(message.value, function (data, err) {
-              if (sceUtils.isDebug()) {
-                sceUtils.type('Objeto retornado do banco de dados', data)
-                sceUtils.type('Erro no banco de dados', err)
+            SCEDb.delete_estagiario(message.value, function (data, err) {
+              if (SCEUtils.isDebug()) {
+                SCEUtils.type('Objeto retornado do banco de dados', data)
+                SCEUtils.type('Erro no banco de dados', err)
               }
 
               if (data) {
                 sendMessage(ws, 'delete_estagiario', null, 'delete_estagiario')
               } else {
-                if (sceUtils.isDebug()) {
+                if (SCEUtils.isDebug()) {
                   util.log('Erro em \'delete_estagiario\': ' + err)
                 }
 
                 sendError(ws, '[DB_API_ERR]', err, 'delete_estagiario')
-                sceUtils.writeLog('[DB_API_ERR] ' + err, '904')
+                SCEUtils.writeLog('[DB_API_ERR] ' + err, '904')
               }
             })
             break
           case 'delete_orientador':
-            sceDB.delete_orientador(message.value, function (data, err) {
-              if (sceUtils.isDebug()) {
-                sceUtils.type('Objeto retornado do banco de dados', data)
-                sceUtils.type('Erro no banco de dados', err)
+            SCEDb.delete_orientador(message.value, function (data, err) {
+              if (SCEUtils.isDebug()) {
+                SCEUtils.type('Objeto retornado do banco de dados', data)
+                SCEUtils.type('Erro no banco de dados', err)
               }
 
               if (data) {
                 sendMessage(ws, 'delete_orientador', null, 'delete_orientador')
               } else {
-                if (sceUtils.isDebug()) {
+                if (SCEUtils.isDebug()) {
                   util.log('Erro em \'delete_orientador\': ' + err)
                 }
 
                 sendError(ws, '[DB_API_ERR]', err, 'delete_orientador')
-                sceUtils.writeLog('[DB_API_ERR] ' + err, '904')
+                SCEUtils.writeLog('[DB_API_ERR] ' + err, '904')
               }
             })
             break
           case 'delete_empresa':
-            sceDB.delete_empresa(message.value, function (data, err) {
-              if (sceUtils.isDebug()) {
-                sceUtils.type('Objeto retornado do banco de dados', data)
-                sceUtils.type('Erro no banco de dados', err)
+            SCEDb.delete_empresa(message.value, function (data, err) {
+              if (SCEUtils.isDebug()) {
+                SCEUtils.type('Objeto retornado do banco de dados', data)
+                SCEUtils.type('Erro no banco de dados', err)
               }
 
               if (data) {
                 sendMessage(ws, 'delete_empresa', null, 'delete_empresa')
               } else {
-                if (sceUtils.isDebug()) {
+                if (SCEUtils.isDebug()) {
                   util.log('Erro em \'delete_empresa\': ' + err)
                 }
 
                 sendError(ws, '[DB_API_ERR]', err, 'delete_empresa')
-                sceUtils.writeLog('[DB_API_ERR] ' + err, '904')
+                SCEUtils.writeLog('[DB_API_ERR] ' + err, '904')
               }
             })
             break
           case 'get_server_status':
-            var ServerStatus = sceUtils.getProperties()
+            var ServerStatus = SCEUtils.getProperties()
             sendMessage(ws, 'server_state', ServerStatus, 'get_server_status')
             break
           case 'get_db_status':
-            sceDB.query('SELECT VERSION();', function (data, err) {
+            SCEDb.query('SELECT VERSION();', function (data, err) {
               var DatabaseState = {
                 connection: undefined,
                 error: undefined,
@@ -349,11 +349,11 @@ wss.on('connection', function connection (ws) {
  * @param {String} where Onde ocorreu o envio.
  */
 function sendMessage (ws, _desc, _value, where) {
-  if (sceUtils.isDebug()) {
+  if (SCEUtils.isDebug()) {
     util.log('Mensagem a ser enviada: ' + _desc + ' - ' + _value)
   }
 
-  sceUtils.writeLog('Mensagem a ser enviada ao cliente: ' + _desc + ' - ' + _value, '907')
+  SCEUtils.writeLog('Mensagem a ser enviada ao cliente: ' + _desc + ' - ' + _value, '907')
 
   ws.send(JSON.stringify({
     code: '1007',
@@ -361,8 +361,8 @@ function sendMessage (ws, _desc, _value, where) {
     value: _value
   }), function (error) {
     if (error) {
-      sceUtils.writeLog('Erro ao enviar informação ao cliente em \'' + where + '\': ' + error, '904')
-      if (sceUtils.isDebug()) {
+      SCEUtils.writeLog('Erro ao enviar informação ao cliente em \'' + where + '\': ' + error, '904')
+      if (SCEUtils.isDebug()) {
         util.log('Erro ao tentar enviar a mensagem \'' + _desc + '\' para o cliente em \'' + where + '\': ' + error)
       }
     }
@@ -378,11 +378,11 @@ function sendMessage (ws, _desc, _value, where) {
  * @param {String} where Onde ocorreu o envio.
  */
 function sendError (ws, _desc, _value, where) {
-  if (sceUtils.isDebug()) {
+  if (SCEUtils.isDebug()) {
     util.log('Mensagem a ser enviada: ' + _desc + ' - ' + _value)
   }
 
-  sceUtils.writeLog('Mensagem a ser enviada ao cliente: ' + _desc + ' - ' + _value, '907')
+  SCEUtils.writeLog('Mensagem a ser enviada ao cliente: ' + _desc + ' - ' + _value, '907')
 
   ws.send(JSON.stringify({
     code: '1004',
@@ -390,8 +390,8 @@ function sendError (ws, _desc, _value, where) {
     value: _value
   }), function (error) {
     if (error) {
-      sceUtils.writeLog('Erro ao enviar informação ao cliente em \'' + where + '\': ' + error, '904')
-      if (sceUtils.isDebug()) {
+      SCEUtils.writeLog('Erro ao enviar informação ao cliente em \'' + where + '\': ' + error, '904')
+      if (SCEUtils.isDebug()) {
         util.log('Erro ao tentar enviar a mensagem \'' + _desc + '\' para o cliente em \'' + where + '\': ' + error)
       }
     }

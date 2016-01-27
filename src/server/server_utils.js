@@ -26,17 +26,23 @@ var fs = require('fs')
 var util = require('util')
 
 // variável que controla se o sce está em modo debug.
-var sce_debug = false
+var SCEDebug = false
 
-// Caminho relativo para o arquivo server.log
-var log_file = './log/server.log'
+// Nome do log do servidor
+var logFile = '/log/server.log'
+
+//
+var logPath = path.join(process.cwd(), logFile)
+
+//
+var logDir = path.join(process.cwd(), path.dirname(logFile))
 
 // Número de exceções que o servidor sofreu.
 var exceptionsCounter = 0
 
 // Diretório absoluto para a pasta pública - do cliente -.
 exports.publicDir = function () {
-  return path.join(process.cwd(), '../public/')
+  return path.join(process.cwd(), '/src/public/')
 }
 
 /**
@@ -44,7 +50,7 @@ exports.publicDir = function () {
  * @param file Arquivo a ser buscado.
  */
 exports.getFile = function (file) {
-  var public_dir = path.join(process.cwd(), '../public/')
+  var public_dir = path.join(process.cwd(), '/src/public/')
   return path.join(public_dir, file)
 }
 
@@ -59,11 +65,11 @@ exports.type = function (message, variable) {
 }
 
 exports.isDebug = function () {
-  return sce_debug
+  return SCEDebug
 }
 
 exports.setDebug = function (boolean) {
-  sce_debug = boolean
+  SCEDebug = boolean
 }
 
 /**
@@ -78,22 +84,27 @@ exports.getProperties = function () {
   }
 
   Properties.exceptions = exceptionsCounter
-  Properties.logDir = log_file
+  Properties.logDir = logPath
   Properties.nodejsVer = process.version
   Properties.execPath = process.cwd()
   return Properties
 }
 
-exports.writeLog = function (message, errorCode) {
-   // TODO: Criar log com nome: dia-mes-ano-log.log
+/**
+ * Método que escreve uma mensagem no log.
+ * @param message A mensagem a ser escrita no log
+ * @param code O código da mensagem a ser escrito no log.
+ */
+exports.writeLog = function (message, code) {
   var date = Date()
-  fs.open(log_file, 'a', function (err, fd) {
-    if (err) {
-      util.log('Erro ao abrir o arquivo ' + log_file + ' para escrita.')
-    } else {
-      var log_message = date + ' LOG: ' + errorCode + ' -> ' + message + '\n'
 
-      fs.appendFileSync(log_file, log_message, 'utf8',
+  fs.open(logPath, 'a', function (err, fd) {
+    if (err) {
+      util.log('Erro ao abrir o arquivo ' + logPath + ' para escrita.')
+    } else {
+      var logMessage = date + ' LOG: ' + code + ' -> ' + message + '\n'
+
+      fs.appendFileSync(logPath, logMessage, 'utf8',
       function (err) {
         if (err) {
           util.log('Erro ao adicionar texto para o arquivo.')
@@ -101,4 +112,12 @@ exports.writeLog = function (message, errorCode) {
       })
     }
   })
+}
+
+exports.createLogDir = function () {
+  try {
+    fs.mkdirSync(logDir)
+  } catch (e) {
+    if (e.code !== 'EEXIST') { throw e }
+  }
 }
