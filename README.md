@@ -41,7 +41,7 @@
   - [ ] Terminar as ações de edição e visualização de elementos como estagiário, turma etc.
   - [ ] Criar log do servidor com rótulo do  dia-mes-ano.
   - [ ] Avisar ao cliente quando o servidor for desligado.
-  - [ ] Página no cliente para reunir dados sobre o servidor e o banco de dados
+  - [X] Página no cliente para reunir dados sobre o servidor e o banco de dados
   - [ ] Sistema de autorização
   
   Sugira [recursos ou reporte bugs](http://github.com/rafaelcn/SCE/issues/new).
