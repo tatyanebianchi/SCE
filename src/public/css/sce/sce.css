@@ -274,17 +274,18 @@ th {
 .panel {
   margin-bottom: 15px;
   width: 350px;
-  border: 1px solid #ccc;
+  border: 1px solid rgb(150, 150, 150);
+  font-weight: 300 !important;
 }
 
 .panel-header {
-  height: 175px;
+  height: 210px;
   background-size: cover;
   box-shadow: inset 0px 0px 75px black;
 }
 
 .panel-profile-img {
-  margin-top: -75px;
+  margin-top: -70px;
   border-radius: 100%;
   margin-bottom: 10px;
   border: 3px solid #fff;
@@ -655,7 +656,7 @@ th {
       rgba(0, 0, 0, 0.6),
       rgba(0, 0, 0, 0.6)
     ),
-    url('../../img/code/code1.png');
+    url('../../img/code/code.png');
   background-repeat: no-repeat;
 }
 
@@ -686,6 +687,12 @@ th {
   border-top-right-radius: 0 !important;
   border-bottom-left-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
+}
+
+.navbar-brand > img {
+  margin-top: -11px;
+  width: 42px;
+  height: 42px;
 }
 
 .navbar-inverse {
