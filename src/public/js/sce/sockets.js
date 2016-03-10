@@ -33,8 +33,9 @@
   }
 
   ws = window.bootWebSocket()
-
-  if (ws != null) {
+  
+  // se ws está com estado OPEN ou está CONNECTING.
+  if (window.ws.readyState === 0 || window.ws.readyState === 1) {
     sockets = true
   } else {
     console.error('Conexão com o websocket não pôde ser estabelecida, o servidor pode estar fora do ar')
@@ -50,10 +51,6 @@
  */
 window.reconectar = function () {
   if (window.ws.readyState === 3) {
-    for (var i = 0; i < 3; i++) {
-      if (window.ws.readyState === 3) {
-        window.ws = window.bootWebSocket()
-      }
-    }
+    window.ws = window.bootWebSocket()
   }
 }
