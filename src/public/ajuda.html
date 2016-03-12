@@ -2,7 +2,30 @@
 <html>
 <head>
   <title>SCE - Ajuda</title>
+  
   <meta charset="utf-8">
+  
+  <link rel="apple-touch-icon" sizes="57x57" href="img/favicons/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="img/favicons/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="img/favicons/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="img/favicons/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="img/favicons/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="img/favicons/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="img/favicons/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="img/favicons/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/favicons/apple-touch-icon-180x180.png">
+  <link rel="icon" type="image/png" href="img/favicons/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="img/favicons/favicon-194x194.png" sizes="194x194">
+  <link rel="icon" type="image/png" href="img/favicons/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="img/favicons/android-chrome-192x192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="img/favicons/favicon-16x16.png" sizes="16x16">
+  <link rel="manifest" href="img/favicons/manifest.json">
+  <link rel="mask-icon" href="img/favicons/safari-pinned-tab.svg" color="#17222f">
+  <link rel="shortcut icon" href="img/favicons/favicon.ico">
+  <meta name="msapplication-TileColor" content="#22364a">
+  <meta name="msapplication-TileImage" content="img/favicons/mstile-144x144.png">
+  <meta name="msapplication-config" content="img/favicons/browserconfig.xml">
+  <meta name="theme-color" content="#cc9191">
   
   <!-- mobile stuff -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,9 +42,8 @@
 </head>
 
 <body>
-  <img class="back_img" src="img/calc-background3.1.jpg">
   <header class="">
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-default" id="top">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
             <span class="sr-only">Toggle navigation</span>
@@ -47,22 +69,27 @@
   <div class="container-fluid">
     <section class="row">
       <article class="col-md-3">
-        <!-- <ul class="nav nav-pills nav-stacked bs-docs-sidenav" role="navigation"> -->
-        <ul class="nav affix help-nav" role="navigation" >
-          <li><a href="#title-1">Compatibilidade entre browsers</a></li>
-          <li><a href="#title-2">O Login</a></li>
-          <li><a href="#title-3">Por dentro da aplicação</a></li>
-          <li><a href="#title-4">Cadastro de estagiário</a></li>
-          <li><a href="#title-5">Remoção de estagiário</a></li>
-          <li><a href="#title-6">Emitir atestado de estágio</a></li>
-          <li><a href="#title-7">Empresas Conveniadas</a></li>
-          <li><a href="#title-8">Erros da aplicação</a></li>
-          <li><a href="#title-9">Erro 404</a></li>
-        </ul>
+        <div class="affix" >
+          <ul class="nav help-nav" role="navigation" >
+            <li><a href="#title-1">Compatibilidade entre browsers</a></li>
+            <li><a href="#title-2">O Login</a></li>
+            <li><a href="#title-3">Por dentro da aplicação</a></li>
+            <li><a href="#title-4">Cadastro de estagiário</a></li>
+            <li><a href="#title-5">Remoção de estagiário</a></li>
+            <li><a href="#title-6">Emitir atestado de estágio</a></li>
+            <li><a href="#title-7">Empresas Conveniadas</a></li>
+            <li><a href="#title-8">Erros da aplicação</a></li>
+            <li><a href="#title-9">Erro 404</a></li>
+          </ul>
+          <br>
+          <ul class="nav" role="navigation">
+            <li><a href="#top" class="link-note">Voltar para o topo</a></li>
+          </ul>
+        </div>
       </article>
 
       <article class="col-md-7 col-md-offset-1 help-block">
-        <div class="jumbotron">
+        <div class="jumbotron" >
           <h1 class="text-center"><i class="libre libre-info"></i></h1>
           <h2>Olá, seja bem-vindo(a) a página de ajuda.</h2>
           <h4>
@@ -72,8 +99,8 @@
         </div>
 
         <div id="title-1">
-          <h3 class="help-title">Compatibilidade entre browsers</h3><br>
           <div class="help-content">
+            <h3 class="title-2">Compatibilidade entre browsers</h3>
             <p>
               O Sistema de Controle de Estágio é compatível com os seguintes browsers, ou seja,
             são os navegadores que possibilitam que a aplicação funcione de forma correta. Os devidos
@@ -99,135 +126,138 @@
         </div>
 
         <div id="title-2">
-          <h3 class="help-title">O Login</h3>
           <div class="help-content">
+            <h3 class="title-2">O Login</h3>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
             tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
             quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
             Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
             Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </p>
+            </p>
           </div>
         </div>
 
         <div id="title-3">
-          <h3 class="help-title"> Por dentro da aplicação!</h3>
           <div class="help-content">
-          <p>
-            Este é um sistema voltado ao controle de estágios, a princípio foi projetado para ser utilizado no Instituto Federal de Educação,
-          Ciência e Tecnologia do Pará- Campus Tucuruí, a fim de possibilitar o gerenciamento do cadastro de cada estagiário, classificando-os
-          por turma ou por empresa conveniada, também é possível emitir o atestado de conclusão, portanto, por meio desta aplicação de fácil
-          utilização é possível verificar quais alunos fazem estágio e emitir uma declaração de conclusão. É possível verificar as informações
-          básicas e incluir observações sobre os estagiários e das empresas.
-        </p>
-        </div>
+            <h3 class="title-2"> Por dentro da aplicação!</h3>
+            <p>
+              Este é um sistema voltado ao controle de estágios, a princípio foi projetado para ser utilizado no Instituto Federal de Educação,
+              Ciência e Tecnologia do Pará- Campus Tucuruí, a fim de possibilitar o gerenciamento do cadastro de cada estagiário, classificando-os
+              por turma ou por empresa conveniada, também é possível emitir o atestado de conclusão, portanto, por meio desta aplicação de fácil
+              utilização é possível verificar quais alunos fazem estágio e emitir uma declaração de conclusão. É possível verificar as informações
+              básicas e incluir observações sobre os estagiários e das empresas.
+            </p>
+          </div>
         </div>
 
         <div id="title-4">
-          <h3 class="help-title"> Cadastro de estagiário </h3>
           <div class="help-content">
-          <p>
-            Para realizar o cadastro de um estagiário é necessário que a empresa na qual estagiário trabalha seja conveniada, ou seja, é necessário
-          que ela esteja cadastrada no sistema. Os dados requisitados são:
-          </p>
-          <ul>
-            <li> Nome
-            <li> Matricula
-            <li> Turma
-            <li> Turno
-            <li> Empresa
-            <li> Orientador
-            <li> Período de estágio
-          </ul>
-          <p>
-            A interface é fácil de ser utilizada, é possível escolher o turno (vespertino, matutino, diurno e noturno), a empresa, o orientador
-            e a turma. Vale ressaltar que esses ítens são previamente cadastrados no sistema, na aba configurações. Ao término do cadastro basta concluir
-            clicando no botão "cadastrar", como está demonstrado na imagem a seguir.
-          </p>
-         <img src="" alt="Cadastro de estagiário" class="" width="" height="">
-        </div>
+            <h3 class="title-2"> Cadastro de estagiário</h3>
+            <p>
+              Para realizar o cadastro de um estagiário é necessário que a empresa na qual estagiário trabalha seja conveniada, ou seja, é necessário
+            que ela esteja cadastrada no sistema. Os dados requisitados são:
+            </p>
+            <ul>
+              <li> Nome
+              <li> Matricula
+              <li> Turma
+              <li> Turno
+              <li> Empresa
+              <li> Orientador
+              <li> Período de estágio
+            </ul>
+            <p>
+              A interface é fácil de ser utilizada, é possível escolher o turno (vespertino, matutino, diurno e noturno), a empresa, o orientador
+              e a turma. Vale ressaltar que esses ítens são previamente cadastrados no sistema, na aba configurações. Ao término do cadastro basta concluir
+              clicando no botão "cadastrar", como está demonstrado na imagem a seguir.
+            </p>
+          <img src="" alt="Cadastro de estagiário" class="" width="" height="">
+          </div>
         </div>
 
         <div id="title-5">
-          <h3 class="help-title">Remoção de estagiário</h3>
           <div class="help-content">
-          <p>
-            Para remover um estagiário cadastrado é simples, basta pesquisar o nome do estagiário a ser removido na caixa de pesquisa
-          que fica localizada abaixo. A imagem a seguir demonstra como é possível localizar um estagiário para removê-lo.
-        </p>
-          <img src="" alt="Remoção de estagiário" class="" width="" height="">
+            <h3 class="title-2">Remoção de estagiário</h3>
+            
+            <p>
+              Para remover um estagiário cadastrado é simples, basta pesquisar o nome do estagiário a ser removido na caixa de pesquisa
+            que fica localizada abaixo. A imagem a seguir demonstra como é possível localizar um estagiário para removê-lo.
+            </p>
+            <img src="" alt="Remoção de estagiário" class="" width="" height="">
+          </div>
         </div>
-      </div>
 
         <div id="title-6">
-          <h3 class="help-title">Emitir atestado de estágio</h3>
           <div class="help-content">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-          Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </p>
+            <h3 class="title-2">Emitir atestado de estágio</h3>
+             
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+          </div>
         </div>
-      </div>
 
-        <hr class="separator-row">
         <div id="title-7">
-          <h3 class="help-title">Empresas Conveniadas</h3><br>
           <div class="help-content">
-          <p>
-            Para cadastrar um estagiário é obrigatório inserir em qual empresa o mesmo atua, portanto, na opção
-          “Empresas conveniadas” encontram-se as empresas conveniadas ao IFPA assim como uma forma de cadastrar
-          uma nova empresa. As informações requisitadas para o cadastro de uma nova empresa são:
-          <ul> <br>
-            <li> Informações básicas <br>
-  	          <ul>
-  	            <li> Nome da empresa
-  	            <li> Razão social da empresa
-  	            <li> Cadastro Nacional da Pessoa Jurídica -CNPJ
-              </ul> <br>
-            <li> Endereço <br>
+            <h3 class="title-2">Empresas Conveniadas</h3>
+            
+            <p>
+              Para cadastrar um estagiário é obrigatório inserir em qual empresa o mesmo atua, portanto, na opção
+              “Empresas conveniadas” encontram-se as empresas conveniadas ao IFPA assim como uma forma de cadastrar
+              uma nova empresa. As informações requisitadas para o cadastro de uma nova empresa são:
               <ul>
-                <li> Nome da rua
-                <li> Número
-                <li> CEP
-                <li> Bairro
-              </ul> <br>
-            <li> Contato <br>
-              <ul>
-                <li> E-mail
-                <li> Telefones
+                <li> Informações básicas <br>
+                  <ul>
+                    <li> Nome da empresa
+                    <li> Razão social da empresa
+                    <li> Cadastro Nacional da Pessoa Jurídica -CNPJ
+                  </ul> <br>
+                <li> Endereço <br>
+                  <ul>
+                    <li> Nome da rua
+                    <li> Número
+                    <li> CEP
+                    <li> Bairro
+                  </ul> <br>
+                <li> Contato <br>
+                  <ul>
+                    <li> E-mail
+                    <li> Telefones
+                  </ul>
               </ul>
-          </ul>
-        <img src="" alt="Empresas conveniadas" class="" width="" height="">
+            </p>
+          <img src="" alt="Empresas conveniadas" class="" width="" height="">
         </div>
       </div>
 
 
         <div id="title-8">
-          <h3 class="help-title">Erros de aplicação</h3><br>
           <div class="help-content">
+            <h3 class="title-2">Erros de aplicação</h3>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+              Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
             <p>
           </div>
         </div>
 
         <div id="title-9">
-          <h3 class="help-title">Erro 404</h3>
           <div class="help-content">
+            <h3 class="title-2">Erro 404</h3>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+              Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
            <p>
           </div>
         </div>
@@ -236,5 +266,22 @@
   </div>
   <script src="js/jquery-2.1.4.min.js"></script>
   <script src="js/bootstrap/bootstrap.min.js"></script>
+  <script>
+    var linkElement = $('.link-note')
+    
+    window.setInterval(function refresh() {
+      if(document.documentElement.clientWidth >= 986) {
+        if (scrollY > 100) {
+          linkElement.fadeIn(100)
+                     .removeClass('sce-hide')
+        } else {
+          linkElement.fadeOut(150)
+                     .addClass('sce-hide')
+        }
+      } else {
+        linkElement.fadeOut(0)
+      }
+    }, 100)
+  </script>
 </body>
 </html>
