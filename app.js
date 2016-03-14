@@ -19,9 +19,6 @@
 
 'use strict'
 
-// NodeJS
-var util = require('util')
-
 // SCE
 var sceUtils = require('./src/server/server_utils.js')
 var sceServer = require('./src/server/server.js')
