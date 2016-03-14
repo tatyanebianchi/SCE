@@ -27,23 +27,27 @@
   var ws
   var sockets
   var ws_port = 9005
+  var socketRefreshId
+  var stopRefreshId = false
 
   window.bootWebSocket = function () {
     return new WebSocket('ws://' + window.location.hostname + ':' + ws_port)
   }
 
   ws = window.bootWebSocket()
-  
+
   // se ws está com estado OPEN ou está CONNECTING.
-  if (window.ws.readyState === 0 || window.ws.readyState === 1) {
+  if (ws.readyState === 0 || ws.readyState === 1) {
     sockets = true
   } else {
-    console.error('Conexão com o websocket não pôde ser estabelecida, o servidor pode estar fora do ar')
+    console.error('A conexão com o WebSockets não ocorreu como esperado.')
   }
 
   window.ws = ws
   window.sockets = sockets
   window.ws_port = ws_port
+  window.socketRefreshId = socketRefreshId
+  window.stopRefreshId = stopRefreshId
 })()
 
 /**
@@ -52,5 +56,33 @@
 window.reconectar = function () {
   if (window.ws.readyState === 3) {
     window.ws = window.bootWebSocket()
+  } else if (window.ws.readyState === 0 || window.ws.readyState === 1) {
+    sockets = true
+    window.esconder_notificacao()
+    window.setTimeout(window.location.reload(true), 1000)
   }
 }
+
+/**
+ * 
+ */
+window.socketRefreshId = window.setInterval(function () {
+  if (window.location.pathname !== '/status.html') {
+    if (window.ws.readyState !== 1) {
+      stopRefreshId = true
+      window.esconder_notificacao()
+      window.notificacao_erro('Perdemos a conexão com o servidor.<br>' +
+      '<button class="btn btn-out-danger center" onclick="window.reconectar()">Reconectar</button>', true)
+    }
+  }
+}, 2000)
+
+/**
+ * É, eu sei, um setInterval para parar outro setInterval.
+ */ 
+window.setInterval(function () {
+  if (stopRefreshId === true) {
+    window.clearInterval(window.socketRefreshId)
+  }
+}, 2500)
+
