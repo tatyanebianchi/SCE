@@ -41,7 +41,7 @@ INSERT INTO `sce`.`empresa` (`id_empresa`, `nome`, `razao_social`,
 
 -- Inserção de turmas
 INSERT INTO `sce`.`turma` (`id_turma`, `turno`, `curso`) 
-						  VALUES ('T228-4MA', 'Matutino', 
+			   VALUES ('T228-4MA', 'Matutino', 
                           'Manutenção e Suporte à Informática');
                           
 -- INSERT INTO `sce`.`turma` (`id_turma`, `turno`, `curso`) VALUES ('', '', '');
