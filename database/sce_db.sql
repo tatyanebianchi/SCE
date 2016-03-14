@@ -92,15 +92,6 @@ CREATE TABLE IF NOT EXISTS `sce`.`estagiario` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-
--- -----------------------------------------------------
--- Table `sce`.`table1`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sce`.`table1` (
-)
-ENGINE = InnoDB;
-
-
 -- -----------------------------------------------------
 -- Table `sce`.`usuario`
 -- -----------------------------------------------------
