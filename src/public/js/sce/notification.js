@@ -22,10 +22,13 @@
 if (typeof jQuery == 'undefined') {
   throw new Error('notification.js needs jQuery to work')
 } else {
+  /**
+   * TODO: Refatorar tudo isso em um objeto.
+   */
   var animationTime = 500
   var notificacao = true
-  var alturaTela = document.documentElement.clientHeight
   var alturaLinha = 20
+  var alturaTela = document.documentElement.clientHeight
 
   var classes = 'sce-alert sce-notification-danger sce-notification-warning ' +
                 'sce-notification-info sce-notification-success'
@@ -148,13 +151,15 @@ if (typeof jQuery == 'undefined') {
     window.esconder_notificacao = function (delay) {
       var delayTime = 350
 
-      if (delay !== 'undefined') {
+      if (delay !== undefined) {
         delayTime = delay
       }
 
-      $('#notificacao')
-      .delay(delayTime)
-      .slideUp(animationTime)
+      if (!$('#notificacao').hasClass('sce-hide')) {
+        $('#notificacao')
+        .delay(delayTime)
+        .slideUp(animationTime)
+      }
     }
 
     window.notificacao = notificacao
