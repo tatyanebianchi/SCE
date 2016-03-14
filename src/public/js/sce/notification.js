@@ -19,90 +19,144 @@
 
 'use strict'
 
-if(typeof jQuery == "undefined") {
-  throw new Error("notification.js needs jQuery to work");
-}
-else {
-  var animationTime = 500,
-  	  notificacao = true;
+if (typeof jQuery == 'undefined') {
+  throw new Error('notification.js needs jQuery to work')
+} else {
+  var animationTime = 500
+  var notificacao = true
+  var alturaTela = document.documentElement.clientHeight
+  var alturaLinha = 20
 
   var classes = 'sce-alert sce-notification-danger sce-notification-warning ' +
-  							'sce-notification-info sce-notification-success';
+                'sce-notification-info sce-notification-success'
 
-  $(document).ready(function() {
-  	/**
-  	 * Limpa as classes do elemento com o id notificacao.
-  	 */
-  	 function limpaNotificacao(callback) {
-  	 	$("#notificacao").removeClass(classes);
-  	 	callback();
-  	 }
+  $(document).ready(function () {
+  /**
+   * Limpa as classes do elemento com o id notificacao.
+   * @param {Function} callback Função chamada após a remoção de todas as classes da notiicação
+   */
+    function limpaNotificacao (callback) {
+      $('#notificacao').removeClass(classes)
+      callback()
+    }
 
-  	/**
-  	 * Mostra uma notificação com o estado de erro.
-  	 */
-	  window.notificacao_erro = function(mensagem) {
-	  	limpaNotificacao(function() {
-	  		$("#notificacao").addClass("sce-notification sce-notification-danger")
-		    .html(mensagem)
-		    .slideDown(animationTime)
-		    .removeClass("sce-hide");
-	  	});
-	  }
+    /**
+     * Mostra uma notificação com o estado de erro.
+     * @param {String} A mensagem a ser exibida para o usuário na notificação.
+     * @param {Bool} Se a notificação deve ocupar a tela toda ou não.
+     */
+    window.notificacao_erro = function (mensagem, telaCheia) {
+      if (telaCheia !== false && telaCheia !== undefined) {
+        limpaNotificacao(function () {
+          $('#notificacao').addClass('sce-notification sce-notification-danger')
+          .css('height', alturaTela)
+          .css('line-height', alturaLinha)
+          .html(mensagem)
+          .slideDown(animationTime)
+          .removeClass('sce-hide')
+        })
+      } else {
+        limpaNotificacao(function () {
+          $('#notificacao').addClass('sce-notification sce-notification-danger')
+          .html(mensagem)
+          .slideDown(animationTime)
+          .removeClass('sce-hide')
+        })
+      }
+    }
 
-	  /**
-  	 * Mostra uma notificação com o estado de alerta.
-  	 */
-	  window.notificacao_alerta = function(mensagem) {
-	  	limpaNotificacao(function() {
-		    $("#notificacao").addClass("sce-notification sce-notification-warning")
-		    .html(mensagem)
-		    .slideDown(animationTime)
-		    .removeClass("sce-hide");
-	  	});
-	  }
+    /**
+     * Mostra uma notificação com o estado de alerta.
+     * @param {String} A mensagem a ser exibida para o usuário na notificação.
+     * @param {Bool} Se a notificação deve ocupar a tela toda ou não.
+     */
+    window.notificacao_alerta = function (mensagem, telaCheia) {
+      if (telaCheia !== false && telaCheia !== undefined) {
+        limpaNotificacao(function () {
+          $('#notificacao').addClass('sce-notification sce-notification-warning')
+          .css('height', alturaTela)
+          .css('line-height', alturaLinha)
+          .html(mensagem)
+          .slideDown(animationTime)
+          .removeClass('sce-hide')
+        })
+      } else {
+        limpaNotificacao(function () {
+          $('#notificacao').addClass('sce-notification sce-notification-warning')
+          .html(mensagem)
+          .slideDown(animationTime)
+          .removeClass('sce-hide')
+        })
+      }
+    }
 
-	  /**
-  	 * Mostra uma notificação com o estado de informação.
-  	 */
-	  window.notificacao_informacao = function(mensagem) {
-	  	limpaNotificacao(function() {
-		    $("#notificacao").addClass("sce-notification sce-notification-info")
-		    .html(mensagem)
-		    .slideDown(animationTime)
-		    .removeClass("sce-hide");
-		  });
-	  }
+    /**
+     * Mostra uma notificação com o estado de informação.
+     * @param {String} A mensagem a ser exibida para o usuário na notificação.
+     * @param {Bool} Se a notificação deve ocupar a tela toda ou não.
+     */
+    window.notificacao_informacao = function (mensagem, telaCheia) {
+      if (telaCheia !== false && telaCheia !== undefined) {
+        limpaNotificacao(function () {
+          $('#notificacao').addClass('sce-notification sce-notification-info')
+          .css('height', alturaTela)
+          .css('line-height', alturaLinha)
+          .html(mensagem)
+          .slideDown(animationTime)
+          .removeClass('sce-hide')
+        })
+      } else {
+        limpaNotificacao(function () {
+          $('#notificacao').addClass('sce-notification sce-notification-info')
+          .html(mensagem)
+          .slideDown(animationTime)
+          .removeClass('sce-hide')
+        })
+      }
+    }
 
-	  /**
-  	 * Mostra uma notificação com o estado de sucesso.
-  	 */
-	  window.notificacao_sucesso = function(mensagem) {
-	    limpaNotificacao(function() {
-		    $("#notificacao").addClass("sce-notification sce-notification-success")
-		    .html(mensagem)
-		    .slideDown(animationTime)
-		    .removeClass("sce-hide");
-		  });
-	  }
+    /**
+     * Mostra uma notificação com o estado de sucesso.
+     * @param {String} A mensagem a ser exibida para o usuário na notificação.
+     * @param {Bool} Se a notificação deve ocupar a tela toda ou não.
+     */
+    window.notificacao_sucesso = function (mensagem, telaCheia) {
+      if (telaCheia !== false && telaCheia !== undefined) {
+        limpaNotificacao(function () {
+          $('#notificacao').addClass('sce-notification sce-notification-success')
+          .css('height', alturaTela)
+          .css('line-height', alturaLinha)
+          .html(mensagem)
+          .slideDown(animationTime)
+          .removeClass('sce-hide')
+        })
+      } else {
+        limpaNotificacao(function () {
+          $('#notificacao').addClass('sce-notification sce-notification-success')
+          .html(mensagem)
+          .slideDown(animationTime)
+          .removeClass('sce-hide')
+        })
+      }
+    }
 
-	  /**
-	   * @param delay Se definido, vai ser utilizado como tempo de delay
-	   * para esconder a notificação. Caso contrário, um valor padrão será
-	   * utilizado.
-	   */
-	  window.esconder_notificacao = function(delay) {
-	  	var delayTime = 350;
+    /**
+     * @param delay Se definido, vai ser utilizado como tempo de delay
+     * para esconder a notificação. Caso contrário, um valor padrão será
+     * utilizado.
+     */
+    window.esconder_notificacao = function (delay) {
+      var delayTime = 350
 
-	  	if (delay !== 'undefined') {
-	  		delayTime = delay;
-	  	}
+      if (delay !== 'undefined') {
+        delayTime = delay
+      }
 
-	    $("#notificacao")
-	    .delay(delayTime)
-	    .slideUp(animationTime);
-	  }
+      $('#notificacao')
+      .delay(delayTime)
+      .slideUp(animationTime)
+    }
 
-	  window.notificacao = notificacao;
-  });
+    window.notificacao = notificacao
+  })
 }
