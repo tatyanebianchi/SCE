@@ -27,9 +27,9 @@ if (typeof sockets == 'undefined') {
     var classes = 'label-danger label-success label-warning label-info label-default'
 
     var messageIcon = '<div class="libre-stack">' +
-                                '  <i class="libre libre-stack-1x libre-circle"></i>' +
-                                '  <i class="libre libre-stack-1x libre-info text-white"></i>' +
-                                '</div>'
+                      '  <i class="libre libre-stack-1x libre-circle"></i>' +
+                      '  <i class="libre libre-stack-1x libre-info text-white"></i>' +
+                      '</div>'
 
     window.setInterval(function () {
       if (window.ws.readyState === 1) {
@@ -142,15 +142,16 @@ if (typeof sockets == 'undefined') {
     }
 
     function mostrarErroServidor () {
-       $('#erro-servidor').html(messageIcon + ' Não foi possível assegurar a conexão com o servidor. ' +
-                              'O sistema vai tentar se religar ao servidor.')
+       $('#erro-servidor').html(messageIcon + ' Não foi possível assegurar a conexão com o servidor.')
                              .fadeIn(500)
        $('#erro-bd').html(messageIcon + ' Não foi possível assegurar a conexão com o banco de dados.')
                     .fadeIn(500)
+       $('#botao-reconecta').fadeIn(500)                    
     }
 
     function esconderErroServidor () {
       $('#erro-servidor').fadeOut(500)
+      $('#botao-reconecta').fadeOut(300)
     }
   })
 }
