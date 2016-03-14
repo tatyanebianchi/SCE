@@ -122,25 +122,31 @@ th {
 }
 
 .title-2 {
-  font-size: 25px !important;
+  font-size: 30px !important;
   text-decoration: underline;
   font-weight: bold;
 }
 
 .title-3 {
+  font-size: 25px !important;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.title-4 {
   font-size: 20px !important;
 }
 
 .black-row {
   border: 2px solid rgba(30, 30, 30, 1);
-  border-radius: 0 !important;
+  border-radius: 2px;
   margin-top: 0;
   margin-bottom: 0;
 }
 
 .blue-row {
-  border: 2px solid rgb(37, 54, 74);
-  border-radius: 0 !important;
+  border: 2px solid rgb(23, 34, 47);
+  border-radius: 2px;
   margin-top: 0;
   margin-bottom: 0;
 }
@@ -173,46 +179,34 @@ th {
 }
 
 .help-block {
-  padding: 2%;
-  background: rgba(255, 255, 255, .4) !important;
-  border-radius: 2px;
   color: black;
 }
 
-.help-title {
-  font-size: 30px;
+.help-block > .jumbotron {
+  background:rgb(23, 34, 47);
+  color:white;  
 }
 
 .help-content {
   padding: 2%;
   text-align: justify;
-  -moz-transition: all .2s ease-in;
 }
 
-.help-content::first-letter {
+.help-content > p::first-letter {
   font-size: 20px;
+  margin-left: 20px;
 }
 
-.help-content:hover {
-  background: rgba(255, 255, 255, 1);
+.help-nav > li:hover {
+  border-left: 1px solid inherit;
 }
 
-.help-nav {
-  border-radius: 2px !important;
-  background: linear-gradient(
-    rgba(255, 255, 255, 0.4),
-    rgba(255, 255, 255, 0.4)
-  );
+.help-nav > li:hover {
+  border-left: 1px solid rgb(23, 34, 47);
 }
 
-.help-nav > li:first-child > a {
-  border-top-left-radius: 2px;
-  border-top-right-radius: 2px;
-}
-
-.help-nav > li:last-child > a {
-  border-bottom-left-radius: 2px;
-  border-bottom-right-radius: 2px;
+.help-nav > li:active {
+  border-left: 2px solid rgb(23, 34, 47);
 }
 
 .back_img {
@@ -558,7 +552,7 @@ th {
 }
 
 .link-group > .active {
-  border-left: 3px solid #25364a;
+  border-left: 3px solid rgb(37, 54, 74);
 }
 
 .link-group > li:first-child {
@@ -582,7 +576,7 @@ th {
 }
 
 .link-group > li:hover {
-  border-left: 3px solid #25364a;
+  border-left: 3px solid rgb(37, 54, 74);
 }
 
 .link-group > li:first-child {
@@ -601,14 +595,14 @@ th {
   padding: 3%;
   color: #f2f2f2;
   text-align: center;
-  background: #25364a;
+  background: rgb(37, 54, 74);;
   margin: 0px !important;
 }
 
 .link-group-section {
   color: #f2f2f2;
   text-align: center;
-  background: #25364a;
+  background: rgb(37, 54, 74);;
   margin: 0px !important;
   border-left: 0 !important;
 }
@@ -619,7 +613,16 @@ th {
 }
 
 .link-group-section > a:focus {
-  color: #25364a;
+  color: rgb(37, 54, 74);
+}
+
+.link-note {
+  color: rgb(150, 150, 150);
+  background: inherit !important;
+}
+
+.link-note:hover {
+  color: rgb(37, 54, 74);
 }
 
 /* Necessário para funcionar com as animações do JQuery. */
@@ -643,12 +646,6 @@ th {
 
 [data-toggle="popover"] {
   cursor:pointer;
-}
-
-/* Test stuff */
--component {
-  background-image: url('../../img/calc-background3.1.jpg');
-  background-repeat: no-repeat;
 }
 
 .dev-background {
@@ -766,7 +763,7 @@ a:hover {
   color: rgba(37, 54, 74, 1) !important;
 }
 
-@media(max-width:1032px) {
+@media(max-width:986px) {
   .affix {
     position: static;
     width: auto;
