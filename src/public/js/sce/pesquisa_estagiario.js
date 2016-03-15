@@ -19,95 +19,109 @@
 
  'use strict'
 
-if (typeof sockets == 'undefined') {
+if (typeof sockets === 'undefined') {
   throw new Error('This script requires sockets.js, verify if it was included.')
-} else if (typeof notificacao == 'undefined') {
+} else if (typeof notificacao === 'undefined') {
   throw new Error('This script requires notification.js, verify if it was included.')
+} else if (typeof errorHandling === 'undefined') {
+  throw new Error('This script requires error_handling.js, verify if it was included.')
 } else {
   $(document).ready(function () {
     var pageUrl = window.location.pathname
 
-    ws.onopen = function (e) {
+    var iconeRemove
+    // Verificando se o usuário está acessando o sistema por um celular.
+    if (window.mobile) {
+      iconeRemove = '<i class="libre libre-trash"></i>'
+    } else {
+      iconeRemove = 'Remover estagiário <i class="libre libre-trash"></i>'
+    }
+
+    window.ws.onopen = function (e) {
       console.log('Conexão com o web socket bem sucedida na porta %s', window.ws_port)
     }
 
-    ws.onerror = function (e) {
+    window.ws.onerror = function (e) {
       console.log('Erro de conexão com o websocket, provavelmente o servidor foi desligado.')
     }
 
-    ws.onclose = function (e) {
+    window.ws.onclose = function (e) {
       console.log('Conexão com o websocket fechada.')
     }
 
-    ws.onmessage = function (data) {
+    window.ws.onmessage = function (data) {
       data = JSON.parse(data.data)
 
       switch (data.code) {
         case '1007':
           switch (data.desc) {
             case 'estagiarios':
-              // HACK: Estou quebrando o padrão (W3C) sobre IDs únicas nesse algorítmo.
-              for (var i = 0; i < data.value.length; i++) {
-                if (pageUrl === '/' || pageUrl === '/index.html') {
-                  $('#resultado_pesquisa').append(
-                    '<tr>' +
-                      '<td>' +
-                        data.value[i].nome +
-                      '</td>' +
-                      '<td>' +
-                        data.value[i].turma_id_turma +
-                      '</td>' +
-                      '<td>' +
-                        data.value[i].matricula +
-                      '</td>' +
-                      '<td class="text-center">' +
-                      ' <div class="btn-group btn-group-lg" role="group" id="grupoAcoes">' +
-                      '  <button class="btn sce-btn-primary disabled" title="Editar informações do estagiário" data-toggle="tooltip" data-container="body" data-matricula="' + data.value[i].matricula + '" id="botaoEdita"><i class="libre libre-edit"></i></button>' +
-                      '  <button class="btn sce-btn-default disabled" title="Ver informações do estagiário" data-toggle="tooltip" data-container="body" data-matricula="' + data.value[i].matricula + '" id="botaoVer"><i class="libre libre-content"></i></button>' +
-                      '  <button class="btn sce-btn-danger" title="Excluir estagiário" data-toggle="tooltip" data-container="body" data-matricula="' + data.value[i].matricula + '" id="botaoRemove"><i class="libre libre-trash"></i></button>' +
-                      ' </div>' +
-                      '</td>' +
-                    '</tr>'
-                  ).fadeIn(250)
-                } else if (pageUrl === '/remove_estagiario.html') {
-                  $('#resultado_pesquisa').append(
-                    '<tr>' +
-                      '<td>' +
-                        data.value[i].nome +
-                      '</td>' +
-                      '<td>' +
-                        data.value[i].turma_id_turma +
-                      '</td>' +
-                      '<td>' +
-                        data.value[i].matricula +
-                      '</td>' +
-                      '<td class="text-center">' +
-                      // HACK: Olha isso, que gambi.
-                      ' <div id="grupoAcoes">' +
-                      '   <button class="btn sce-btn-danger" title="Excluir estagiário" data-matricula="' + data.value[i].matricula + '" data-row="' + i + '" id="botaoRemove">Remover estagiário <i class="libre libre-trash"></i></button>' +
-                      ' </div>' +
-                      '</td>' +
-                    '</tr>'
-                  ).fadeIn(250)
-                } else if (pageUrl === '/emissao_atestado.html') {
-                   $('#resultado_pesquisa').append(
-                    '<tr>' +
-                      '<td>' +
-                        data.value[i].nome +
-                      '</td>' +
-                      '<td>' +
-                        data.value[i].turma_id_turma +
-                      '</td>' +
-                      '<td>' +
-                        data.value[i].matricula +
-                      '</td>' +
-                      '<td class="text-center">' +
-                      ' <div id="grupoAcoes">' +
-                      '   <button class="btn sce-btn-primary" title="Emitir atestado" data-matricula="' + data.value[i].matricula + '" data-row="' + i + '" id="botaoEmiteAtestado">Emitir atestado <i class="libre"></i></button>' +
-                      ' </div>' +
-                      '</td>' +
-                    '</tr>'
-                  ).fadeIn(250)
+              if (data.value[0].matricula === undefined) {
+                window.handleError(data)
+              } else {
+                // HACK: Estou quebrando o padrão (W3C) sobre IDs únicas nesse algorítmo.
+                for (var i = 0; i < data.value.length; i++) {
+                  if (pageUrl === '/' || pageUrl === '/index.html') {
+                    $('#resultado_pesquisa').append(
+                      '<tr>' +
+                        '<td>' +
+                          data.value[i].nome +
+                        '</td>' +
+                        '<td>' +
+                          data.value[i].turma_id_turma +
+                        '</td>' +
+                        '<td>' +
+                          data.value[i].matricula +
+                        '</td>' +
+                        '<td class="text-center">' +
+                        ' <div class="btn-group btn-group-lg" role="group" id="grupoAcoes">' +
+                        '  <button class="btn sce-btn-primary" title="Editar informações do estagiário" data-toggle="tooltip" data-container="body" data-matricula="' + data.value[i].matricula + '" id="botaoEdita"><i class="libre libre-edit"></i></button>' +
+                        '  <button class="btn sce-btn-default" title="Ver informações do estagiário" data-toggle="tooltip" data-container="body" data-matricula="' + data.value[i].matricula + '" id="botaoVer"><i class="libre libre-content"></i></button>' +
+                        '  <button class="btn sce-btn-danger" title="Excluir estagiário" data-toggle="tooltip" data-container="body" data-matricula="' + data.value[i].matricula + '" id="botaoRemove"><i class="libre libre-trash"></i></button>' +
+                        ' </div>' +
+                        '</td>' +
+                      '</tr>'
+                    ).fadeIn(250)
+                  } else if (pageUrl === '/remove_estagiario.html') {
+                    $('#resultado_pesquisa').append(
+                      '<tr>' +
+                        '<td>' +
+                          data.value[i].nome +
+                        '</td>' +
+                        '<td>' +
+                          data.value[i].turma_id_turma +
+                        '</td>' +
+                        '<td>' +
+                          data.value[i].matricula +
+                        '</td>' +
+                        '<td class="text-center">' +
+                        // HACK: Olha isso, que gambi.
+                        ' <div id="grupoAcoes">' +
+                        '   <button class="btn sce-btn-danger" title="Excluir estagiário" data-matricula="' + data.value[i].matricula + '" data-row="' + i + '" id="botaoRemove">' + iconeRemove + '</button>' +
+                        ' </div>' +
+                        '</td>' +
+                      '</tr>'
+                    ).fadeIn(250)
+                  } else if (pageUrl === '/emissao_atestado.html') {
+                    $('#resultado_pesquisa').append(
+                      '<tr>' +
+                        '<td>' +
+                          data.value[i].nome +
+                        '</td>' +
+                        '<td>' +
+                          data.value[i].turma_id_turma +
+                        '</td>' +
+                        '<td>' +
+                          data.value[i].matricula +
+                        '</td>' +
+                        '<td class="text-center">' +
+                        ' <div id="grupoAcoes">' +
+                        '   <button class="btn sce-btn-primary" title="Emitir atestado" data-matricula="' + data.value[i].matricula + '" data-row="' + i + '" id="botaoEmiteAtestado">Emitir atestado <i class="libre"></i></button>' +
+                        ' </div>' +
+                        '</td>' +
+                      '</tr>'
+                    ).fadeIn(250)
+                  }
                 }
               }
               // habilitando o uso do botão novamente.
@@ -121,21 +135,7 @@ if (typeof sockets == 'undefined') {
           } // switch data.desc
           break
         case '1004':
-          if (typeof data.value.code === 'undefined') {
-            $('p#error_box').html(
-              'Um erro ocorreu ao fazer a pesquisa. Erro: <strong>' + data.desc + ' ' +
-              data.value + '</strong>'
-            ).fadeIn('slow')
-          } else if (data.value.code === 'ECONNREFUSED') {
-            $('p#error_box').html(
-              'Erro de conexão (1004). Verifique o <a href="status.html">estado do sistema</a>.'
-            ).fadeIn('slow')
-          } else {
-            $('p#error_box').html(
-              'Um erro ocorreu ao fazer a pesquisa. Erro: <strong>' + data.desc + ' ' +
-              data.value.code + '</strong>'
-            ).fadeIn('slow')
-          }
+          window.handleError(data)
           $('#botao_pesquisa').removeClass('disabled')
           break
       }
@@ -143,7 +143,7 @@ if (typeof sockets == 'undefined') {
       $('table tbody tr td #grupoAcoes').on('click', function (e) {
         if (e.target !== e.currentTarget) {
           var clickedItem = e.target.id
-          var linhaNumero = Math.parseInt(e.target.dataset.row) + 1
+          var linhaNumero = parseInt(e.target.dataset.row, 10) + 1
 
           if (clickedItem === 'botaoVer') {
             window.acaoVer('estagiario', e.target.dataset.matricula)

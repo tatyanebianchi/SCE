@@ -29,7 +29,7 @@ if (typeof jQuery === 'undefined') {
 } else {
   $(document).ready(function () {
     // Um pouco de falso positivo aqui.
-    var bootstrap = (typeof $().popover == 'function')
+    var bootstrap = (typeof $().popover === 'function')
 
     if (bootstrap === 'undefined' || bootstrap) {
       $(function () {
@@ -38,7 +38,7 @@ if (typeof jQuery === 'undefined') {
 
       // Inicializando o componente tooltip.
       $(function () {
-          $('[data-toggle="tooltip"]').tooltip()
+        $('[data-toggle="tooltip"]').tooltip()
       })
 
       // thanks http://goo.gl/WJj13H
@@ -75,3 +75,18 @@ window.setElementValue = function (elementID, value) {
     elemento.value = value
   }
 }
+
+/**
+ * Método que retorna se o usuário está acessando o sistema por
+ * um celular.
+ */
+function telaCelular () {
+  if (document.documentElement.clientWidth >= 986) {
+    return false
+  } else {
+    return true
+  }
+}
+
+// Define-se uma variável global para o acesso em outros scripts.
+window.mobile = telaCelular()
