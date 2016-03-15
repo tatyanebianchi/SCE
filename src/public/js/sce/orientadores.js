@@ -45,17 +45,17 @@ function pesquisa_orientador (search_key) {
     search_for: _search_for
   }
 
-  ws.send(JSON.stringify({
+  window.ws.send(JSON.stringify({
     code: '1006',
     desc: 'search',
     value: pesquisa
   }))
 }
 
-if (typeof sockets === undefined) {
+if (typeof sockets === 'undefined') {
   throw new Error('This script requires sockets.js, verify if it was included.')
 }
-if (typeof notificacao === undefined) {
+if (typeof notificacao === 'undefined') {
   throw new Error('This script requires notification.js, verify if it was included.')
 } else {
   window.ws.onopen = function (e) {
@@ -116,7 +116,7 @@ if (typeof notificacao === undefined) {
     $('table tbody tr td #grupoAcoes').on('click', function (e) {
       if (e.target !== e.currentTarget) {
         var clickedItem = e.target.id
-        var linhaNumero = parseInt(e.target.dataset.row) + 1
+        var linhaNumero = parseInt(e.target.dataset.row, 10) + 1
 
         if (clickedItem === 'botaoVer') {
           window.acaoVer('orientador', e.target.dataset.siap)

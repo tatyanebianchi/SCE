@@ -16,106 +16,97 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 'use strict'
 
-if(typeof sockets == "undefined") {
-  throw new Error("This script requires sockets.js, verify if it was included.");
+if (typeof sockets === 'undefined') {
+  throw new Error('This script requires sockets.js, verify if it was included.')
 }
-if(typeof notificacao == "undefined") {
-  throw new Error("This script requires notification.js, verify if it was included.");
-}
-else {
-  $(document).ready(function() {
-    ws.onopen = function(e) {
-      console.log("Conexão com o web socket bem sucedida na porta %s", ws_port);
-      carregar_empresas(function() {
-        notificacao_sucesso('Empresas carregadas <i class="libre libre-check-yes"></i>');
-        esconder_notificacao();
-      });
+if (typeof notificacao === 'undefined') {
+  throw new Error('This script requires notification.js, verify if it was included.')
+} else {
+  $(document).ready(function () {
+    window.ws.onopen = function (e) {
+      console.log('Conexão com o web socket bem sucedida na porta %s', window.ws_port)
+      carregar_empresas(function () {
+        window.notificacao_sucesso('Empresas carregadas <i class="libre libre-check-yes"></i>')
+        window.esconder_notificacao()
+      })
     }
 
-    ws.onerror = function(e) {
-      console.log("Erro de conexão com o websocket, provavelmente o servidor foi desligado.");
+    window.ws.onerror = function (e) {
+      console.log('Erro de conexão com o websocket, provavelmente o servidor foi desligado.')
     }
 
-    ws.onclose = function(e) {
-      console.log("Conexão com o websocket fechada.");
+    window.ws.onclose = function (e) {
+      console.log('Conexão com o websocket fechada.')
     }
 
-    ws.onmessage = function(data) {
-      data = JSON.parse(data.data);
+    window.ws.onmessage = function (data) {
+      data = JSON.parse(data.data)
 
       switch (data.code) {
         case '1007':
-          switch(data.desc) {
+          switch (data.desc) {
             case 'empresas':
-              for(var i = 0; i < data.value.length; i++) {
+              for (var i = 0; i < data.value.length; i++) {
                 $('#tabela-empresas').append(
                   '<tr>' +
-                  ' <td>'+ data.value[i].nome + '</td>' +
+                  ' <td>' + data.value[i].nome + '</td>' +
                   ' <td>' + data.value[i].telefone + '</td>' +
                   ' <td>' + data.value[i].email + '</td>' +
                   ' <td class="text-center">' +
                   '   <div class="btn-group btn-group-lg" role="group" id="grupoAcoes">' +
-                  '     <button class="btn sce-btn-primary disabled" data-toggle="tooltip" data-container="body" title="Editar informações da empresa" data-id='+ data.value[i].id_empresa +' data-row="'+ i +'" id="botaoEdita"><i class="libre libre-edit"></i></button>' +
-                  '     <button class="btn sce-btn-default disabled" data-toggle="tooltip" data-container="body" title="Ver informações da empresa" data-id='+ data.value[i].id_empresa +' data-row="'+ i +'" id="botaoVer"><i class="libre libre-content"></i></button>' +
-                  '     <button class="btn sce-btn-danger" data-toggle="tooltip" data-container="body" title="Excluir empresa" data-id='+ data.value[i].id_empresa +' data-row="'+ i +'" id="botaoRemove"><i class="libre libre-trash"></i></button></div>' +
+                  '     <button class="btn sce-btn-primary disabled" data-toggle="tooltip" data-container="body" title="Editar informações da empresa" data-id=' + data.value[i].id_empresa + ' data-row="' + i + '" id="botaoEdita"><i class="libre libre-edit"></i></button>' +
+                  '     <button class="btn sce-btn-default disabled" data-toggle="tooltip" data-container="body" title="Ver informações da empresa" data-id=' + data.value[i].id_empresa + ' data-row="' + i + '" id="botaoVer"><i class="libre libre-content"></i></button>' +
+                  '     <button class="btn sce-btn-danger" data-toggle="tooltip" data-container="body" title="Excluir empresa" data-id=' + data.value[i].id_empresa + ' data-row="' + i + '" id="botaoRemove"><i class="libre libre-trash"></i></button></div>' +
                   ' </td>' +
                   '</tr>'
-                );
+                ).fadeIn(250)
               }
-
-              $('#tabela-empresas').fadeIn(350); 
-              break;
+              break
 
             case 'delete_empresa':
-              notificacao_sucesso('Empresa removida');
-              esconder_notificacao(1500);
-              break;
-            }
-          break;
+              window.notificacao_sucesso('Empresa removida')
+              window.esconder_notificacao(1500)
+              break
+          }
+          break
         case '1004':
-          $('p#error_box').html(
-            '<button type="button" class="close" data-dismiss="alert" title="Clique para fechar">' +
-            '<span aria-hidden="true"> &times;</span></button> Erro no sistema (1004): ' + data.desc
-          );
-          $('p#error_box').removeClass('sce-hide').fadeIn("slow");
-          break;
+          window.handleError(data)
+          break
       }
 
-      $("table tr td #grupoAcoes").on('click', function(e) {
-        if(e.target !== e.currentTarget) {
-          var clickedItem = e.target.id,
-              linhaNumero = parseInt(e.target.dataset.row) + 1;
+      $('table tr td #grupoAcoes').on('click', function (e) {
+        if (e.target !== e.currentTarget) {
+          var clickedItem = e.target.id
+          var linhaNumero = parseInt(e.target.dataset.row, 10) + 1
 
-          if(clickedItem === 'botaoVer') {
-            acaoVer('empresa', e.target.dataset.id);
-          }
-          else if(clickedItem === 'botaoEdita') {
-            acaoEdita('empresa', e.target.dataset.id);
-          }
-          else if(clickedItem === 'botaoRemove') {
-            acaoRemove('empresa', e.target.dataset.id);
-            getElementById('tabela-empresas').deleteRow(linhaNumero);
+          if (clickedItem === 'botaoVer') {
+            window.acaoVer('empresa', e.target.dataset.id)
+          } else if (clickedItem === 'botaoEdita') {
+            window.acaoEdita('empresa', e.target.dataset.id)
+          } else if (clickedItem === 'botaoRemove') {
+            window.acaoRemove('empresa', e.target.dataset.id)
+            document.getElementById('tabela-empresas').deleteRow(linhaNumero)
           }
         }
-        e.stopPropagation();
-      });
+        e.stopPropagation()
+      })
     }
 
     /**
      * Carrega a lista de empresas para o cliente.
      */
-    function carregar_empresas(callback) {
-      notificacao_informacao('Carregando empresas...');
+    function carregar_empresas (callback) {
+      window.notificacao_informacao('Carregando empresas...')
 
-      ws.send(JSON.stringify({
+      window.ws.send(JSON.stringify({
         code: '1006',
         desc: 'get_companies'
-      }));
+      }))
 
-      callback();
+      callback()
     }
-  });
+  })
 }
