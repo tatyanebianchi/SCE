@@ -31,10 +31,10 @@ var SCEDebug = false
 // Nome do log do servidor
 var logFile = '/log/server.log'
 
-//
+// O caminho absoluto para o log do servidor.
 var logPath = path.join(process.cwd(), logFile)
 
-//
+// Caminho absoluto para o diretório do log.
 var logDir = path.join(process.cwd(), path.dirname(logFile))
 
 // Número de exceções que o servidor sofreu.
@@ -97,12 +97,13 @@ exports.getProperties = function () {
  */
 exports.writeLog = function (message, code) {
   var date = Date()
+  var lineTerminator = require('os').EOL
 
   fs.open(logPath, 'a', function (err, fd) {
     if (err) {
       util.log('Erro ao abrir o arquivo ' + logPath + ' para escrita.')
     } else {
-      var logMessage = date + ' LOG: ' + code + ' -> ' + message + '\n'
+      var logMessage = date + ' LOG: ' + code + ' -> ' + message + lineTerminator
 
       fs.appendFileSync(logPath, logMessage, 'utf8',
       function (err) {
