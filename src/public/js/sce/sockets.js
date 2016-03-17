@@ -58,13 +58,12 @@ window.reconectar = function () {
     window.ws = window.bootWebSocket()
   } else if (window.ws.readyState === 0 || window.ws.readyState === 1) {
     sockets = true
-    window.esconder_notificacao()
     window.setTimeout(window.location.reload(true), 1000)
   }
 }
 
 /**
- * 
+ * Método que verifica o estado do WebSocket.
  */
 window.socketRefreshId = window.setInterval(function () {
   if (window.location.pathname !== '/status.html') {

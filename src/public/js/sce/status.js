@@ -19,7 +19,7 @@
 
 'use strict'
 
-if (typeof sockets == 'undefined') {
+if (typeof sockets === 'undefined') {
   throw new Error('This script requires sockets.js, verify if it was included.')
 } else {
   $(document).ready(function () {
@@ -146,7 +146,7 @@ if (typeof sockets == 'undefined') {
                              .fadeIn(500)
        $('#erro-bd').html(messageIcon + ' Não foi possível assegurar a conexão com o banco de dados.')
                     .fadeIn(500)
-       $('#botao-reconecta').fadeIn(500)                    
+       $('#botao-reconecta').fadeIn(500)
     }
 
     function esconderErroServidor () {
