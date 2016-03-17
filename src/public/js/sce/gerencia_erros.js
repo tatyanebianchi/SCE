@@ -19,13 +19,14 @@
 
 'use strict'
 
-if (typeof jQuery == 'undefind') {
+if (typeof jQuery === 'undefined') {
   throw new Error('error_handling.js needs jQuery to work')
 } else {
   // variável que ficará exposta para testes de inclusão deste arquivo
   var errorHandling = true
 
   $(document).ready(function () {
+    window.errorHandling = errorHandling
     var messageElement = $('p#error_box')
     var classes = 'sce-alert-danger sce-alert-warning sce-alert-success sce-alert-info'
     var infoIcon = '<div class="libre-stack">' +
