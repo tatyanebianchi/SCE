@@ -75,9 +75,9 @@ if (typeof sockets === 'undefined') {
                         '</td>' +
                         '<td class="text-center">' +
                         ' <div class="btn-group btn-group-lg" role="group" id="grupoAcoes">' +
-                        '  <button class="btn sce-btn-primary" title="Editar informações do estagiário" data-toggle="tooltip" data-container="body" data-matricula="' + data.value[i].matricula + '" id="botaoEdita"><i class="libre libre-edit"></i></button>' +
-                        '  <button class="btn sce-btn-default" title="Ver informações do estagiário" data-toggle="tooltip" data-container="body" data-matricula="' + data.value[i].matricula + '" id="botaoVer"><i class="libre libre-content"></i></button>' +
-                        '  <button class="btn sce-btn-danger" title="Excluir estagiário" data-toggle="tooltip" data-container="body" data-matricula="' + data.value[i].matricula + '" id="botaoRemove"><i class="libre libre-trash"></i></button>' +
+                        '  <button class="btn sce-btn-primary" title="Editar informações do estagiário" data-toggle="tooltip" data-container="body" data-matricula="' + data.value[i].matricula + '" data-row="' + i + '" id="botaoEdita"><i class="libre libre-edit"></i></button>' +
+                        '  <button class="btn sce-btn-default" title="Ver informações do estagiário" data-toggle="tooltip" data-container="body" data-matricula="' + data.value[i].matricula + '" data-row="' + i + '" id="botaoVer"><i class="libre libre-content"></i></button>' +
+                        '  <button class="btn sce-btn-danger" title="Excluir estagiário" data-toggle="tooltip" data-container="body" data-matricula="' + data.value[i].matricula + '" data-row="' + i + '" id="botaoRemove"><i class="libre libre-trash"></i></button>' +
                         ' </div>' +
                         '</td>' +
                       '</tr>'
@@ -195,7 +195,7 @@ if (typeof sockets === 'undefined') {
         search_for: _search_for
       }
 
-      ws.send(JSON.stringify({
+      window.ws.send(JSON.stringify({
         code: '1006',
         desc: 'search',
         value: pesquisa
