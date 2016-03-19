@@ -209,6 +209,23 @@ th {
   border-left: 2px solid rgb(23, 34, 47);
 }
 
+.help-nav > .active {
+  border-left: 1px solid rgb(23, 34, 47);
+}
+
+.help-nav > li:focus {
+  background: inherit !important;
+}
+
+ul.help-nav > ul.help-nav > li {
+  padding-left: 10px;
+  font-size: 12px;
+}
+
+ul.help-nav > ul.help-nav > li > a {
+  background: inherit !important;
+}
+
 .back_img {
   position: fixed !important;
   filter: blur(2px);
@@ -666,6 +683,27 @@ th {
   *  Bootstrap overrides
   *  Obs: In the future I will make the SCE bootstrap version
   */
+
+.navbar { 
+  background: white !important;  
+}
+
+.navbar .nav > li > a:hover {
+  background: rgb(37, 54, 74) !important;
+  color: white !important;
+}
+
+.navbar .nav > li > a:focus {
+  background: rgb(37, 54, 74) !important;
+  border-bottom: 2px solid rgb(37, 54, 74);
+  color: white !important;
+  outline: 0;
+}
+
+.navbar .nav > li > .dropdown-menu > li > a:hover {
+  background: rgb(37, 54, 74) !important;
+  color: white !important;
+}
 
 .nav-pills > li > a {
   font-weight: bold;
