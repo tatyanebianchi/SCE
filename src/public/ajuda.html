@@ -79,18 +79,18 @@
             <li><a href="#emissao">Emitir atestado de estágio</a></li>
             <li role="button" data-toggle="collapse" data-target="#configuracoesSistema" aria-expanded="false" aria-controls="configuracoesSistema">
               <a href="#configuracoes">Configurações do sistema</a>
+              <ul class="collapse nav help-nav" id="configuracoesSistema">
+                <li><a href="#configuracao-turma">Turmas</a></li>
+                <li><a href="#configuracao-orientador">Orientadores</a></li>
+                <li><a href="#configuracao-empresas">Empresas</a></li>
+              </ul>
             </li>
-            <ul class="collapse nav help-nav" id="configuracoesSistema">
-              <li><a href="#configuracao-turma">Turmas</a></li>
-              <li><a href="#configuracao-orientador">Orientadores</a></li>
-              <li><a href="#configuracao-empresas">Empresas</a></li>
-            </ul>
-            <li role="button" data-toggle="collapse" data-target="#errosAplicação"  aria-expanded="false" aria-controls="errosAplicacao">
+            <li role="button" data-toggle="collapse" data-target="#errosAplicacao"  aria-expanded="false" aria-controls="errosAplicacao">
               <a href="#erros">Erros da aplicação</a>
+              <ul class="collapse nav help-nav" id="errosAplicacao">
+                <li><a href="#erro404">Erro 404</a></li>    
+              </ul>
             </li>
-            <ul class="collapse nav help-nav" id="errosAplicação">
-              <li><a href="#erro404">Erro 404</a></li>    
-            </ul>
           </ul>
           <br>
           <ul class="nav" role="navigation">
@@ -314,6 +314,16 @@
     var linkElement = $('.link-note')
     
     $('body').scrollspy({ target: '#navbar-help' })
+    
+    // Não deixa o evento de clique propagar para o parente e assim fechar
+    // o menu.
+    $('#configuracoesSistema').on('click', function(e) {
+      e.stopPropagation()
+    })
+    
+    $('#errosAplicacao').on('click', function(e) {
+      e.stopPropagation()
+    })
     
     window.setInterval(function refresh() {
       if(document.documentElement.clientWidth >= 986) {

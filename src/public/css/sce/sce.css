@@ -201,28 +201,22 @@ th {
   border-left: 1px solid inherit;
 }
 
-.help-nav > li:hover {
+.help-nav > li > a:hover {
   border-left: 1px solid rgb(23, 34, 47);
 }
 
-.help-nav > li:active {
-  border-left: 2px solid rgb(23, 34, 47);
-}
-
-.help-nav > .active {
+.help-nav > .active > a {
   border-left: 1px solid rgb(23, 34, 47);
+  padding-left: 10px;
+  font-size: 15px;
 }
 
-.help-nav > li:focus {
-  background: inherit !important;
-}
-
-ul.help-nav > ul.help-nav > li {
+ul.help-nav > li > ul.help-nav > li {
   padding-left: 10px;
   font-size: 12px;
 }
 
-ul.help-nav > ul.help-nav > li > a {
+ul.help-nav > li > ul.help-nav > li > a:hover {
   background: inherit !important;
 }
 
@@ -695,7 +689,6 @@ ul.help-nav > ul.help-nav > li > a {
 
 .navbar .nav > li > a:focus {
   background: rgb(37, 54, 74) !important;
-  border-bottom: 2px solid rgb(37, 54, 74);
   color: white !important;
   outline: 0;
 }
