@@ -103,7 +103,13 @@ exports.writeLog = function (message, code) {
     if (err) {
       util.log('Erro ao abrir o arquivo ' + logPath + ' para escrita.')
     } else {
-      var logMessage = date + ' LOG: ' + code + ' -> ' + message + lineTerminator
+      var logMessage
+
+      if (code === undefined) {
+        logMessage = date + ' ' + message + lineTerminator
+      } else {
+        logMessage = date + ' LOG: ' + code + ' -> ' + message + lineTerminator
+      }
 
       fs.appendFileSync(logPath, logMessage, 'utf8',
       function (err) {
