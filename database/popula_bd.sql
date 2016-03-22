@@ -1,12 +1,12 @@
 -- Script para popular o banco de dados SCE.
 -- Utilizado somente para testes.
---
 
 
 -- Inserção de orientadores
 INSERT INTO `sce`.`orientador` (`siap`, `nome`) VALUES ('110', 'Franciel Amorim');
 INSERT INTO `sce`.`orientador` (`siap`, `nome`) VALUES ('111', 'Michell Loureiro');
 INSERT INTO `sce`.`orientador` (`siap`, `nome`) VALUES ('112', 'Landry Silva');
+INSERT INTO `sce`.`orientador` (`siap`, `nome`) VALUES ('113', 'Pedro Sá');
 
 -- Inserção de empresas
 INSERT INTO `sce`.`empresa` (`id_empresa`, `nome`, `razao_social`, 
@@ -14,11 +14,11 @@ INSERT INTO `sce`.`empresa` (`id_empresa`, `nome`, `razao_social`,
                              `endereco_rua`, `endereco_numero`, 
                              `endereco_bairro`, `endereco_cep`) 
                              VALUES ('1', 'Supernorte', 
-									 'Supermercados do Norte do Brasil Ltda.',
+									                   'Supermercados do Norte do Brasil Ltda.',
                                      '05327241000163', 
                                      '',
-                                     '',
-                                     '',
+                                     NULL,
+                                     NULL,
                                      'Rua Lauro Sodré',
                                      '640',
                                      'São José',
@@ -29,11 +29,11 @@ INSERT INTO `sce`.`empresa` (`id_empresa`, `nome`, `razao_social`,
                              `endereco_rua`, `endereco_numero`, 
                              `endereco_bairro`, `endereco_cep`) 
                              VALUES ('2', 'Eletronorte', 
-									 'Centrais Elétricas do Norte do Brasil S/A Ele.',
+									                   'Centrais Elétricas do Norte do Brasil S/A Ele.',
                                      '00357038002240', 
                                      '',
-                                     '',
-                                     '',
+                                     NULL,
+                                     NULL,
                                      'Av. Professora Edna Affi',
                                      '8444',
                                      'Tijucal',
@@ -41,8 +41,10 @@ INSERT INTO `sce`.`empresa` (`id_empresa`, `nome`, `razao_social`,
 
 -- Inserção de turmas
 INSERT INTO `sce`.`turma` (`id_turma`, `turno`, `curso`) 
-			   VALUES ('T228-4MA', 'Matutino', 
-                          'Manutenção e Suporte à Informática');
+				  VALUES ('T228-4MA', 'Matutino', 'Manutenção e Suporte à Informática');
                           
--- INSERT INTO `sce`.`turma` (`id_turma`, `turno`, `curso`) VALUES ('', '', '');
--- INSERT INTO `sce`.`turma` (`id_turma`, `turno`, `curso`) VALUES ('', '', '');
+INSERT INTO `sce`.`turma` (`id_turma`, `turno`, `curso`) 
+				  VALUES ('T335-2MA', 'Matutino', 'Edificações Integrado');
+                          
+INSERT INTO `sce`.`turma` (`id_turma`, `turno`, `curso`) 
+				  VALUES ('T345-1HG', 'Matutino', 'Eletrotécnica Integrado');
