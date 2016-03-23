@@ -21,7 +21,7 @@
 
 // node.js
 var cluster = require('cluster')
-var node_utils = require('util')
+var nodeUtils = require('util')
 var os = require('os')
 
 var sceUtils = require('./server_utils.js')
@@ -33,19 +33,23 @@ exports.bootSCE = function () {
     sceUtils.writeLog('Iniciando servidor com ' + os.cpus().length + ' workers', '900')
     sceUtils.writeLog('A aplicação está executando em: ' + process.cwd(), '900')
 
-    /* Inicia um processo adjacente ao processo mestre. Optimizando para máquinas
-    * com mais de um núcleo.
-    */
-    for (var i = 0; i < os.cpus().length; i++) {
+    if (sceUtils.isMP()) {
+      /*
+       * Inicia um processo adjacente ao processo mestre. Optimizando para máquinas
+       * com mais de um núcleo.
+       */
+      for (var i = 0; i < os.cpus().length; i++) {
+        cluster.fork()
+      }
+    } else {
       cluster.fork()
     }
-
 
     // Reiniciando o processo se houver exceção.
     cluster.on('exit', function (worker, code, signal) {
       setTimeout(function () {
         if (sceUtils.isDebug()) {
-          node_utils.log('worker ' + worker.process.pid + ' morreu (' + (signal || code) + '). Reiniciando...')
+          nodeUtils.log('worker ' + worker.process.pid + ' morreu (' + (signal || code) + '). Reiniciando...')
         }
 
         sceUtils.writeLog('Algo sério aconteceu e o cluster está reiniciando o worker.', '904')
@@ -56,7 +60,7 @@ exports.bootSCE = function () {
 
     cluster.on('online', function (worker) {
       if (sceUtils.isDebug()) {
-        node_utils.log('O worker ' + worker.id + ' está executando.')
+        nodeUtils.log('O worker ' + worker.id + ' está executando.')
       }
 
       sceUtils.writeLog('O worker ' + worker.id + ' está executando.', '900')
@@ -122,8 +126,8 @@ exports.bootSCE = function () {
 
       sceUtils.exceptionsCounter += 1
       sceUtils.writeLog('Exceção: ' + stack, '904')
-      node_utils.log('Exceção: ' + stack)
-      node_utils.inspect(stack)
+      nodeUtils.log('Exceção: ' + stack)
+      nodeUtils.inspect(stack)
       process.exit(7)
     })
   }

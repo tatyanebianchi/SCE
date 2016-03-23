@@ -25,8 +25,11 @@ var path = require('path')
 var fs = require('fs')
 var util = require('util')
 
-// variável que controla se o sce está em modo debug.
+// Variável que determina se o servidor do SCE está em modo debug.
 var SCEDebug = false
+
+// Váriável que determina se o servidor do SCE deve utilizar multi processamento ou não.
+var SCENP = true
 
 // Nome do log do servidor
 var logFile = '/log/server.log'
@@ -64,12 +67,37 @@ exports.type = function (message, variable) {
   util.log(message + ' typeof -> ' + typeof (variable))
 }
 
+/**
+ * Função que retorna se o servidor está em modo debug ou não.
+ */
 exports.isDebug = function () {
   return SCEDebug
 }
 
-exports.setDebug = function (boolean) {
-  SCEDebug = boolean
+/**
+ * "Seta" o valor da variável SCEDebug.
+ * @param {Boolean} _boolean Variável que determina se o servidor
+ * deve entrar em modo debug ou não.
+ */
+exports.setDebug = function (_boolean) {
+  SCEDebug = _boolean
+}
+
+/**
+ * Função que retorna se o servidor está em modo de multi processamento
+ * ou não.
+ */
+exports.isMP = function () {
+  return SCENP
+}
+
+/**
+ * "Seta" o valor da variável SCENP.
+ * @param {Boolean} _boolean Variável que determina se o servidor
+ * deve executar com multi processamento ou não.
+ */
+exports.setMultiProcessamento = function (_boolean) {
+  SCENP = _boolean
 }
 
 /**

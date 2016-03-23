@@ -4,7 +4,7 @@ node_js:
 
 before_script:
   - chmod +x ./iniciar_servidor.sh
-  - ./iniciar_servidor.sh -d &
+  - ./iniciar_servidor.sh -d --np &
 
 script: 
   - npm test
