@@ -3,6 +3,8 @@ node_js:
    - 0.10
 
 before_script:
+  - npm install yargs
+  - npm install mocha
   - chmod +x ./iniciar_servidor.sh
   - ./iniciar_servidor.sh -d --np &
 
