@@ -2,4 +2,9 @@ language: node_js
 node_js:
    - 0.10
 
-script: npm test
+before_script:
+  - chmod +x ./iniciar_servidor.sh
+  - ./iniciar_servidor.sh -d &
+
+script: 
+  - npm test
