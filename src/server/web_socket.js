@@ -88,12 +88,11 @@ wss.on('connection', function connection (ws) {
 
     message = JSON.parse(message)
 
-    // TODO: Verificar se o socket está aberto para enviar a mensagem. (ReadyState = 1)
     switch (message.code) {
       case '1006': // requisição
         switch (message.desc) {
           case 'get_companies':
-            SCEDb.get_empresas(function (data, err) {
+            SCEDb.getEmpresas(function (data, err) {
               if (SCEUtils.isDebug()) {
                 SCEUtils.type('Objeto retornado do banco de dados', data)
                 SCEUtils.type('Erro no banco de dados', err)
@@ -178,12 +177,33 @@ wss.on('connection', function connection (ws) {
                   SCEUtils.writeLog('[DB_API_ERR]' + err, '904')
                 }
               })
+            } else if (message.value.search_for[0] === 'empresa') {
+              SCEDb.search('empresa', message.value, function (data, err) {
+                if (SCEUtils.isDebug()) {
+                  SCEUtils.type('Objeto retornado do banco de dados', data)
+                  SCEUtils.type('Erro no banco de dados', err)
+                }
+
+                if (data) {
+                  var orientadores = []
+                  orientadores = data.slice()
+
+                  sendMessage(ws, 'empresas', orientadores, 'search')
+                } else {
+                  if (SCEUtils.isDebug()) {
+                    util.log('Erro em \'search\': ' + err)
+                  }
+
+                  sendError(ws, '[DB_API_ERR]', err, 'search')
+                  SCEUtils.writeLog('[DB_API_ERR]' + err, '904')
+                }
+              })
             } else {
               // NOTE: alguém por acaso está tentando fazer XSS
             }
             break
           case 'get_tutors':
-            SCEDb.get_orientadores(function (data, err) {
+            SCEDb.getOrientadores(function (data, err) {
               if (SCEUtils.isDebug()) {
                 SCEUtils.type('Objeto retornado do banco de dados', data)
                 SCEUtils.type('Erro no banco de dados', err)
@@ -205,7 +225,7 @@ wss.on('connection', function connection (ws) {
             })
             break
           case 'get_classes':
-            SCEDb.get_classes(function (data, err) {
+            SCEDb.getClasses(function (data, err) {
               if (SCEUtils.isDebug()) {
                 SCEUtils.type('Objeto retornado do banco de dados', data)
                 SCEUtils.type('Erro no banco de dados', err)
@@ -227,7 +247,7 @@ wss.on('connection', function connection (ws) {
             })
             break
           case 'delete_turma':
-            SCEDb.delete_turma(message.value, function (data, err) {
+            SCEDb.deleteTurma(message.value, function (data, err) {
               if (SCEUtils.isDebug()) {
                 SCEUtils.type('Objeto retornado do banco de dados', data)
                 SCEUtils.type('Erro no banco de dados', err)
@@ -246,7 +266,7 @@ wss.on('connection', function connection (ws) {
             })
             break
           case 'delete_estagiario':
-            SCEDb.delete_estagiario(message.value, function (data, err) {
+            SCEDb.deleteEstagiario(message.value, function (data, err) {
               if (SCEUtils.isDebug()) {
                 SCEUtils.type('Objeto retornado do banco de dados', data)
                 SCEUtils.type('Erro no banco de dados', err)
@@ -265,7 +285,7 @@ wss.on('connection', function connection (ws) {
             })
             break
           case 'delete_orientador':
-            SCEDb.delete_orientador(message.value, function (data, err) {
+            SCEDb.deleteOrientador(message.value, function (data, err) {
               if (SCEUtils.isDebug()) {
                 SCEUtils.type('Objeto retornado do banco de dados', data)
                 SCEUtils.type('Erro no banco de dados', err)
@@ -284,7 +304,7 @@ wss.on('connection', function connection (ws) {
             })
             break
           case 'delete_empresa':
-            SCEDb.delete_empresa(message.value, function (data, err) {
+            SCEDb.deleteEmpresa(message.value, function (data, err) {
               if (SCEUtils.isDebug()) {
                 SCEUtils.type('Objeto retornado do banco de dados', data)
                 SCEUtils.type('Erro no banco de dados', err)

@@ -23,28 +23,29 @@
 var sceUtils = require('./src/server/server_utils.js')
 var sceServer = require('./src/server/server.js')
 
-if (process.argv[2] === '-d' || process.argv[2] === '-debug') {
-  sceUtils.createLogDir()
+var argv = require('yargs')
+      .boolean(['d', 'np', 'debug'])
+      .help('h')
+      .alias('h', 'help')
+      .nargs('d')
+      .describe('d', 'O servidor vai funcionar em modo debug, o que o fará ' +
+                'emitir mensagens de aviso/erro na stdout')
+      .nargs('debug')
+      .describe('debug', 'Equivalente a opção d')
+      .nargs('np')
+      .describe('np', 'Opção não multi processamento, desabilita o multi processamento do servidor.' +
+                ' Fazendo com que o mesmo execute utilizando somente um núcleo lógico do processador')
+      .example('iniciar_servidor\.(sh|bat)')
+      .example('iniciar_servidor\.(sh|bat) --debug --np')
+      .locale('pt_BR')
+      .argv
+
+if (argv.debug || argv.d) {
   sceUtils.setDebug(true)
-  sceServer.bootSCE()
-} else if (process.argv[2] === '-h') {
-  console.log('Uso: ')
-  console.log('    nodejs server <opções>')
-  console.log('Opções: ')
-  console.log('    -d: opção debug, o servidor vai funcionar em modo debug, o que o fará ')
-  console.log('emitir mensagens de aviso/erro na stdout.')
-  console.log('    -h: opção ajuda, mostra esse menu.')
-  process.exit()
-} else if (process.argv[2]) {
-  console.error('Flag ' + process.argv[2] + ' inválida.\n')
-  console.log('Uso: ')
-  console.log('    nodejs server <opções>')
-  console.log('Opções: ')
-  console.log('    -d: opção debug, o servidor vai funcionar em modo debug, o que o fará ')
-  console.log('emitir mensagens de aviso/erro na stdout.')
-  console.log('    -h: opção ajuda, mostra esse menu.')
-  process.exit(1)
-} else {
-  sceUtils.createLogDir()
-  sceServer.bootSCE()
 }
+if (argv.np) {
+  sceUtils.setMultiProcessamento(false)
+}
+
+sceUtils.createLogDir()
+sceServer.bootSCE()

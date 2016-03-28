@@ -55,8 +55,8 @@ exports.query = function (query_data, callback_return) {
         if (err) {
           callback_return(undefined, err)
         } else {
-          if (rows == '') {
-            callback_return(undefined, 'Nenhum resultado foi encontrado.')
+          if (rows === '') {
+            callback_return('Nenhum resultado foi encontrado.', undefined)
           } else {
             callback_return(rows, undefined)
           }

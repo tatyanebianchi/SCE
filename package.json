@@ -1,6 +1,6 @@
 {
   "name": "SCE",
-  "version": "0.0.0",
+  "version": "0.0.7",
   "description": "Sistema de Controle de Estágio",
   "main": "src/server/server.js",
   "directories": {

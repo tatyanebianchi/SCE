@@ -17,74 +17,121 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-'use strict'
+/**
+ * Script para gerenciar a edição e a visualização de dados do sistema.
+ */
 
-// Verificando se o objeto sockets existe na página.
-if (typeof sockets == 'undefined') {
-  throw new Error('This script requires sockets.js, verify if it was included.');
-}
-else {
-  $(document).ready(function() {
-    // NOTE: O nome dos modais podem não estar semânticamente claros.
+if (typeof basejs === 'undefined') {
+  throw new Error('This script requires base.js, verify if it was included.')
+} else if (typeof sockets === 'undefined') {
+  throw new Error('This script requires sockets.js, verify if it was included.')
+} else if (typeof notificacao === 'undefined') {
+  throw new Error('This script requires notification.js, verify if it was included.')
+} else {
+  $(document).ready(function () {
+    /**
+     * Preparando a pesquisa no banco de dados
+     */
+    var decodedURL = decodeURIComponent(window.location.href).split('/')
+    var visualize = false
+    var what = null
+    var key = null
+
+    for (var i in decodedURL) {
+      if (decodedURL[i] === 'visualize') {
+        visualize = true
+      }
+    }
+
+    what = decodedURL[decodedURL.length - 2]
+    key = decodedURL[decodedURL.length - 1]
+
+    var pesquisa = {
+      search_string: key,
+      search_for: [null, null]
+    }
+
+    window.ws.onopen = function (e) {
+      console.log('Conexão com o web socket bem sucedida na porta %s', window.ws_port)
+    }
+
+    window.ws.onerror = function (e) {
+      console.log('Erro de conexão com o websocket, provavelmente o servidor foi desligado.')
+    }
+
+    window.ws.onclose = function (e) {
+      console.log('Conexão com o websocket fechada.')
+    }
+
+    window.ws.onmessage = function (data) {
+      data = JSON.parse(data.data)
+
+      switch (data.code) {
+        case '1007':
+          switch (data.desc) {
+            case 'estagiarios':
+              break
+            case 'orientadores':
+              break
+            case 'empresas':
+              break
+            case 'turmas':
+              break
+          }
+          break
+        case '1004':
+          window.handleError(data)
+          break
+      }
+    }
 
     /**
-     * @param {String} what O que remover?
-     * @param {Integer} key A chave que descreve o que vai ser removido, é
-     * uma chave única.
+     * Enviando requisição de pesquisa para o servidor.
      */
-    window.acaoRemove = function(what, key) {
-      //$('#removeModal').modal('show');
+    switch (what) {
+      case 'estagiario':
+        pesquisa.search_for[0] = 'estagiario'
+        pesquisa.search_for[1] = 'matricula'
 
-      var descricaoRequisicao = null;
-
-      switch(what) {
-        case 'estagiario':
-          descricaoRequisicao = 'delete_estagiario';
-          break;
-
-        case 'orientador':
-          descricaoRequisicao = 'delete_orientador';
-          break;
-
-        case 'empresa':
-          descricaoRequisicao = 'delete_empresa';
-        break;
-
-        case 'turma':
-          descricaoRequisicao = 'delete_turma';
-          break;
-
-        case 'usuario':
-          descricaoRequisicao = 'delete_usuario';
-          break;
-      }
-
-
-      if (descricaoRequisicao !== null) {
-        ws.send(JSON.stringify({
+        window.ws.send(JSON.stringify({
           code: '1006',
-          desc: descricaoRequisicao,
-          value: key
-        }));
-      }
-    }
+          desc: 'search',
+          value: pesquisa
+        }))
+        break
+      case 'empresa':
+        pesquisa.search_for[0] = 'empresa'
+        pesquisa.search_for[1] = 'id_empresa'
 
-    /**
-     * @param {String} what O que remover?
-     * @param {Integer} key A chave que descreve o que vai ser removido, é
-     * uma chave única.
-     */
-    window.acaoEdita = function(what, key) {
-      $('#editaModal').modal('show');
-    }
+        window.ws.send(JSON.stringify({
+          code: '1006',
+          desc: 'search',
+          value: pesquisa
+        }))
+        break
+      case 'turma':
+        pesquisa.search_for[0] = 'turma'
+        pesquisa.search_for[1] = 'id_turma'
 
-    /**
-     * @param {String} what O que remover?
-     * @param {Integer} key A chave que descreve o que vai ser removido, é
-     * uma chave única.
-     */
-    window.acaoVer = function(what, key) {
-      $('#verModal').modal('show');
+        window.ws.send(JSON.stringify({
+          code: '1006',
+          desc: 'search',
+          value: pesquisa
+        }))
+        break
+      case 'orientador':
+        pesquisa.search_for[0] = 'orientador'
+        pesquisa.search_for[1] = 'siap'
+
+        window.ws.send(JSON.stringify({
+          code: '1006',
+          desc: 'search',
+          value: pesquisa
+        }))
+        break
+      default:
+        console.error('URL mal formatada.')
+        break
     }
-  });
+  })
 }

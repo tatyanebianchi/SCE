@@ -69,17 +69,28 @@
   <div class="container-fluid">
     <section class="row">
       <article class="col-md-3">
-        <div class="affix" >
+        <div class="affix" id="navbar-help">
           <ul class="nav help-nav" role="navigation" >
-            <li><a href="#title-1">Por dentro da aplicação</a></li>
-            <li><a href="#title-2">Compatibilidade entre browsers</a></li>
-            <li><a href="#title-3">O Login</a></li>
-            <li><a href="#title-4">Cadastro de estagiário</a></li>
-            <li><a href="#title-5">Remoção de estagiário</a></li>
-            <li><a href="#title-6">Emitir atestado de estágio</a></li>
-            <li><a href="#title-7">Empresas Conveniadas</a></li>
-            <li><a href="#title-8">Erros da aplicação</a></li>
-            <li><a href="#title-9">Erro 404</a></li>
+            <li><a href="#compatibilidade">Compatibilidade entre browsers</a></li>
+            <li><a href="#login">O Login</a></li>
+            <li><a href="#introducao">Por dentro da aplicação</a></li>
+            <li><a href="#cadastro">Cadastro de estagiário</a></li>
+            <li><a href="#remocao">Remoção de estagiário</a></li>
+            <li><a href="#emissao">Emitir atestado de estágio</a></li>
+            <li role="button" data-toggle="collapse" data-target="#configuracoesSistema" aria-expanded="false" aria-controls="configuracoesSistema">
+              <a href="#configuracoes">Configurações do sistema</a>
+              <ul class="collapse nav help-nav" id="configuracoesSistema">
+                <li><a href="#configuracao-turma">Turmas</a></li>
+                <li><a href="#configuracao-orientador">Orientadores</a></li>
+                <li><a href="#configuracao-empresas">Empresas</a></li>
+              </ul>
+            </li>
+            <li role="button" data-toggle="collapse" data-target="#errosAplicacao"  aria-expanded="false" aria-controls="errosAplicacao">
+              <a href="#erros">Erros da aplicação</a>
+              <ul class="collapse nav help-nav" id="errosAplicacao">
+                <li><a href="#erro404">Erro 404</a></li>    
+              </ul>
+            </li>
           </ul>
           <br>
           <ul class="nav" role="navigation">
@@ -88,7 +99,7 @@
         </div>
       </article>
 
-      <article class="col-md-7 col-md-offset-1 help-block">
+      <article class="col-md-7 col-md-offset-1 help-block" data-spy="scroll" data-target="#navbar-help">
         <div class="jumbotron" >
           <h1 class="text-center"><i class="libre libre-info"></i></h1>
           <h2>Olá, seja bem-vindo(a) a página de ajuda.</h2>
@@ -98,7 +109,7 @@
           </h4>
         </div>
 
-        <div id="title-1">
+        <div id="compatibilidade">
           <div class="help-content">
             <h3 class="title-2"> Por dentro da aplicação!</h3>
             <p>
@@ -137,8 +148,7 @@
             </blockquote>
           </div>
         </div>
-
-        <div id="title-3">
+        <div id="login">
           <div class="help-content">
             <h3 class="title-2">O Login</h3>
             <p>
@@ -151,7 +161,20 @@
           </div>
         </div>
 
-        <div id="title-4">
+        <div id="introducao">
+          <div class="help-content">
+            <h3 class="title-2"> Por dentro da aplicação!</h3>
+            <p>
+              Este é um sistema voltado ao controle de estágios, a princípio foi projetado para ser utilizado no Instituto Federal de Educação,
+              Ciência e Tecnologia do Pará- Campus Tucuruí, a fim de possibilitar o gerenciamento do cadastro de cada estagiário, classificando-os
+              por turma ou por empresa conveniada, também é possível emitir o atestado de conclusão, portanto, por meio desta aplicação de fácil
+              utilização é possível verificar quais alunos fazem estágio e emitir uma declaração de conclusão. É possível verificar as informações
+              básicas e incluir observações sobre os estagiários e das empresas.
+            </p>
+          </div>
+        </div>
+
+        <div id="cadastro">
           <div class="help-content">
             <h3 class="title-2"> Cadastro de estagiário</h3>
             <p>
@@ -176,7 +199,7 @@
           </div>
         </div>
 
-        <div id="title-5">
+        <div id="remocao">
           <div class="help-content">
             <h3 class="title-2">Remoção de estagiário</h3>
             
@@ -188,10 +211,10 @@
           </div>
         </div>
 
-        <div id="title-6">
+        <div id="emissao">
           <div class="help-content">
             <h3 class="title-2">Emitir atestado de estágio</h3>
-             
+            
             <p>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
             tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -201,8 +224,41 @@
             </p>
           </div>
         </div>
+        
+        <div id="configuracoes">
+          <div class="help-content">
+            <h3 class="title-2">Configurações</h3>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </div>
+        </div>
+        
+        <div id="configuracao-turma">
+          <div class="help-content">
+            <h3 class="title-2">Turmas</h3>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </div>
+        </div>
+        
+        <div id="configuracao-orientador">
+          <div class="help-content">
+            <h3 class="title-2">Orientadores</h3>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </div>
+        </div>
 
-        <div id="title-7">
+        <div id="configuracao-empresas">
           <div class="help-content">
             <h3 class="title-2">Empresas Conveniadas</h3>
             
@@ -231,12 +287,12 @@
                   </ul>
               </ul>
             </p>
-          <img src="" alt="Empresas conveniadas" class="" width="" height="">
+            <img src="" alt="Empresas conveniadas" class="" width="" height="">
+          </div>
         </div>
-      </div>
 
 
-        <div id="title-8">
+        <div id="erros">
           <div class="help-content">
             <h3 class="title-2">Erros de aplicação</h3>
             <p>
@@ -248,8 +304,8 @@
             <p>
           </div>
         </div>
-
-        <div id="title-9">
+        
+        <div id="erro404">
           <div class="help-content">
             <h3 class="title-2">Erro 404</h3>
             <p>
@@ -269,9 +325,21 @@
   <script>
     var linkElement = $('.link-note')
     
+    $('body').scrollspy({ target: '#navbar-help' })
+    
+    // Não deixa o evento de clique propagar para o parente e assim fechar
+    // o menu.
+    $('#configuracoesSistema').on('click', function(e) {
+      e.stopPropagation()
+    })
+    
+    $('#errosAplicacao').on('click', function(e) {
+      e.stopPropagation()
+    })
+    
     window.setInterval(function refresh() {
       if(document.documentElement.clientWidth >= 986) {
-        if (scrollY > 100) {
+        if (scrollY > 400) {
           linkElement.fadeIn(100)
                      .removeClass('sce-hide')
         } else {
