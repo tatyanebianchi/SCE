@@ -6,7 +6,10 @@
   "directories": {
     "test": "test"
   },
-  "dependencies": {},
+  "dependencies": {
+    "mocha": "^2.4.5",
+    "yargs": "^4.3.2"
+  },
   "devDependencies": {
     "mocha": "^2.3.3"
   },

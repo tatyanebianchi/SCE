@@ -33,5 +33,6 @@
 src/public/css/bootstrap/node_modules/
 src/public/img/Thumbs.db
 LibreICONS-master/
+node_modules/
 log/
 
