@@ -1,0 +1,287 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>SCE</title>
+  
+	<meta charset="utf-8">
+
+  <link rel="apple-touch-icon" sizes="57x57" href="img/favicons/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="img/favicons/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="img/favicons/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="img/favicons/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="img/favicons/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="img/favicons/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="img/favicons/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="img/favicons/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/favicons/apple-touch-icon-180x180.png">
+  <link rel="icon" type="image/png" href="img/favicons/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="img/favicons/favicon-194x194.png" sizes="194x194">
+  <link rel="icon" type="image/png" href="img/favicons/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="img/favicons/android-chrome-192x192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="img/favicons/favicon-16x16.png" sizes="16x16">
+  <link rel="manifest" href="img/favicons/manifest.json">
+  <link rel="mask-icon" href="img/favicons/safari-pinned-tab.svg" color="#17222f">
+  <link rel="shortcut icon" href="img/favicons/favicon.ico">
+  <meta name="msapplication-TileColor" content="#22364a">
+  <meta name="msapplication-TileImage" content="img/favicons/mstile-144x144.png">
+  <meta name="msapplication-config" content="img/favicons/browserconfig.xml">
+  <meta name="theme-color" content="#cc9191">
+  
+	<!-- mobile stuff -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Bootstrap -->
+	<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.min.css">
+
+	<!-- Libre icons -->
+	<link rel="stylesheet" type="text/css" href="css/libre-icons/libreicons.css">
+
+	<!-- SCE CSS -->
+	<link rel="stylesheet" type="text/css" href="css/sce/sce.css">
+</head>
+
+<body ondragstart="false" class="">
+	<div class="container-fluid">
+		<header class="row">
+			<div class="sce-hide" id="notificacao"></div>
+
+			<nav class="navbar navbar-default">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">
+            <img src="img/sce_logo.png" alt="SCE - Sistema de Controle de Estágio"/>
+          </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-right" id="navbar-collapse">
+          <ul class="nav navbar-nav text-right">
+            <li><a href="javascript:window.history.back()">Voltar a página anterior</a></li>
+            <li><a href="ajuda.html#visualizar-editar" title="Precisa de ajuda? Clique-me">Ajuda</a></li>
+          </ul>
+        </div>
+			</nav>
+		</header>
+
+    
+		<section class="col-md-12">
+			<article class="row"><br>
+        <p class="sce-hide sce-alert sce-alert-danger" data-toggle="tooltip" data-container="body" data-placement="top" title="Clique para fechar o alerta" id="error_box">
+			  </p>
+        
+        <div class="sce-hide margin-bottom" id="cabecalho-visualiza">
+          <p class="sce-alert sce-alert-info col-md-10" data-toggle="tooltip" data-container="body" data-placement="top" title="Clique para fechar o alerta">
+            <span class="libre-stack">
+               <i class="libre libre-stack-1x libre-circle"></i>
+               <i class="libre libre-stack-1x libre-info text-inverse"></i>
+            </span>
+            Olá, seja bem vindo(a) a página de visualização/controle de entidades do sistema, para 
+            habilitar a edição basta clicar no ícone a direita deste balão. Até breve! ^.^
+            
+          </p>
+          <button class="btn-lg btn-out-secondary float-right" onclick="habilitarEdicao()">Habilitar edição</button>
+          <br>
+        </div>
+        
+        <div class="sce-hide margin-bottom" id="cabecalho-edita">
+          <h4 class="title-1">
+            Edição
+            <a tabindex="0" role="button" class="tool-info float-right" data-toggle="popover" data-placement="left" title="Página de edição de entidades"
+              data-content="Nessa página encontra-se o formulário para a edição da entidade em questão. Para mais informações siga a página de ajuda." data-trigger="focus">
+                <i  class="libre libre-question"></i>
+            </a>
+          </h4>
+        </div>
+        
+        <form class="form-horizontal margin-top sce-hide" method="post" name="formEstagiario" id="form-estagiario">
+          <div class="form-group">
+            <label for="estagiario[nome]" class="col-sm-1 control-label">Nome: </label>
+            <div class="col-sm-11">
+              <input type="text" class="form-control" name="estagiario[nome]" placeholder="Exemplo: Rafael Campos Nunes" required readonly>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="estagiario[matricula]" class="col-sm-1 control-label">Matrícula: </label>
+            <div class="col-sm-11">
+              <input type="text" class="form-control" name="estagiario[matricula]" placeholder="Exemplo: 20122280033" required readonly>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="estagiario[turma]" class="col-sm-1 control-label">Turma: </label>
+            <div class="col-sm-11">
+							<select class="form-control" name="estagiario[turma]" id="select-turma" disabled>
+                <option value="none" selected>Selecione uma turma</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="estagiario[turno]" class="col-sm-1 control-label">Turno: </label>
+            <div class="col-sm-5">
+              <select class="form-control" name="estagiario[turno]" data-toggle="tooltip" data-placement="right" data-container="body"
+							title="Observe que o turno pedido é o turno de trabalho do estagiário." id="select-turno" disabled>
+                <option value="none" selected>Selecione um turno</option>
+                <option value="mat">Matutino</option>
+                <option value="ves">Vespertino</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="empresas" class="col-sm-1 control-label">Empresa: </label>
+            <div class="col-sm-5">
+              <select class="form-control" name="estagiario[empresa]" id="select-empresa" disabled>
+                <option value="none" selected="">Selecione a empresa de estágio</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="estagiario[orientador]" class="col-sm-1 control-label">Orientador: </label>
+            <div class="col-sm-4 col-sm-offset-1">
+              <select class="form-control" name="estagiario[orientador]" id="select-orientador" disabled>
+                <option value="none" selected>Selecione um orientador</option>
+              </select>
+            </div>
+          </div>
+
+          <p class="title-2">
+            Período de estágio
+          </p>
+          <div class="form-group">
+            <label class="col-sm-1 control-label">Início: </label>
+						<div class="col-sm-5">
+              <input type="text" name="estagiario[periodo_inicio]" class="form-control" placeholder="DD-MM-AAAA" data-toggle="tooltip" data-placement="right" data-container="body"
+							title="Coloque a data conforme descrita pelo campo de texto, no formato: DIA-MÊS-ANO. Exemplo: 21-08-2014" id="data_inicio" maxlength="10" required readonly>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-1 control-label">Fim: </label>
+            <div class="col-sm-5">
+              <input type="text" name="estagiario[periodo_fim]" class="form-control" placeholder="DD-MM-AAAA" data-toggle="tooltip" data-placement="right" data-container="body"
+							title="Coloque a data conforme descrita pelo campo de texto, no formato: DIA-MÊS-ANO. Exemplo: 21-08-2015" id="data_fim" maxlength="10" required readonly>
+            </div>
+          </div>
+
+					<textarea class="form-control" name="estagiario[observacao]" placeholder="Se houver alguma observação ao estagiário, escreva-a aqui." readonly></textarea>
+          
+          <div class="float-right margin-bottom">
+            <br>
+            <button type="button" class="btn sce-btn-success" id="botao-atualizar" onclick="document.formEstagiario.submit()" disabled>Atualizar  <i class="libre libre-check-yes"></i></button>
+            <button type="button" class="btn sce-btn-default" id="botao-limpa-campos" onclick="limparCampos()" disabled>Limpar campos <i class="libre libre-eraser"></i></button>
+          </div>
+        </form>
+        
+        <form class="sce-hide margin-top" method="post" name="formOrientador" id="form-orientador">
+          <h4 class="title-3">Informações do orientador</h4>
+          <div class="form-group">
+            <input type="text" name="orientador[nome]" class="form-control" placeholder="Nome completo do orientador. Exemplo: Landry Silva" required readonly>
+          </div>
+
+          <div class="form-group">
+            <input type="number" name="orientador[siap]" class="form-control" placeholder="o SIAP do orientador." required readonly>
+          </div>
+          
+          <div class="float-right margin-bottom">
+            <br>
+            <button type="submit" class="btn sce-btn-success" id="botao-atualizar" disabled>Atualizar  <i class="libre libre-check-yes"></i></button>
+            <button type="button" class="btn sce-btn-default" id="botao-limpa-campos" onclick="limparCampos()" disabled>Limpar campos <i class="libre libre-eraser"></i></button>
+          </div>
+        </form>
+        
+        <form class="sce-hide margin-top" method="post" name="formTurma" id="form-turma">
+          <h4 class="title-3">Informações da turma</h4>
+          <div class="form-group">
+            <input type="text" name="turma[id_turma]" class="form-control" placeholder="Código da turma. Exemplo: T228-4MA." required readonly>
+          </div>
+
+          <div class="form-group">
+            <input type="text" name="turma[curso]" class="form-control" placeholder="Nome do curso. Exemplo: Manutenção e Suporte à Informática." required readonly>
+          </div>
+
+          <div class="form-group">
+            <select class="form-control" name="turma[turno]" disabled>
+                <option value="none">Turno de estudo da turma</option>
+                <option value="Matutino">Matutino</option>
+                <option value="Vespertino">Vespertino</option>
+                <option value="Noturno">Noturno</option>
+            </select>
+          </div>
+          
+          <div class="float-right margin-bottom">
+            <br>
+            <button type="button" class="btn sce-btn-success" id="botao-atualizar" onclick="document.formTurma.submit()" disabled>Atualizar  <i class="libre libre-check-yes"></i></button>
+            <button type="button" class="btn sce-btn-default" id="botao-limpa-campos" onclick="limparCampos()" disabled>Limpar campos <i class="libre libre-eraser"></i></button>
+          </div>
+        </form>
+        
+        <form class="sce-hide margin-top" method="post" name="formEmpresa" id="form-empresa">
+          <h4 class="title-3">Informações básicas</h4>
+          <div class="form-group">
+            <input type="text" name="empresa[nome]" class="form-control" placeholder="Nome da empresa. Exemplo: Supernorte" required readonly>
+          </div>
+
+          <div class="form-group">
+            <input type="text" name="empresa[razao_social]" class="form-control" placeholder="Razão social da empresa. Exemplo: Supermercados do Norte do Brasil" required readonly>
+          </div>
+
+          <div class="form-group">
+            <input type="text" name="empresa[cnpj]" class="form-control" placeholder="CNPJ. Exemplo: 05.327.241/0001-63" required readonly>
+          </div>
+
+          <h4 class="title-3">Endereço</h4>
+          <div class="form-group">
+            <input type="text" name="empresa[rua]" class="form-control" placeholder="Nome da rua. Exemplo: R Lauro Sodré" required readonly>
+          </div>
+
+          <div class="form-group">
+            <input type="number" name="empresa[numero]" class="form-control" placeholder="Número. Exemplo: 640" required readonly>
+          </div>
+
+          <div class="form-group">
+            <input type="number" name="empresa[cep]" class="form-control" placeholder="CEP. Exemplo: 68456000" required readonly>
+          </div>
+
+          <div class="form-group">
+            <input type="text" name="endereco[bairro]" class="form-control" placeholder="Bairro. Exemplo: São José" required readonly>
+          </div>
+
+          <h4 class="title-3">Contato</h4>
+          <div class="form-group">
+            <input type="text" name="empresa[email]" class="form-control" placeholder="Email. Exemplo: empresa_tal@empresa.com" readonly>
+          </div>
+
+          <div class="form-group">
+            <input type="text" name="empresa[telefone]" class="form-control" placeholder="Telefone. Exemplo: 3787-3045" readonly>
+          </div>
+
+          <div class="form-group">
+            <input type="text" name="empresa[telefone_2]" class="form-control" placeholder="Telefone secundário" readonly>
+          </div>
+          
+          <div class="float-right margin-bottom">
+            <br>
+            <button type="button" class="btn sce-btn-success" id="botao-atualizar" onclick="document.formEmpresa.submit()" disabled>Atualizar  <i class="libre libre-check-yes"></i></button>
+            <button type="button" class="btn sce-btn-default" id="botao-limpa-campos" onclick="limparCampos()" disabled>Limpar campos <i class="libre libre-eraser"></i></button>
+          </div>
+        </form>
+			</article>
+		</section>
+	</div>
+
+	<script src="js/jquery-2.1.4.min.js"></script>
+	<script src="js/bootstrap/bootstrap.min.js"></script>
+	<script src="js/sce/base.js"></script>
+	<script src="js/sce/sockets.js"></script>
+  <script src="js/sce/gerencia_erros.js"></script>
+	<script src="js/sce/notification.js"></script>
+	<script src="js/sce/acoes.js"></script>
+</body>
+</html>
