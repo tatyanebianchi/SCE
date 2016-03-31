@@ -742,6 +742,10 @@ ul.help-nav > li > ul.help-nav > li > a:hover {
   border-radius: 3px !important;
 }
 
+.btn-lg {
+  border-radius: 3px !important;
+}
+
 .btn-group > * {
   border-radius: 0px !important;
 }

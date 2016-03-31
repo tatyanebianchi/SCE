@@ -27,7 +27,7 @@
 var mysql = require('mysql')
 
 // SCE
-var utils = require('./server_utils.js')
+var SCEUtils = require('./server_utils.js')
 
 /**
  * Pool de conexões para o banco de dados
@@ -49,13 +49,13 @@ exports.query = function (query_data, callback_return) {
   pool.getConnection(function (err, connection) {
     if (err) {
       callback_return(undefined, err)
-      utils.writeLog('Um erro ocorreu ao tentar conectar ao banco de dados. Erro: ' + err, '904')
-    } else { // conexão ok
+      SCEUtils.writeLog('Um erro ocorreu ao tentar conectar ao banco de dados. Erro: ' + err, '904')
+    } else {
       connection.query(query_data, function (err, rows) {
         if (err) {
           callback_return(undefined, err)
         } else {
-          if (rows === '') {
+          if (rows == '') {
             callback_return('Nenhum resultado foi encontrado.', undefined)
           } else {
             callback_return(rows, undefined)
@@ -64,7 +64,7 @@ exports.query = function (query_data, callback_return) {
       })
     }
 
-    // Does connection pooling rightly.
+    // Libera a conexão para não acumular milhares de conexões com o BD, evitando sobrecarga.
     if (connection) {
       connection.release()
     }

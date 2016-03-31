@@ -87,9 +87,9 @@ if (typeof notificacao === 'undefined') {
                     ' <td>' + data.value[i].siap + '</td>' +
                     ' <td class="text-center">' +
                     '  <div class="btn-group btn-group-lg" id="grupoAcoes">' +
-                    '   <button class="btn sce-btn-primary disabled" title="Editar informações do orientador" data-toggle="tooltip" data-container="body" data-siap="'+ data.value[i].siap +'"  data-row="'+ i +'" id="botaoEdita"><i class="libre libre-edit"></i>' +
-                    '   <button class="btn sce-btn-default disabled" title="Visualizar informações do orientador" data-toggle="tooltip" data-container="body" data-siap="'+ data.value[i].siap +'" data-row="'+ i +'" id="botaoVer"><i class="libre libre-content"></i></button>' +
-                    '   <button class="btn sce-btn-danger" title="Remover orientador" data-toggle="tooltip" data-container="body" data-siap="'+ data.value[i].siap +'" data-row="'+ i +'" id="botaoRemove"><i class="libre libre-trash"></i></button>' +
+                    '   <button class="btn sce-btn-primary" title="Editar informações do orientador" data-toggle="tooltip" data-container="body" data-siap="' + data.value[i].siap + '"  data-row="' + i + '" id="botaoEdita"><i class="libre libre-edit"></i>' +
+                    '   <button class="btn sce-btn-default" title="Visualizar informações do orientador" data-toggle="tooltip" data-container="body" data-siap="' + data.value[i].siap + '" data-row="' + i + '" id="botaoVer"><i class="libre libre-content"></i></button>' +
+                    '   <button class="btn sce-btn-danger" title="Remover orientador" data-toggle="tooltip" data-container="body" data-siap="' + data.value[i].siap + '" data-row="' + i + '" id="botaoRemove"><i class="libre libre-trash"></i></button>' +
                     '  </div>' +
                     ' </td>' +
                   '</tr>'

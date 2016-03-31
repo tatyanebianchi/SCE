@@ -52,7 +52,7 @@ if (typeof basejs === 'undefined') {
       switch (data.code) {
         case '1007':
           switch (data.desc) {
-            case 'empresas':
+            case 'lista_empresas':
               if (data.value) {
                 for (var i = 0; i < data.value.length; i++) {
                   $('select#select-empresa').append(
@@ -61,7 +61,7 @@ if (typeof basejs === 'undefined') {
                 }
               }
               break
-            case 'orientadores':
+            case 'lista_orientadores':
               if (data.value) {
                 for (i = 0; i < data.value.length; i++) {
                   $('select#select-orientador').append(
@@ -70,7 +70,7 @@ if (typeof basejs === 'undefined') {
                 }
               }
               break
-            case 'classes':
+            case 'lista_turmas':
               if (data.value) {
                 for (i = 0; i < data.value.length; i++) {
                   $('select#select-turma').append(
@@ -120,7 +120,9 @@ if (typeof basejs === 'undefined') {
       var elementosForm = document.getElementsByClassName('form-control')
 
       for (var elemento in elementosForm) {
-        if (elementosForm[elemento].type === 'text') {
+        if (elementosForm[elemento].type === 'text' ||
+            elementosForm[elemento].type === 'textarea' ||
+            elementosForm[elemento].type === 'number') {
           elementosForm[elemento].value = ''
         } else if (elementosForm[elemento].type === 'select-one') {
           elementosForm[elemento].value = 'none'
@@ -159,19 +161,19 @@ if (typeof basejs === 'undefined') {
         confirma_data = false
       }
 
-      if ($('select#select-turno').val() != 'none' &&
-        $('select#select-turma').val() != 'none' &&
-        $('select#select-empresa').val() != 'none' &&
-        $('select#select-orientador').val() != 'none') {
+      if ($('select#select-turno').val() !== 'none' &&
+        $('select#select-turma').val() !== 'none' &&
+        $('select#select-empresa').val() !== 'none' &&
+        $('select#select-orientador').val() !== 'none') {
         confirma_select = true
       } else {
         var elements = document.cadastra_estagiario.elements
 
         for (var i = 0, element; element = elements[i++];) {
-          if (element.type == 'select-one' && element.value == 'none') {
+          if (element.type == 'select-one' && element.value === 'none') {
             var nome = element.id
             $('select#' + nome).parent().parent('div.form-group').addClass('has-warning')
-          } else if (element.type == 'select-one' && element.value == 'none') {
+          } else if (element.type === 'select-one' && element.value === 'none') {
             var nome = element.id
             $('select#' + nome).parent().parent('div.form-group').removeClass('has-warning')
           }
@@ -180,6 +182,7 @@ if (typeof basejs === 'undefined') {
       }
 
       if (confirma_data && confirma_select) {
+        // Invertendo a data para ser enviada ao banco de dados.
         window.setElementValue('data_inicio', $('#data_inicio').val().split('-').reverse().join('-'))
         window.setElementValue('data_fim', $('#data_fim').val().split('-').reverse().join('-'))
 
