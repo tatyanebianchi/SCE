@@ -50,15 +50,16 @@ if (typeof jQuery === 'undefined') {
       limpaAlerta(function () {
         switch (data.value.code) {
           case 'ECONNREFUSED': // conexão com o servidor recusada
-            messageElement.html(infoIcon + ' Erro de conexão (1004). Verifique o <a href="status.html">estado do ' +
-                                'sistema</a>.')
-                          .addClass('sce-alert-warning')
+            messageElement.html(infoIcon + ' Erro de conexão com o banco de dados. ' +
+                                'Verifique o <a href="status.html">estado do sistema</a>. ' +
+                                'Para mais informações visite a <a href="ajuda.html#econnrefused">ajuda</a>.')
+                          .addClass('sce-alert-danger')
                           .fadeIn('slow')
             break
           case 'ER_DUP_ENTRY': // duplicação de chave primária
             messageElement.html(infoIcon + ' As informações inseridas no cadastro já constam no banco de dados do ' +
                                 'sistema. Verifique se o que você inseriu está correto, para mais informações ' +
-                                'visite a <a href="ajuda.html#title-8">ajuda</a>')
+                                'visite a <a href="ajuda.html#edupentry">ajuda</a>')
                           .addClass('sce-alert-warning')
                           .fadeIn('slow')
             break
