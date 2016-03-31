@@ -44,31 +44,32 @@ if (typeof jQuery === 'undefined') {
     }
 
     /**
-     * @param data
+     * Função que trata os erros de acordo com o JSON enviado pelo servidor.
+     * @param data JSON enviado pelo servidor, nele está contido todas as informações da resposta dada pelo servidor.
      */
     window.handleError = function (data) {
       limpaAlerta(function () {
         switch (data.value.code) {
-          case 'ECONNREFUSED': // conexão com o servidor recusada
+          case 'ECONNREFUSED': // Conexão com o servidor recusada.
             messageElement.html(infoIcon + ' Erro de conexão com o banco de dados. ' +
                                 'Verifique o <a href="status.html">estado do sistema</a>. ' +
                                 'Para mais informações visite a <a href="ajuda.html#econnrefused">ajuda</a>.')
                           .addClass('sce-alert-danger')
                           .fadeIn('slow')
             break
-          case 'ER_DUP_ENTRY': // duplicação de chave primária
+          case 'ER_DUP_ENTRY': // Duplicação de chave primária.
             messageElement.html(infoIcon + ' As informações inseridas no cadastro já constam no banco de dados do ' +
                                 'sistema. Verifique se o que você inseriu está correto, para mais informações ' +
                                 'visite a <a href="ajuda.html#edupentry">ajuda</a>')
                           .addClass('sce-alert-warning')
                           .fadeIn('slow')
             break
-          case undefined: // código de erro indefinido
+          case undefined: // Erro já tratado pelo banco de dados.
             messageElement.html(infoIcon + ' ' + data.value)
                           .addClass('sce-alert-warning')
                           .fadeIn('slow')
             break
-          default:
+          default: // código de erro indefinido.
             messageElement.html(infoIcon +
                                 ' Um erro não identificado ocorreu, por favor, reporte o erro ao administrador. ' +
                                 'Erro: <strong>' + data.desc + ' ' + data.value + '</strong>')

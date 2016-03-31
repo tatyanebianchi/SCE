@@ -49,20 +49,24 @@ if (typeof notificacao === 'undefined') {
         case '1007':
           switch (data.desc) {
             case 'lista_empresas':
-              for (var i = 0; i < data.value.length; i++) {
-                $('#tabela-empresas').append(
-                  '<tr>' +
-                  ' <td>' + data.value[i].nome + '</td>' +
-                  ' <td>' + data.value[i].telefone + '</td>' +
-                  ' <td>' + data.value[i].email + '</td>' +
-                  ' <td class="text-center">' +
-                  '   <div class="btn-group btn-group-lg" role="group" id="grupoAcoes">' +
-                  '     <button class="btn sce-btn-primary" data-toggle="tooltip" data-container="body" title="Editar informações da empresa" data-id="' + data.value[i].id_empresa + '" data-row="' + i + '" id="botaoEdita"><i class="libre libre-edit"></i></button>' +
-                  '     <button class="btn sce-btn-default" data-toggle="tooltip" data-container="body" title="Ver informações da empresa" data-id="' + data.value[i].id_empresa + '" data-row="' + i + '" id="botaoVer"><i class="libre libre-content"></i></button>' +
-                  '     <button class="btn sce-btn-danger" data-toggle="tooltip" data-container="body" title="Excluir empresa" data-id="' + data.value[i].id_empresa + '" data-row="' + i + '" id="botaoRemove"><i class="libre libre-trash"></i></button></div>' +
-                  ' </td>' +
-                  '</tr>'
-                ).fadeIn(250)
+              if (data.value[0].nome === undefined) {
+                window.handleError(data)
+              } else {
+                for (var i = 0; i < data.value.length; i++) {
+                  $('#tabela-empresas').append(
+                    '<tr>' +
+                    ' <td>' + data.value[i].nome + '</td>' +
+                    ' <td>' + data.value[i].telefone + '</td>' +
+                    ' <td>' + data.value[i].email + '</td>' +
+                    ' <td class="text-center">' +
+                    '   <div class="btn-group btn-group-lg" role="group" id="grupoAcoes">' +
+                    '     <button class="btn sce-btn-primary" data-toggle="tooltip" data-container="body" title="Editar informações da empresa" data-id="' + data.value[i].id_empresa + '" data-row="' + i + '" id="botaoEdita"><i class="libre libre-edit"></i></button>' +
+                    '     <button class="btn sce-btn-default" data-toggle="tooltip" data-container="body" title="Ver informações da empresa" data-id="' + data.value[i].id_empresa + '" data-row="' + i + '" id="botaoVer"><i class="libre libre-content"></i></button>' +
+                    '     <button class="btn sce-btn-danger" data-toggle="tooltip" data-container="body" title="Excluir empresa" data-id="' + data.value[i].id_empresa + '" data-row="' + i + '" id="botaoRemove"><i class="libre libre-trash"></i></button></div>' +
+                    ' </td>' +
+                    '</tr>'
+                  ).fadeIn(250)
+                }
               }
               break
 
