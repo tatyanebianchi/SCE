@@ -86,9 +86,13 @@
               </ul>
             </li>
             <li role="button" data-toggle="collapse" data-target="#errosAplicacao"  aria-expanded="false" aria-controls="errosAplicacao">
-              <a href="#erros">Erros da aplicação</a>
+              <a href="#erros-aplicacao">Erros da aplicação</a>
               <ul class="collapse nav help-nav" id="errosAplicacao">
-                <li><a href="#erro404">Erro 404</a></li>    
+                <li><a href="#erro404">Erro 404</a></li>
+                <li><a href="#erro-indefinido">Erro Indefinido</a></li>
+                <li><a href="#erro1004">Erro 1004</a></li> 
+                <li><a href="#econnrefused">Erro de conexão com o banco de dados</a></li> 
+                <li><a href="#edupentry">Erro de duplicação de chave primária</a></li>    
               </ul>
             </li>
           </ul>
@@ -109,13 +113,12 @@
           </h4>
         </div>
 
-
         <div id="introducao">
           <div class="help-content">
             <h3 class="title-2"> Por dentro da aplicação!</h3>
             <p>
               Este é um sistema voltado ao controle de estágios, a princípio foi projetado para ser utilizado no Instituto Federal de Educação,
-              Ciência e Tecnologia do Pará- Campus Tucuruí, a fim de possibilitar o gerenciamento do cadastro de cada estagiário, classificando-os
+              Ciência e Tecnologia do Pará - Campus Tucuruí, a fim de possibilitar o gerenciamento do cadastro de cada estagiário, classificando-os
               por turma ou por empresa conveniada, também é possível emitir o atestado de conclusão, portanto, por meio desta aplicação de fácil
               utilização é possível verificar quais alunos fazem estágio e emitir uma declaração de conclusão. É possível verificar as informações
               básicas e incluir observações sobre os estagiários e das empresas.
@@ -182,7 +185,10 @@
               e a turma. Vale ressaltar que esses ítens são previamente cadastrados no sistema, na aba configurações. Ao término do cadastro basta concluir
               clicando no botão "cadastrar", como está demonstrado na imagem a seguir.
             </p>
-          <img src="" alt="Cadastro de estagiário" class="" width="" height="">
+            
+            <p>
+              <img class= "img-responsive img-thumbnail" src="img/erros/cadastrar_estagiario.png" alt="Cadatrar Estagiário">
+            </p>          
           </div>
         </div>
 
@@ -190,24 +196,22 @@
           <div class="help-content">
             <h3 class="title-2">Remoção de estagiário</h3>
             
-            <p>
+            <p> 
               Para remover um estagiário cadastrado é simples, basta pesquisar o nome do estagiário a ser removido na caixa de pesquisa
             que fica localizada abaixo. A imagem a seguir demonstra como é possível localizar um estagiário para removê-lo.
+            <p>
+              <img class= "img-responsive img-thumbnail" src="img/erros/remover_estagiario.png" alt="Remover Estagiário">
             </p>
-            <img src="" alt="Remoção de estagiário" class="" width="" height="">
           </div>
         </div>
 
         <div id="emissao">
           <div class="help-content">
             <h3 class="title-2">Emitir atestado de estágio</h3>
-            
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            <p> 
+              <blockquote class="quote quote-info margin-top">
+                O sistema de emissão de estágio não está disponível na versão 1.0
+              </blockquote>
             </p>
           </div>
         </div>
@@ -215,33 +219,59 @@
         <div id="configuracoes">
           <div class="help-content">
             <h3 class="title-2">Configurações</h3>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            <p>
+            Em configurações temos algumas informações essenciais para realizar o cadrasto do estagiário,
+            como a turma onde o mesmo estuda, a empresa onde o individuo estagiará e o professor orientador
+            responsável pelo estagiário.
+            </p>
           </div>
         </div>
         
         <div id="configuracao-turma">
           <div class="help-content">
             <h3 class="title-2">Turmas</h3>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            <p>
+            O estagiário deve estar devidamente matriculado em uma turma, caso no sistema essa turma ainda
+            não esteja cadastrada, deve-se realizar o cadastro, e para isso é muito simples, o usuário
+            deve estar na página "turmas" (localizada em configurações no canto superior esquerdo da tela)
+            clicar em "cadastrar nova turma"  e preencher as segintes informações:
+            <ul>
+              <li> Código da turma
+              <li> Nome do curso
+              <li> Turno de estudo da turma
+            </ul>
+            Para pesquisar por uma turma já cadastrada, o usuário deve digitar o codigo da turma e clicar
+            na lupa para realizar a perquisa. Ao pesquisar a turma é possivel excluir a turma
+            clicando no botão da lixeira da turma desejada.
+            Como observamos na imagem abaixo:
+            </p>
+            <p>
+              <img class= "img-responsive img-thumbnail" src="img/erros/turmas.png" alt="Turmas">
+            </p>
           </div>
         </div>
         
         <div id="configuracao-orientador">
           <div class="help-content">
             <h3 class="title-2">Orientadores</h3>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            <p>
+               O professor orientador é responsável por fazer o acompranhamento pedagógico do estágio,
+               ele é designado pela instituição e aprova, acompanha, orienta e avalia as atividades de estágio.
+               Por isso essa função é de extrema importância, tanto para o cadastro do estagiário quando para a 
+               formação do proficional. 
+               E para realizar o cadastro de um professor para ser orientador é necessário que o usuário esteja 
+               na página de "orientadores", dentro de configurações, e clicar em "cadastrar orientador". E não
+               necessárias as segunites informações:
+                <ul>
+                  <li> Nome completo do orientador
+                  <li> SIAP do professor
+                </ul>
+              É possivel elininar os orientadores pesquisando pelo nome ou SIAP do mesmo e clicando no botão
+              da lixeira correspondente ao orientador.
+            </p>
+            <p>
+              <img class= "img-responsive img-thumbnail" src="img/erros/oritentadores.png" alt="Orientadores">
+            </p>
           </div>
         </div>
 
@@ -273,40 +303,101 @@
                     <li> Telefones
                   </ul>
               </ul>
+            <p>
+            Podemos observar a seguir, uma imagem mostrando a tela de cadastro de empresas
+            <p>
+              <img class= "img-responsive img-thumbnail" src="img\erros\cadastrar_empresa.png" alt="Castatro de Empresas">
             </p>
-            <img src="" alt="Empresas conveniadas" class="" width="" height="">
           </div>
         </div>
 
 
-        <div id="erros">
+        <div id="erros-aplicacao">
           <div class="help-content">
             <h3 class="title-2">Erros de aplicação</h3>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-              Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            <p>
+            <p> 
+            Alguns erros nesta aplicação poderem ocorrer com facilidade, e estão listados
+            alguns possivéis erros, com suas explicações, imagens detalhando o mesmo e suas possivéis 
+            soluções.
+            </p>
           </div>
         </div>
-        
-        <div id="erro404">
+
+         <div id="erro404">
           <div class="help-content">
             <h3 class="title-2">Erro 404</h3>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-              Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              O erro 404 significa que o servidor não encontrou o arquivo requisitado pelo navegador,
+              o arquivo pode não existir ou está digitado incorretamente no campo de texto do navegador.
+              Para mais informações sobre o erro, siga este <a target="blank" href="https://pt.wikipedia.org/wiki/HTTP_404"> link.</a>
+              <p>
+              A seguir, uma imagem que mostra a ocorrência do Erro 404
+              <p>
+                <img class= "img-responsive img-thumbnail" src="img\erros\erro404.png" alt="Erro 404">
+              </p>
            <p>
+          </div>
+        </div>
+
+        <div id="erro-indefinido">
+          <div class="help-content">
+            <h3 class="title-2">Erro Indefinido</h3>
+            <p>
+              Em ocorrência de um erro indefinido, é recomendado uma requisição para que o administrador 
+              adicione o erro no servidor do sistema, para reportar para o desenvolvedor.
+              Para reportar o erro ultilize esse <a target="blank" href="http://github.com/rafaelcn/SCE/issues">link</a>.
+              Podemos observar, a imagem abaixo, a mensagem de um erro indefinido:
+              <p>
+                <img class="img-responsive img-thumbnail" src="img/erros/erro_nao_identificado.png" alt="Erro não identificado">
+              </p>
+            </p>            
+          </dir>
+        </dir>
+
+        <div id="erro1004">
+          <div class="help-content">  
+            <h3 class="title-2">Erro 1004</h3>
+            <p>
+             Este erro é definido no protocolo do SCE, é um código utilizado para representar
+             o estado de uma requisição ao servidor.
+            </p>
+            </div>
+        </div>
+
+        <div id="econnrefused">
+          <div class="help-content">
+            <h3 class="title-2">Erro de conexão com o banco de dados</h3>
+            <p>
+              A conexão com o banco de dados foi recusada por alguma razão, acione o administrador do sistema para
+              resolver o problema. 
+            </p>
+            <p>
+                <img class="img-responsive img-thumbnail" src="img/erros/sem_conexao_com_o_banco_de_dados.png" alt="Sem Conexão com o Banco de Dados">
+            </p>
+          </div>
+        </div>
+
+        <div id="edupentry">
+          <div class="help-content">
+            <h3 class="title-2">Erro de duplicação de chave primária</h3>
+            <p>  
+            O erro <i>E_DUP_ENTRY</i>, é um erro de entrada duplicada de uma chave primaria, ou seja, foram encontrados 
+            duas informações (estagiários, empresas, orientadores) com o mesmo código de diferenciação (matricula, 
+            CNPJ, SIAP). O usuário deve perceber quais informações coincidem e modificar uma das chaves primarias.
+            Aparecerá a seguinte mensagem de erro para o usuário
+            </p>
           </div>
         </div>
       </article>
     </section>
   </div>
+  
+  <footer style="height:160px; background: rgb(37, 54, 74);">
+    <div class="text-center">
+      <img style="margin-top:35px;" src="img/sce_logo.png" width="100"  height="100"><br>
+    </div>
+  </footer>
+  
   <script src="js/jquery-2.1.4.min.js"></script>
   <script src="js/bootstrap/bootstrap.min.js"></script>
   <script>
