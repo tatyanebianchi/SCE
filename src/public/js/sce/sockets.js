@@ -74,7 +74,7 @@ window.socketRefreshId = window.setInterval(function () {
       '<button class="btn btn-out-danger center" onclick="window.reconectar()">Reconectar</button>', true)
     }
   }
-}, 2000)
+}, 4500)
 
 /**
  * É, eu sei, um setInterval para parar outro setInterval.
