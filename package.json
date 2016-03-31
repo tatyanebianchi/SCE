@@ -2,11 +2,13 @@
   "name": "SCE",
   "version": "0.0.7",
   "description": "Sistema de Controle de Estágio",
-  "main": "src/server/server.js",
+  "main": "src/server/app.js",
   "directories": {
     "test": "test"
   },
-  "dependencies": {},
+  "dependencies": {
+    "yargs": "^4.3.2"
+  },
   "devDependencies": {
     "mocha": "^2.3.3"
   },

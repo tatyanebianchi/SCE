@@ -1,95 +1,108 @@
-var testCase = require('mocha').describe;
-var pre = require('mocha').before;
-var assertions = require('mocha').it;
-var assert = require('assert');
+/**
+ * Arquivo que contém vários casos de teste para o banco de dados do SCE.
+ */
 
-var db_api = require('../src/server/db_api.js'),
-    web_socket = require('../src/server/web_socket.js');
+var testCase = require('mocha').describe
+var assertions = require('mocha').it
+var assert = require('assert')
+
+var SCEDb = require('../src/server/db_api.js')
 
 
-testCase('API do banco de dados', function() {
-  testCase('db_api.get_empresas(callback)', function() {
-      assertions('err tem que ser igual a undefined', function() {
-          db_api.get_empresas(function(data, err) {
-              assert.equal(err, undefined);
-          });
-      });
+testCase('API do banco de dados', function () {
+  testCase('db_api.getEmpresas(callback)', function () {
+    assertions('err tem que ser igual a undefined', function () {
+      SCEDb.getEmpresas(function (data, err) {
+        assert.equal(err, undefined)
+      })
+    })
 
-      assertions('data tem que ser um objeto', function() {
-          db_api.get_empresas(function(data, err) {
-              assert.equal(data, Object);
-          });
-      });
-  });
+    assertions('data tem que ser um objeto', function () {
+      SCEDb.getEmpresas(function (data, err) {
+        assert.equal(data, Object)
+      })
+    })
+  })
 
-  testCase('db_api.get_orientadores(callback)', function() {
-      assertions('err tem que ser igual a undefined', function() {
-          db_api.get_orientadores(function(data, err) {
-              assert.equal(err, undefined);
-          });
-      });
+  testCase('db_api.getOrientadores(callback)', function () {
+    assertions('err tem que ser igual a undefined', function () {
+      SCEDb.getOrientadores(function (data, err) {
+        assert.equal(err, undefined)
+      })
+    })
 
-      assertions('data tem que ser um objeto', function() {
-          db_api.get_orientadores(function(data, err) {
-              assert.equal(data, Object);
-          });
-      });
-  });
+    assertions('data tem que ser um objeto', function () {
+      SCEDb.getOrientadores(function (data, err) {
+        assert.equal(data, Object)
+      })
+    })
+  })
 
-  testCase('db_api.get_classes(callback)', function() {
-      assertions('err tem que ser igual a undefined', function() {
-          db_api.get_classes(function(data, err) {
-              assert.equal(err, undefined);
-          });
-      });
+  testCase('db_api.getClasses(callback)', function () {
+    assertions('err tem que ser igual a undefined', function () {
+      SCEDb.getClasses(function (data, err) {
+        assert.equal(err, undefined)
+      })
+    })
 
-      assertions('data tem que ser um objeto', function() {
-          db_api.get_classes(function(data, err) {
-              assert.equal(data, Object);
-          });
-      });
-  });
+    assertions('data tem que ser um objeto', function () {
+      SCEDb.getClasses(function (data, err) {
+        assert.equal(data, Object)
+      })
+    })
+  })
 
-  testCase('db_api.get_estagiarios(callback)', function() {
-    assertions('err tem que ser igual a undefined', function() {
-        db_api.get_estagiarios(function(data, err) {
-            assert.equal(err, undefined);
-        });
-    });
+  testCase('db_api.getEstagiarios(callback)', function () {
+    assertions('err tem que ser igual a undefined', function () {
+      SCEDb.getEstagiarios(function (data, err) {
+        assert.equal(err, undefined)
+      })
+    })
 
-    assertions('data tem que ser um objeto', function() {
-        db_api.get_estagiarios(function(data, err) {
-            assert.equal(data, Object);
-        });
-    });
-  });
-});
+    assertions('data tem que ser um objeto', function () {
+      SCEDb.getEstagiarios(function (data, err) {
+        assert.equal(data, Object)
+      })
+    })
+  })
 
-// testCase('Web Sockets', function() {
-//     testCase('get_companies', function() {
-//         assertions('Should return something from the database', function() {
-//
-//
-//         )};
-//     });
-// });
+  testCase('db.deleteEstagiario(matricula, callback)', function () {
+    var matricula = '201222800309'
 
-// testCase('Array', function() {
-//   pre(function() {
-//     // ...
-//   });
-//
-//   var array = [1,2,3,4,5,6,7]
-//
-//   testCase('#indexOf()', function() {
-//     assertions('should return -1 when not present', function() {
-//       assert.equal(array.indexOf(14), -1);
-//     });
-//   });
-//
-//   testCase("#indexOf()", function() {
-//     assertions('should return 1 when present', function() {
-//       assert.equal(array.indexOf(2), 1);
-//     })
-//   });
-// });
+    assertions('Se o estagiário existir no sistema, a função deve retornar um objeto.', function () {
+      SCEDb.deleteEstagiario(matricula, function (data, err) {
+        assert.equal(data, Object)
+      })
+    })
+  })
+
+  testCase('db.deleteOrientador(siap, callback)', function () {
+    var siap = '115'
+
+    assertions('Se o orientador existir no sistema, a função deve retornar um objeto.', function () {
+      SCEDb.deleteOrientador(siap, function (data, err) {
+        assert.equal(data, Object)
+      })
+    })
+  })
+
+  testCase('db.deleteEmpresa(idEmpresa, callback)', function () {
+    var id_empresa = '4'
+
+    assertions('Se a empresa existir no sistema, a função deve retornar um objeto.', function () {
+      SCEDb.deleteEmpresa(id_empresa, function (data, err) {
+        assert.equal(err, Object)
+      })
+    })
+  })
+
+  testCase('db.deleteTurma(idTurma, callback)', function () {
+    var idTurma = 'T204-4TJ'
+
+    assertions('Se a turma existir no sistema, a função deve retornar um objeto.', function () {
+      SCEDb.deleteTurma(idTurma, function (data, err) {
+        assert.equal(data, Object)
+      })
+    })
+  })
+})

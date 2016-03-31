@@ -102,13 +102,57 @@ wss.on('connection', function connection (ws) {
                 var empresas = []
                 empresas = data.slice()
 
-                sendMessage(ws, 'empresas', empresas, 'get_companies')
+                sendMessage(ws, 'lista_empresas', empresas, 'get_companies')
               } else {
                 if (SCEUtils.isDebug()) {
                   util.log('Erro em \'get_companies\': ' + err)
                 }
 
                 sendError(ws, '[DB_API_ERR]', err, 'get_companies')
+                SCEUtils.writeLog('[DB_API_ERR] ' + err, '904')
+              }
+            })
+            break
+          case 'get_tutors':
+            SCEDb.getOrientadores(function (data, err) {
+              if (SCEUtils.isDebug()) {
+                SCEUtils.type('Objeto retornado do banco de dados', data)
+                SCEUtils.type('Erro no banco de dados', err)
+              }
+
+              if (data) {
+                var orientadores = []
+                orientadores = data.slice()
+
+                sendMessage(ws, 'lista_orientadores', orientadores, 'get_tutors')
+              } else {
+                if (SCEUtils.isDebug()) {
+                  util.log('Erro em \'get_tutors\': ' + err)
+                }
+
+                sendError(ws, '[DB_API_ERR]', err, 'get_tutors')
+                SCEUtils.writeLog('[DB_API_ERR] ' + err, '904')
+              }
+            })
+            break
+          case 'get_classes':
+            SCEDb.getClasses(function (data, err) {
+              if (SCEUtils.isDebug()) {
+                SCEUtils.type('Objeto retornado do banco de dados', data)
+                SCEUtils.type('Erro no banco de dados', err)
+              }
+
+              if (data) {
+                var classes = []
+                classes = data.slice()
+
+                sendMessage(ws, 'lista_turmas', classes, 'get_classes')
+              } else {
+                if (SCEUtils.isDebug()) {
+                  util.log('Erro em \'get_classes\': ' + err)
+                }
+
+                sendError(ws, '[DB_API_ERR]', err, 'get_classes')
                 SCEUtils.writeLog('[DB_API_ERR] ' + err, '904')
               }
             })
@@ -201,50 +245,6 @@ wss.on('connection', function connection (ws) {
             } else {
               // NOTE: alguém por acaso está tentando fazer XSS
             }
-            break
-          case 'get_tutors':
-            SCEDb.getOrientadores(function (data, err) {
-              if (SCEUtils.isDebug()) {
-                SCEUtils.type('Objeto retornado do banco de dados', data)
-                SCEUtils.type('Erro no banco de dados', err)
-              }
-
-              if (data) {
-                var orientadores = []
-                orientadores = data.slice()
-
-                sendMessage(ws, 'orientadores', orientadores, 'get_tutors')
-              } else {
-                if (SCEUtils.isDebug()) {
-                  util.log('Erro em \'get_tutors\': ' + err)
-                }
-
-                sendError(ws, '[DB_API_ERR]', err, 'get_tutors')
-                SCEUtils.writeLog('[DB_API_ERR] ' + err, '904')
-              }
-            })
-            break
-          case 'get_classes':
-            SCEDb.getClasses(function (data, err) {
-              if (SCEUtils.isDebug()) {
-                SCEUtils.type('Objeto retornado do banco de dados', data)
-                SCEUtils.type('Erro no banco de dados', err)
-              }
-
-              if (data) {
-                var classes = []
-                classes = data.slice()
-
-                sendMessage(ws, 'classes', classes, 'get_classes')
-              } else {
-                if (SCEUtils.isDebug()) {
-                  util.log('Erro em \'get_classes\': ' + err)
-                }
-
-                sendError(ws, '[DB_API_ERR]', err, 'get_classes')
-                SCEUtils.writeLog('[DB_API_ERR] ' + err, '904')
-              }
-            })
             break
           case 'delete_turma':
             SCEDb.deleteTurma(message.value, function (data, err) {

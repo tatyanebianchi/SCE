@@ -16,9 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Script para gerenciar todo tipo de cadastro  feito no  aplicação.  Planejo,
- * futuramente, modificar isso para ser feito somente com web sockets, ao invés
- * de utilizar esse script.
+ * Script para gerenciar todo tipo de cadastro  feito no  aplicação.
  */
 
 // SCE
@@ -34,7 +32,7 @@ exports.cadastraEstagiario = function (req, res) {
   // Dados do estagiário a ser enviado ao banco de dados.
   var estagiario = []
 
-  // NOTE: sql injection abaixo.
+  // FIXME: sql injection abaixo.
   sceDB.query('SELECT id_empresa FROM sce.empresa WHERE nome = \"' +
                req.estagiario.empresa + '\"',
                function (empresa_query_data, empresa_query_err) {
@@ -52,7 +50,7 @@ exports.cadastraEstagiario = function (req, res) {
                    estagiario.push(req.estagiario.turma)
                    estagiario.push(req.estagiario.orientador)
 
-                   sceDB.insert_estagiario(estagiario, function (data, err) {
+                   sceDB.insertEstagiario(estagiario, function (data, err) {
                      if (data) {
                        utils.writeLog('Estagiário(a) ' + estagiario[1] + ' inserido(a) no sistema', '903')
                        res.sendFile(utils.getFile('cadastra_estagiario.html'))
@@ -99,7 +97,7 @@ exports.cadastraEmpresa = function (req, res) {
   empresa.push(req.empresa.bairro)
   empresa.push(req.empresa.cep)
 
-  sceDB.insert_empresa(empresa, function (data, err) {
+  sceDB.insertEmpresa(empresa, function (data, err) {
     if (data) {
       utils.writeLog('Empresa ' + empresa[0] + ' inserida no sistema', '903')
       res.sendFile(utils.getFile('empresas.html'))
@@ -127,7 +125,7 @@ exports.cadastraOrientador = function (req, res) {
   orientador[0] = req.orientador.siap
   orientador[1] = req.orientador.nome
 
-  sceDB.insert_orientador(orientador, function (data, err) {
+  sceDB.insertOrientador(orientador, function (data, err) {
     if (data) {
       utils.writeLog('Orientador ' + orientador[1] + ' inserido no sistema', '903')
       res.sendFile(utils.getFile('orientadores.html'))
@@ -155,7 +153,7 @@ exports.cadastraTurma = function (req, res) {
   turma[1] = req.turma.turno
   turma[2] = req.turma.curso
 
-  sceDB.insert_turma(turma, function (data, err) {
+  sceDB.insertTurma(turma, function (data, err) {
     if (data) {
       utils.writeLog('Turma ' + turma[2] + ' inserida no sistema', '903')
       res.sendFile(utils.getFile('turmas.html'))
@@ -174,7 +172,7 @@ exports.cadastraTurma = function (req, res) {
   })
 }
 
-// TODO: implementar depois
+// TODO: implementar depois que o sistema de gerenciamento da aplicação estiver completo.
 exports.cadastraUsuario = function (req, res) {
 
 }
