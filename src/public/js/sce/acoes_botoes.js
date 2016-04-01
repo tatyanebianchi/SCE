@@ -75,7 +75,7 @@ if (typeof sockets === 'undefined') {
      * uma chave única.
      */
     window.acaoEdita = function (what, key) {
-      var encodedString = encodeURIComponent('/edita/' + what + '/' + key)
+      var encodedString = encodeURIComponent('/edite/' + what + '/' + key)
       window.location = '/acoes.html?' + encodedString
     }
 
