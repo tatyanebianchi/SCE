@@ -56,8 +56,8 @@ if (typeof notificacao === 'undefined') {
                   $('#tabela-empresas').append(
                     '<tr>' +
                     ' <td>' + data.value[i].nome + '</td>' +
-                    ' <td>' + data.value[i].telefone + '</td>' +
-                    ' <td>' + data.value[i].email + '</td>' +
+                    ' <td>' + (data.value[i].telefone == null ? 'Nenhum telefone informado' : data.value[i].telefone) + '</td>' +
+                    ' <td>' + (data.value[i].email == null ? 'Nenhum email informado' : data.value[i].email) + '</td>' +
                     ' <td class="text-center">' +
                     '   <div class="btn-group btn-group-lg" role="group" id="grupoAcoes">' +
                     '     <button class="btn sce-btn-primary" data-toggle="tooltip" data-container="body" title="Editar informações da empresa" data-id="' + data.value[i].id_empresa + '" data-row="' + i + '" id="botaoEdita"><i class="libre libre-edit"></i></button>' +
