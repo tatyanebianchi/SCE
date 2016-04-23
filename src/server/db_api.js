@@ -151,8 +151,21 @@ exports.insertEmpresa = function (data, callback) {
   // Usando prepared statements.
   var sqlQuery = 'INSERT INTO sce.empresa (??, ??, ??, ??, ??,' +
                                             '??, ??, ??, ??, ??)' +
-                                            'VALUES (?, ?, ?, ?,' +
-                                            '?, ?, ?, ?, ?, ?)'
+                                            ' VALUES (?, ?, ?, ?,' +
+                                            ' ?, ?, ?, ?, ?, ?)'
+
+  // dados do telefone a ser enviado ao banco de dados.                                           
+  if (data[4] === '') {
+    data[4] = null
+  }
+  // dados do telefone 2 a ser enviado ao banco de dados.
+  if (data[5] === '') {
+    data[5] = null
+  }
+  // dados do email a ser enviado ao banco de dados.
+  if (data[3] === '') {
+    data[3] = null
+  }
 
   var inserts = ['nome', 'razao_social', 'cnpj', 'email', 'telefone',
                  'telefone_2', 'endereco_rua', 'endereco_numero',
@@ -182,7 +195,7 @@ exports.insertOrientador = function (data, callback) {
 }
 
 exports.insertTurma = function (data, callback) {
-  var sqlQuery = 'INSERT INTO turma (??, ??, ??) VALUES(?, ?, ?)'
+  var sqlQuery = 'INSERT INTO turma (??, ??, ??) VALUES (?, ?, ?)'
 
   var inserts = ['id_turma', 'turno', 'curso', data[0], data[1], data[2]]
 
