@@ -64,6 +64,14 @@ if (typeof jQuery === 'undefined') {
                           .addClass('sce-alert-warning')
                           .fadeIn('slow')
             break
+          case 'ER_ROW_IS_REFERENCED_2': // A linha é referenciada em outro lugar.
+            messageElement.html(infoIcon + ' A entidade que você tentou remover é referenciada em outro lugar, ' +
+                                'provavelmente ela está sendo utilizada em algum estagiário, por favor, antes de deletar ' +
+                                'verifique onde a entidade está sendo referenciada. Para mais informações visite a ' +
+                                '<a href="ajuda.html#edupentry">ajuda</a>')
+                          .addClass('sce-alert-danger')
+                          .fadeIn('slow')
+            break
           case undefined: // Erro já tratado pelo banco de dados.
             messageElement.html(infoIcon + ' ' + data.value)
                           .addClass('sce-alert-warning')
