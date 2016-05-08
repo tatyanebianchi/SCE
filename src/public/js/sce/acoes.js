@@ -40,6 +40,9 @@ if (typeof basejs === 'undefined') {
     what = decodedURL[decodedURL.length - 2]
     key = decodedURL[decodedURL.length - 1]
 
+    // variável que guarda o elemento do formulário da paǵina
+    var formulario
+
     /**
      * Método que habilita a edição do formulário;
      */
@@ -67,7 +70,7 @@ if (typeof basejs === 'undefined') {
 
     for (var i in decodedURL) {
       if (decodedURL[i] === 'visualize') {
-        $('#cabecalho-visualiza').show()
+        $('#cabecalho-visualiza').show('slow')
         document.title = 'SCE - Visualize ' + what
       } else if (decodedURL[i] === 'edite') {
         $('#cabecalho-edita').show('slow')
@@ -95,6 +98,9 @@ if (typeof basejs === 'undefined') {
           $(forms[form]).remove()
         }
       }
+
+      // setando o a variável formulário para corresponder ao formulário exibido na tela.
+      formulario = document.querySelector('.form-horizontal')
     }
 
     /**
@@ -107,18 +113,53 @@ if (typeof basejs === 'undefined') {
       var elementosForm = $('.form-control')
       var entidade = dados.value[0]
 
-      // gambi rules.
+      // Not the best way to do it... O(n^2), although this is not so processing intensive.
       for (var i = 0; i < elementosForm.length; i++) {
         for (var caracteristica in entidade) {
           if (caracteristica == elementosForm[i].name.split('[')[1].split(']')[0]) {
             if (elementosForm[i].type === 'select-one') {
               elementosForm[i].value = entidade[caracteristica]
               break
+            } else {
+              if (caracteristica === 'periodo_inicio' || caracteristica === 'periodo_fim') {
+                elementosForm[i].value = entidade[caracteristica].split('T')[0].split('-').reverse().join('-')
+                break
+              }
+              elementosForm[i].value = entidade[caracteristica]
             }
-            elementosForm[i].value = entidade[caracteristica]
             break
           }
         }
+      }
+
+      formulario.addEventListener('submit', verificaForm, false)
+    }
+
+    /**
+     * Verifica as informações contidas no formulário, primeiramente ele faz uma verificação
+     * genérica para confirmar se todos os campos estão preenchidos.
+     */
+    function verificaForm (event) {
+      var elementosForm = $('.form-control')
+      var enviar = true
+
+      for (var form in elementosForm) {
+        if (elementosForm[form].type === 'text') {
+          if (elementosForm[form].value === null || elementosForm[form].value === "") {
+            window.notificacao_alerta('Vemos aqui que alguns dados não foram preenchidos, por favor, preencha-os.')
+            window.esconder_notificacao(3000)
+            enviar = false
+          }
+        } else if (elementosForm[form].type === 'select-one') {
+          if (elementosForm[form].value === 'none') {
+            window.notificacao_alerta('Vemos aqui que alguns campos selecionáveis não estão preenchidos, por favor, preencha-os.')
+            window.esconder_notificacao(3000) 
+            enviar = false
+          }
+        }
+      }
+      if (enviar) {
+        formulario.submit()
       }
     }
 
