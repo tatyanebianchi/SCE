@@ -47,19 +47,25 @@
           <h1 style="font-size: 150px; text-decoration: underline;">Erro 404</h1>
           <h2>Nos desculpe, mas a página requisitada não existe.</h2><br>
           Tente uma das opções abaixo:
-          <ul class="libre-ul">
+          <ul class="libre-ul" id="opcoes">
             <li>
               <i class="libre-li libre libre-arrow-right"></i>Verifique se o endereço digitado no navegador <b>existe</b> e faz parte do sistema
             </li>
             <li>
               <i class="libre-li libre libre-arrow-right"></i>O que é<a href="ajuda.html#erro_404">erro 404?</a>
             </li>
-            <li>
-              <i class="libre-li libre libre-arrow-right"></i><a style="margin-left: -5px;" href="javascript:window.history.back()">Voltar a página anterior</a></i>
-            </li>
           </ul>
           <br>
 				</div>
 			</section>
 	</body>
+
+  <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+  <script type="text/javascript">
+    if (window.history.length < 1) {
+      $('#opcoes').append('<li> <i class="libre-li libre libre-arrow-right"></i><a style="margin-left: -5px;" href="/">Voltar a página inicial</a></i></li>')
+    } else {
+      $('#opcoes').append('<li> <i class="libre-li libre libre-arrow-right"></i><a style="margin-left: -5px;" href="javascript:window.history.back()">Voltar a página anterior</a></i></li>')
+    }
+    </script>
 </html>
