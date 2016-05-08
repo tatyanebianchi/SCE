@@ -26,6 +26,8 @@ if (typeof notificacao === 'undefined') {
   throw new Error('This script requires notification.js, verify if it was included.')
 } else {
   $(document).ready(function () {
+    var linhaEmpresa = null;
+
     window.ws.onopen = function (e) {
       console.log('Conexão com o web socket bem sucedida na porta %s', window.ws_port)
       carregar_empresas(function () {
@@ -71,6 +73,9 @@ if (typeof notificacao === 'undefined') {
               break
 
             case 'delete_empresa':
+              if (linhaEmpresa !== null ) { 
+                document.getElementById('tabela-empresas').deleteRow(linhaEmpresa)
+              }
               window.notificacao_sucesso('Empresa removida')
               window.esconder_notificacao(1500)
               break
@@ -84,7 +89,12 @@ if (typeof notificacao === 'undefined') {
       $('table tr td #grupoAcoes').on('click', function (e) {
         if (e.target !== e.currentTarget) {
           var clickedItem = e.target.id
-          var linhaNumero = parseInt(e.target.dataset.row, 10) + 1
+
+          if (parseInt(e.target.dataset.row, 10) === 0) {
+            linhaEmpresa = parseInt(e.target.dataset.row, 10)
+          } else {
+            linhaEmpresa = parseInt(e.target.dataset.row, 10) + 1
+          }
 
           if (clickedItem === 'botaoVer') {
             window.acaoVer('empresa', e.target.dataset.id)
@@ -92,7 +102,6 @@ if (typeof notificacao === 'undefined') {
             window.acaoEdita('empresa', e.target.dataset.id)
           } else if (clickedItem === 'botaoRemove') {
             window.acaoRemove('empresa', e.target.dataset.id)
-            document.getElementById('tabela-empresas').deleteRow(linhaNumero)
           }
         }
         e.stopPropagation()

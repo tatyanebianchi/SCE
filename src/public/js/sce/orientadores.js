@@ -58,6 +58,8 @@ if (typeof sockets === 'undefined') {
 if (typeof notificacao === 'undefined') {
   throw new Error('This script requires notification.js, verify if it was included.')
 } else {
+  var linhaOrientador = null;
+
   window.ws.onopen = function (e) {
     console.log('Conexão com o web socket bem sucedida na porta %s', window.ws_port)
   }
@@ -101,6 +103,9 @@ if (typeof notificacao === 'undefined') {
             break
 
           case 'delete_orientador':
+            if (linhaOrientador !== null ) { 
+              document.getElementById('resultado_pesquisa').deleteRow(linhaOrientador)
+            }
             window.notificacao_sucesso('Orientador removido <i class="libre libre-check-yes"></i>')
             window.esconder_notificacao(1500)
             break
@@ -116,7 +121,12 @@ if (typeof notificacao === 'undefined') {
     $('table tbody tr td #grupoAcoes').on('click', function (e) {
       if (e.target !== e.currentTarget) {
         var clickedItem = e.target.id
-        var linhaNumero = parseInt(e.target.dataset.row, 10) + 1
+        
+        if (parseInt(e.target.dataset.row, 10) === 0) {
+          linhaEmpresa = parseInt(e.target.dataset.row, 10)
+        } else {
+          linhaEmpresa = parseInt(e.target.dataset.row, 10) + 1
+        }
 
         if (clickedItem === 'botaoVer') {
           window.acaoVer('orientador', e.target.dataset.siap)
@@ -124,7 +134,6 @@ if (typeof notificacao === 'undefined') {
           window.acaoEdita('orientador', e.target.dataset.siap)
         } else if (clickedItem === 'botaoRemove') {
           window.acaoRemove('orientador', e.target.dataset.siap)
-          document.getElementById('resultado_pesquisa').deleteRow(linhaNumero)
         }
       }
       e.stopPropagation()
