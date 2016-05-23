@@ -73,7 +73,7 @@ exports.cadastraEstagiario = function (req, res) {
                    }
 
                    utils.writeLog('[DB_API_ERR] ' + empresa_query_err, '904')
-                   res.sendFile(utils.getFile('cadastra_estagiario.html'))
+                   res.status(400).sendFile(utils.getFile('cadastra_estagiario.html'))
 
                    ws.sendClientMessage('1004', '[DB_API_ERR]', empresa_query_err)
                  }
@@ -109,7 +109,7 @@ exports.cadastraEmpresa = function (req, res) {
       }
 
       utils.writeLog('[DB_API_ERR] ' + err, '904')
-      res.sendFile(utils.getFile('empresas.html'))
+      res.status(400).sendFile(utils.getFile('empresas.html'))
 
       ws.sendClientMessage('1004', '[DB_API_ERR]', err)
     }
@@ -137,7 +137,7 @@ exports.cadastraOrientador = function (req, res) {
       }
 
       utils.writeLog('[DB_API_ERR] ' + err, '904')
-      res.sendFile(utils.getFile('orientadores.html'))
+      res.status(400).sendFile(utils.getFile('orientadores.html'))
 
       ws.sendClientMessage('1004', '[DB_API_ERR]', err)
     }
@@ -165,14 +165,9 @@ exports.cadastraTurma = function (req, res) {
       }
 
       utils.writeLog('[DB_API_ERR] ' + err, '904')
-      res.sendFile(utils.getFile('turmas.html'))
+      res.status(400).sendFile(utils.getFile('turmas.html'))
 
       ws.sendClientMessage('1004', '[DB_API_ERR]', err)
     }
   })
-}
-
-// TODO: implementar depois que o sistema de gerenciamento da aplicação estiver completo.
-exports.cadastraUsuario = function (req, res) {
-
 }
