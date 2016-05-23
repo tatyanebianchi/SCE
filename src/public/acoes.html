@@ -179,7 +179,7 @@
           </div>
         </form>
         
-        <form class="sce-hide margin-top" method="post" name="formOrientador" id="form-orientador">
+        <form class="form-horizontal sce-hide margin-top" method="post" name="formOrientador" action="/atualiza_orientador" id="form-orientador">
           <h4 class="title-3">Informações do orientador</h4>
           <div class="form-group">
             <input type="text" name="orientador[nome]" class="form-control" placeholder="Nome completo do orientador. Exemplo: Landry Silva" required readonly>
@@ -191,12 +191,12 @@
           
           <div class="float-right margin-bottom">
             <br>
-            <button type="submit" class="btn sce-btn-success" id="botao-atualizar" disabled>Atualizar  <i class="libre libre-check-yes"></i></button>
+            <button type="submit" class="btn sce-btn-success" id="botao-atualizar" onclick="verificaForm()" disabled>Atualizar  <i class="libre libre-check-yes"></i></button>
             <button type="button" class="btn sce-btn-default" id="botao-limpa-campos" onclick="limparCampos()" disabled>Limpar campos <i class="libre libre-eraser"></i></button>
           </div>
         </form>
         
-        <form class="sce-hide margin-top" method="post" name="formTurma" id="form-turma">
+        <form class="form-horizontal sce-hide margin-top" method="post" name="formTurma" id="form-turma">
           <h4 class="title-3">Informações da turma</h4>
           <div class="form-group">
             <input type="text" name="turma[id_turma]" class="form-control" placeholder="Código da turma. Exemplo: T228-4MA." required readonly>
@@ -222,7 +222,7 @@
           </div>
         </form>
         
-        <form class="sce-hide margin-top" method="post" name="formEmpresa" id="form-empresa">
+        <form class="form-horizontal sce-hide margin-top" method="post" name="formEmpresa" id="form-empresa">
           <h4 class="title-3">Informações básicas</h4>
           <div class="form-group">
             <input type="text" name="empresa[nome]" class="form-control" placeholder="Nome da empresa. Exemplo: Supernorte" required readonly>
@@ -250,7 +250,7 @@
           </div>
 
           <div class="form-group">
-            <input type="text" name="endereco[bairro]" class="form-control" placeholder="Bairro. Exemplo: São José" required readonly>
+            <input type="text" name="empresa[bairro]" class="form-control" placeholder="Bairro. Exemplo: São José" required readonly>
           </div>
 
           <h4 class="title-3">Contato</h4>
