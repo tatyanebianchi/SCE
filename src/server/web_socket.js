@@ -327,7 +327,7 @@ wss.on('connection', function connection (ws) {
             sendMessage(ws, 'server_state', ServerStatus, 'get_server_status')
             break
           case 'get_db_status':
-            SCEDb.query('SELECT VERSION();', function (data, err) {
+            SCEDb.query('SELECT VERSION();', null, function (data, err) {
               var DatabaseState = {
                 connection: undefined,
                 error: undefined,

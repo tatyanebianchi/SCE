@@ -348,10 +348,20 @@ exports.updateTurma = function (idTurma, data, callback) {
 }
 
 /**
- * Função para executar uma query generalizada (não específica).
+ * Função para executar uma query generalizada (não específica). Para executar uma query
+ * com dados é necessário prover um array de dados para a função, caso contrário é só prover
+ * o valor null no lugar do array.
  * @param {String} query O comando a ser executado no banco de dados.
+ * @param {Array} data Dados que serão inseridos na query.
  * @param {Function} callback Função a ser chamada após a execução da query.
  */
-exports.query = function (query, callback) {
-  mysqlPool.query(query, callback)
+exports.query = function (query, data, callback) {
+  var sqlQuery = query
+
+  if (data !== null) {
+    sqlQuery = mysql.format(sqlQuery, data)
+  }
+
+  mysqlPool.query(sqlQuery, callback)
+  SCEUtils.writeLog('Query a ser executada no banco de dados: ' + sqlQuery, '903')
 }

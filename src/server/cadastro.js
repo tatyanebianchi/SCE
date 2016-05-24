@@ -21,67 +21,51 @@
 
 // SCE
 var sceDB = require('./db_api.js')
-var SCEUtils = require('./server_utils.js')
+var sceUtils = require('./server_utils.js')
 var ws = require('./web_socket.js')
 
 
 exports.cadastraEstagiario = function (req, res) {
-  SCEUtils.writeLog('Requisição de cadastro de estagiario recebido', '906')
+  sceUtils.writeLog('Requisição de cadastro de estagiário recebido', '906')
 
-  var empresa_siap = null
   // Dados do estagiário a ser enviado ao banco de dados.
   var estagiario = []
 
-  // FIXME: sql injection abaixo.
-  sceDB.query('SELECT id_empresa FROM sce.empresa WHERE nome = \"' +
-               req.estagiario.empresa + '\"',
-               function (empresa_query_data, empresa_query_err) {
-                 if (empresa_query_data) {
-                   empresa_siap = empresa_query_data[0].id_empresa
-
+  
                    estagiario.push(req.estagiario.matricula)
                    estagiario.push(req.estagiario.nome)
                    estagiario.push(req.estagiario.periodo_inicio)
                    estagiario.push(req.estagiario.periodo_fim)
                    estagiario.push(req.estagiario.empresa)
-                   estagiario.push('') // foto, por enquanto a função não vai ser implementada.
+                   // foto, por enquanto a função não vai ser implementada.
+                   estagiario.push('')
                    estagiario.push(req.estagiario.observacao)
-                   estagiario.push(empresa_siap)
+                   estagiario.push(req.estagiario.empresa)
                    estagiario.push(req.estagiario.turma)
                    estagiario.push(req.estagiario.orientador)
 
                    sceDB.insertEstagiario(estagiario, function (data, err) {
                      if (data) {
-                       SCEUtils.writeLog('Estagiário(a) ' + estagiario[1] + ' inserido(a) no sistema', '903')
-                       res.sendFile(SCEUtils.getFile('cadastra_estagiario.html'))
+                       sceUtils.writeLog('Estagiário(a) ' + estagiario[1] + ' inserido(a) no sistema', '903')
+                       res.sendFile(sceUtils.getFile('cadastra_estagiario.html'))
 
                        ws.sendClientMessage('1000', 'Cadastro bem sucedido', '')
                      } else {
-                       if (SCEUtils.isDebug()) {
+                       if (sceUtils.isDebug()) {
                          console.log('Erro ao inserir estagiário: ' + err)
                        }
 
-                       SCEUtils.writeLog('[DB_API_ERR] ' + err, '904')
-                       res.sendFile(SCEUtils.getFile('cadastra_estagiario.html'))
+                       sceUtils.writeLog('[DB_API_ERR] ' + err, '904')
+                       res.sendFile(sceUtils.getFile('cadastra_estagiario.html'))
 
                        ws.sendClientMessage('1004', '[DB_API_ERR]', err)
                      }
                    })
-                 } else {
-                   if (SCEUtils.isDebug()) {
-                     console.log('Erro ao buscar id da empresa: ' + empresa_query_err)
-                   }
-
-                   SCEUtils.writeLog('[DB_API_ERR] ' + empresa_query_err, '904')
-                   res.status(400).sendFile(SCEUtils.getFile('cadastra_estagiario.html'))
-
-                   ws.sendClientMessage('1004', '[DB_API_ERR]', empresa_query_err)
-                 }
-               })
+                 } 
 }
 
 exports.cadastraEmpresa = function (req, res) {
-  SCEUtils.writeLog('Requisição de cadastro de empresa recebido', '906')
+  sceUtils.writeLog('Requisição de cadastro de empresa recebido', '906')
 
   // dados da empresa
   var empresa = []
@@ -99,17 +83,17 @@ exports.cadastraEmpresa = function (req, res) {
 
   sceDB.insertEmpresa(empresa, function (data, err) {
     if (data) {
-      SCEUtils.writeLog('Empresa ' + empresa[0] + ' inserida no sistema', '903')
-      res.sendFile(SCEUtils.getFile('empresas.html'))
+      sceUtils.writeLog('Empresa ' + empresa[0] + ' inserida no sistema', '903')
+      res.sendFile(sceUtils.getFile('empresas.html'))
 
       ws.sendClientMessage('1000', 'Cadastro bem sucedido', '')
     } else {
-      if (SCEUtils.isDebug()) {
+      if (sceUtils.isDebug()) {
         console.log('Erro ao inserir estagiário: ' + err)
       }
 
-      SCEUtils.writeLog('[DB_API_ERR] ' + err, '904')
-      res.status(400).sendFile(SCEUtils.getFile('empresas.html'))
+      sceUtils.writeLog('[DB_API_ERR] ' + err, '904')
+      res.status(400).sendFile(sceUtils.getFile('empresas.html'))
 
       ws.sendClientMessage('1004', '[DB_API_ERR]', err)
     }
@@ -118,26 +102,26 @@ exports.cadastraEmpresa = function (req, res) {
 
 
 exports.cadastraOrientador = function (req, res) {
-  SCEUtils.writeLog('Requisição de cadastro de orientador recebido', '906')
+  sceUtils.writeLog('Requisição de cadastro de orientador recebido', '906')
   // dados que irão para o banco de dados.
   var orientador = []
 
-  orientador[0] = req.orientador.siap
-  orientador[1] = req.orientador.nome
+  orientador.push(req.orientador.siap)
+  orientador.push(req.orientador.nome)
 
   sceDB.insertOrientador(orientador, function (data, err) {
     if (data) {
-      SCEUtils.writeLog('Orientador ' + orientador[1] + ' inserido no sistema', '903')
-      res.sendFile(SCEUtils.getFile('orientadores.html'))
+      sceUtils.writeLog('Orientador ' + orientador[1] + ' inserido no sistema', '903')
+      res.sendFile(sceUtils.getFile('orientadores.html'))
 
       ws.sendClientMessage('1000', 'Cadastro bem sucedido', '')
     } else {
-      if (SCEUtils.isDebug()) {
+      if (sceUtils.isDebug()) {
         console.log('Erro ao inserir orientador: ' + err)
       }
 
-      SCEUtils.writeLog('[DB_API_ERR] ' + err, '904')
-      res.status(400).sendFile(SCEUtils.getFile('orientadores.html'))
+      sceUtils.writeLog('[DB_API_ERR] ' + err, '904')
+      res.status(400).sendFile(sceUtils.getFile('orientadores.html'))
 
       ws.sendClientMessage('1004', '[DB_API_ERR]', err)
     }
@@ -145,27 +129,27 @@ exports.cadastraOrientador = function (req, res) {
 }
 
 exports.cadastraTurma = function (req, res) {
-  SCEUtils.writeLog('Requisição de cadastro de turma recebido', '906')
+  sceUtils.writeLog('Requisição de cadastro de turma recebido', '906')
   // dados que irão para o banco de dados.
   var turma = []
 
-  turma[0] = req.turma.id_turma
-  turma[1] = req.turma.turno
-  turma[2] = req.turma.curso
+  turma.push(req.turma.id_turma)
+  turma.push(req.turma.turno)
+  turma.push(req.turma.curso)
 
   sceDB.insertTurma(turma, function (data, err) {
     if (data) {
-      SCEUtils.writeLog('Turma ' + turma[2] + ' inserida no sistema', '903')
-      res.sendFile(SCEUtils.getFile('turmas.html'))
+      sceUtils.writeLog('Turma ' + turma[2] + ' inserida no sistema', '903')
+      res.sendFile(sceUtils.getFile('turmas.html'))
 
       ws.sendClientMessage('1000', 'Cadastro bem sucedido', '')
     } else {
-      if (SCEUtils.isDebug()) {
+      if (sceUtils.isDebug()) {
         console.log('Erro ao inserir turma: ' + err)
       }
 
-      SCEUtils.writeLog('[DB_API_ERR] ' + err, '904')
-      res.status(400).sendFile(SCEUtils.getFile('turmas.html'))
+      sceUtils.writeLog('[DB_API_ERR] ' + err, '904')
+      res.status(400).sendFile(sceUtils.getFile('turmas.html'))
 
       ws.sendClientMessage('1004', '[DB_API_ERR]', err)
     }

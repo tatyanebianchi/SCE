@@ -56,7 +56,7 @@ if (typeof basejs === 'undefined') {
               if (data.value) {
                 for (var i = 0; i < data.value.length; i++) {
                   $('select#select-empresa').append(
-                      '<option value="' + data.value[i].nome + '">' + data.value[i].nome + '</option>'
+                      '<option value="' + data.value[i].id_empresa + '">' + data.value[i].nome + '</option>'
                   )
                 }
               }
