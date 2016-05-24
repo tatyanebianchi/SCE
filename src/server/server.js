@@ -107,8 +107,7 @@ exports.bootSCE = function () {
 
     // Capturando o erro 404.
     app.use(function (req, res, next) {
-      res.status(404)
-      res.sendFile(sceUtils.getFile('404.html'))
+      res.status(404).sendFile(sceUtils.getFile('404.html'))
     })
 
 

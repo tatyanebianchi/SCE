@@ -154,7 +154,7 @@ exports.insertEmpresa = function (data, callback) {
                                             ' VALUES (?, ?, ?, ?,' +
                                             ' ?, ?, ?, ?, ?, ?)'
 
-  // dados do telefone a ser enviado ao banco de dados.                                           
+  // dados do telefone a ser enviado ao banco de dados.
   if (data[4] === '') {
     data[4] = null
   }
@@ -267,79 +267,6 @@ exports.deleteTurma = function (idTurma, callback) {
                   'WHERE sce.turma.id_turma = ?'
 
   var inserts = [idTurma]
-
-  sqlQuery = mysql.format(sqlQuery, inserts)
-
-  SCEUtils.writeLog('Query a ser executada no banco de dados: ' + sqlQuery, '903')
-  mysqlPool.query(sqlQuery, callback)
-}
-
-/**
- * TODO: Terminar e testar, não finalizado.
- * Função para atualizar uma linha da tabela estagiário no banco de dados.
- * @param {Integer} matricula Antiga matricula, utilizada para identificar o estagiário
- * no banco de dados.
- * @param {Array} data Os dados para atualização do estagiário.
- * @param {Function} callback Função a ser chamada após a execução da query.
- */
-exports.updateEstagiario = function (matricula, data, callback) {
-  var sqlQuery = 'UPDATE estagiario SET nome = ?, periodo_inicio = ?, periodo_fim = ?,  ' +
-                  'empresa = ?, foto = ?, observacao = ? WHERE matricula = ?'
-
-  var inserts = []
-
-  sqlQuery = mysql.format(sqlQuery, inserts)
-  mysqlPool.query(sqlQuery, callback)
-}
-
-/**
- * TODO: Terminar e testar, não finalizado.
- * Função para atualizar uma linha da tabela empresa no banco de dados.
- * @param {Integer} idEmpresa Antigo id_empres, utilizado para identificar a empresa
- * a ser atualizada.
- * @param {Array} data Os dados para atualização do orientador
- * @param {Function} callback Função a ser chamada após a execução da query.
- */
-exports.updateEmpresa = function (idEmpresa, data, callback) {
-  var sqlQuery = 'UPDATE empresa SET nome = ?, razao_social = ?, cnpj = ?, email = ?, ' +
-                  'telefone = ?, telefone_2 = ?, endereco_rua = ?, endereco_numero = ?, ' +
-                  'endereco_bairro = ?, endereco_cep = ? WHERE id_empresa = ?'
-
-  var inserts = [data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8],
-                 data[9], idEmpresa]
-
-  sqlQuery = mysql.format(sqlQuery, inserts)
-}
-
-/**
- * Função para atualizar uma linha da tabela orientador no banco de dados.
- * @param {Integer} siap Antigo siap, utilizado para identificar o orientador
- * a ser atualizado.
- * @param {Array} data Os dados para atualização do orientador
- * @param {Function} callback Função a ser chamada após a execução da query.
- */
-exports.updateOrientador = function (siap, data, callback) {
-  var sqlQuery = 'UPDATE sce.orientador SET siap = ?, nome = ? WHERE siap = ?'
-
-  var inserts = [data[0], data[1], siap]
-
-  sqlQuery = mysql.format(sqlQuery, inserts)
-
-  SCEUtils.writeLog('Query a ser executada no banco de dados: ' + sqlQuery, '903')
-  mysqlPool.query(sqlQuery, callback)
-}
-
-/**
- * Função para atualizar uma linha da tabela turma no banco de dados.
- * @param {Integer} idTurma Antigo id_turma, utilizado para identificar a
- * turma a ser atualizada.
- * @param {Array} data Os dados para atualização da turma.
- * @param {Function} callback Função a ser chamada após a execução da query.
- */
-exports.updateTurma = function (idTurma, data, callback) {
-  var sqlQuery = 'UPDATE sce.turma SET id_turma = ?, turno = ?, curso = ? WHERE id_turma = ?'
-
-  var inserts = [data[0], data[1], data[2], idTurma]
 
   sqlQuery = mysql.format(sqlQuery, inserts)
 

@@ -31,37 +31,37 @@ exports.cadastraEstagiario = function (req, res) {
   // Dados do estagiário a ser enviado ao banco de dados.
   var estagiario = []
 
-  
-                   estagiario.push(req.estagiario.matricula)
-                   estagiario.push(req.estagiario.nome)
-                   estagiario.push(req.estagiario.periodo_inicio)
-                   estagiario.push(req.estagiario.periodo_fim)
-                   estagiario.push(req.estagiario.empresa)
-                   // foto, por enquanto a função não vai ser implementada.
-                   estagiario.push('')
-                   estagiario.push(req.estagiario.observacao)
-                   estagiario.push(req.estagiario.empresa)
-                   estagiario.push(req.estagiario.turma)
-                   estagiario.push(req.estagiario.orientador)
+<<<<<<< f8b213bd39f69998eba7d3e5e982bfa248843f27
+  estagiario.push(req.estagiario.matricula)
+  estagiario.push(req.estagiario.nome)
+  estagiario.push(req.estagiario.periodo_inicio)
+  estagiario.push(req.estagiario.periodo_fim)
+  estagiario.push(req.estagiario.empresa)
+  // foto, por enquanto a função não vai ser implementada.
+  estagiario.push('')
+  estagiario.push(req.estagiario.observacao)
+  estagiario.push(req.estagiario.empresa)
+  estagiario.push(req.estagiario.turma)
+  estagiario.push(req.estagiario.orientador)
 
-                   sceDB.insertEstagiario(estagiario, function (data, err) {
-                     if (data) {
-                       sceUtils.writeLog('Estagiário(a) ' + estagiario[1] + ' inserido(a) no sistema', '903')
-                       res.sendFile(sceUtils.getFile('cadastra_estagiario.html'))
+  sceDB.insertEstagiario(estagiario, function (data, err) {
+    if (data) {
+      sceUtils.writeLog('Estagiário(a) ' + estagiario[1] + ' inserido(a) no sistema', '903')
+      res.sendFile(sceUtils.getFile('cadastra_estagiario.html'))
 
-                       ws.sendClientMessage('1000', 'Cadastro bem sucedido', '')
-                     } else {
-                       if (sceUtils.isDebug()) {
-                         console.log('Erro ao inserir estagiário: ' + err)
-                       }
+      ws.sendClientMessage('1000', 'Cadastro bem sucedido', '')
+    } else {
+      if (sceUtils.isDebug()) {
+        console.log('Erro ao inserir estagiário: ' + err)
+      }
 
-                       sceUtils.writeLog('[DB_API_ERR] ' + err, '904')
-                       res.sendFile(sceUtils.getFile('cadastra_estagiario.html'))
+      sceUtils.writeLog('[DB_API_ERR] ' + err, '904')
+      res.sendFile(sceUtils.getFile('cadastra_estagiario.html'))
 
-                       ws.sendClientMessage('1004', '[DB_API_ERR]', err)
-                     }
-                   })
-                 } 
+      ws.sendClientMessage('1004', '[DB_API_ERR]', err)
+    }
+  })
+>>>>>>> SQL injection fixado, alteração no modo de cadstro
 }
 
 exports.cadastraEmpresa = function (req, res) {

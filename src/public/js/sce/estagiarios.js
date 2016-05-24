@@ -191,5 +191,5 @@ if (typeof basejs === 'undefined') {
     } // verifica_informacoes
 
     form.addEventListener('submit', verifica_informacoes, false)
-  }) //document ready.
+  }) // document ready.
 }
