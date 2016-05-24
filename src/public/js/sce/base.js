@@ -37,8 +37,16 @@ if (typeof jQuery === 'undefined') {
       })
 
       // Inicializando o componente tooltip.
-      $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
+      // $(function () {
+      //   $('[data-toggle="tooltip"]').tooltip()
+      // })
+
+      $(document).on('mouseenter', '[data-toggle=tooltip]', function () {
+        $(this).tooltip('show')
+      })
+
+      $(document).on('mouseleave', '[data-toggle=tooltip]', function () {
+        $(this).tooltip('hide')
       })
 
       // thanks http://goo.gl/WJj13H
@@ -57,7 +65,7 @@ if (typeof jQuery === 'undefined') {
 
     // alerts são ignoráveis
     $('.sce-alert').click(function () {
-        $(this).slideUp(animationTime)
+      $(this).slideUp(animationTime)
     })
   })
 }

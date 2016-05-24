@@ -24,6 +24,7 @@ var cluster = require('cluster')
 var nodeUtils = require('util')
 var os = require('os')
 
+// SCE
 var sceUtils = require('./server_utils.js')
 
 exports.bootSCE = function () {
