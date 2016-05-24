@@ -89,7 +89,6 @@ if (typeof notificacao === 'undefined') {
                     ' <td>' + data.value[i].siap + '</td>' +
                     ' <td class="text-center">' +
                     '  <div class="btn-group btn-group-lg" id="grupoAcoes">' +
-                    '   <button class="btn sce-btn-primary" title="Editar informações do orientador" data-toggle="tooltip" data-container="body" data-siap="' + data.value[i].siap + '"  data-row="' + i + '" id="botaoEdita"><i class="libre libre-edit"></i>' +
                     '   <button class="btn sce-btn-default" title="Visualizar informações do orientador" data-toggle="tooltip" data-container="body" data-siap="' + data.value[i].siap + '" data-row="' + i + '" id="botaoVer"><i class="libre libre-content"></i></button>' +
                     '   <button class="btn sce-btn-danger" title="Remover orientador" data-toggle="tooltip" data-container="body" data-siap="' + data.value[i].siap + '" data-row="' + i + '" id="botaoRemove"><i class="libre libre-trash"></i></button>' +
                     '  </div>' +
@@ -103,7 +102,7 @@ if (typeof notificacao === 'undefined') {
             break
 
           case 'delete_orientador':
-            if (linhaOrientador !== null ) { 
+            if (linhaOrientador !== null) { 
               document.getElementById('resultado_pesquisa').deleteRow(linhaOrientador)
             }
             window.notificacao_sucesso('Orientador removido <i class="libre libre-check-yes"></i>')
@@ -121,7 +120,8 @@ if (typeof notificacao === 'undefined') {
     $('table tbody tr td #grupoAcoes').on('click', function (e) {
       if (e.target !== e.currentTarget) {
         var clickedItem = e.target.id
-        
+        var linhaEmpresa
+
         if (parseInt(e.target.dataset.row, 10) === 0) {
           linhaEmpresa = parseInt(e.target.dataset.row, 10)
         } else {
@@ -130,8 +130,6 @@ if (typeof notificacao === 'undefined') {
 
         if (clickedItem === 'botaoVer') {
           window.acaoVer('orientador', e.target.dataset.siap)
-        } else if (clickedItem === 'botaoEdita') {
-          window.acaoEdita('orientador', e.target.dataset.siap)
         } else if (clickedItem === 'botaoRemove') {
           window.acaoRemove('orientador', e.target.dataset.siap)
         }

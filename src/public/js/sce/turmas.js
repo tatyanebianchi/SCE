@@ -89,7 +89,6 @@ if (typeof notificacao === 'undefined') {
                   ' <td>' + data.value[i].turno + '</td>' +
                   ' <td class="text-center">' +
                   '  <div class="btn-group btn-group-lg" role="group" id="grupoAcoes">' +
-                  '   <button class="btn sce-btn-primary" title="Editar informações da turma" data-toggle="tooltip" data-container="body" data-idturma="' + data.value[i].id_turma + '" data-row="' + i + '" id="botaoEdita"><i class="libre libre-edit"></i>' +
                   '   <button class="btn sce-btn-default" title="Visualizar informações da turma" data-toggle="tooltip" data-container="body" data-idturma="' + data.value[i].id_turma + '" data-row="' + i + '" id="botaoVer"><i class="libre libre-content"></i></button>' +
                   '   <button class="btn sce-btn-danger" title="Remover turma" data-toggle="tooltip" data-container="body" data-idturma="' + data.value[i].id_turma + '" data-row="' + i + '" id="botaoRemove"><i class="libre libre-trash"></i></button>' +
                   '  </div>' +
@@ -120,8 +119,6 @@ if (typeof notificacao === 'undefined') {
 
         if (clickedItem === 'botaoVer') {
           window.acaoVer('turma', e.target.dataset.idturma)
-        } else if (clickedItem === 'botaoEdita') {
-          window.acaoEdita('turma', e.target.dataset.idturma)
         } else if (clickedItem === 'botaoRemove') {
           window.acaoRemove('turma', e.target.dataset.idturma)
           document.getElementById('resultado_pesquisa').deleteRow(linhaNumero)

@@ -18,8 +18,8 @@
  */
 
 /**
- * Esse script controla o comportamento dos botões de visualizar e editar,
- * redirecionando o usuário às respectivas páginas de visualização e de edição.
+ * Esse script controla o comportamento do botão de visualizar,
+ * redirecionando o usuário à respectiva página de visualização.
  */
 
 'use strict'
@@ -70,18 +70,8 @@ if (typeof sockets === 'undefined') {
     }
 
     /**
-     * @param {String} what O que remover?
-     * @param {Integer} key A chave que descreve o que vai ser removido, é
-     * uma chave única.
-     */
-    window.acaoEdita = function (what, key) {
-      var encodedString = encodeURIComponent('/edite/' + what + '/' + key)
-      window.location = '/acoes.html?' + encodedString
-    }
-
-    /**
-     * @param {String} what O que remover?
-     * @param {Integer} key A chave que descreve o que vai ser removido, é
+     * @param {String} what O que ver?
+     * @param {Integer} key A chave que descreve o que vai ser visualizado, é
      * uma chave única.
      */
     window.acaoVer = function (what, key) {

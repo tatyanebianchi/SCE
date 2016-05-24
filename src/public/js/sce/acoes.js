@@ -41,7 +41,7 @@ if (typeof basejs === 'undefined') {
     key = decodedURL[decodedURL.length - 1]
 
     // variável que guarda o elemento do formulário da paǵina
-    var formulario
+    var formulario = null
 
     /**
      * Método que habilita a edição do formulário;
@@ -131,91 +131,6 @@ if (typeof basejs === 'undefined') {
           }
         }
       }
-
-      formulario.addEventListener('submit', verificaForm, false)
-    }
-
-    /**
-     * Verifica as informações contidas no formulário, primeiramente ele faz uma verificação
-     * genérica para confirmar se todos os campos estão preenchidos.
-     */
-    function verificaForm (event) {
-      var elementosForm = $('.form-control')
-      var enviar = true
-
-      for (var form in elementosForm) {
-        if (elementosForm[form].type === 'text') {
-          if (elementosForm[form].value === null || elementosForm[form].value === "") {
-            window.notificacao_alerta('Vemos aqui que alguns dados não foram preenchidos, por favor, preencha-os.')
-            window.esconder_notificacao(3000)
-            enviar = false
-          }
-        } else if (elementosForm[form].type === 'select-one') {
-          if (elementosForm[form].value === 'none') {
-            window.notificacao_alerta('Vemos aqui que alguns campos selecionáveis não estão preenchidos, por favor, preencha-os.')
-            window.esconder_notificacao(3000) 
-            enviar = false
-          }
-        }
-      }
-      if (enviar) {
-        formulario.submit()
-      }
-    }
-
-    /**
-     * Método para limpar todos os campos do formulário.
-     */
-    window.limparCampos = function () {
-      var elementosForm = $('.form-control')
-
-      for (var elemento in elementosForm) {
-        if (elementosForm[elemento].type === 'text' ||
-            elementosForm[elemento].type === 'textarea' ||
-            elementosForm[elemento].type === 'number') {
-          elementosForm[elemento].value = ''
-        } else if (elementosForm[elemento].type === 'select-one') {
-          elementosForm[elemento].value = 'none'
-        }
-      }
-    }
-
-    /**
-     * Função que envia os dados via WebSockets para atualização de entidades
-     * no SCE.
-     * @param {String} what A entidade a ser atualizada.
-     */
-    window.atualiza = function (what) {
-      var dados = validaForm(what)
-
-      objetoAtualizacao = {
-        code: '1006',
-        desc: null,
-        value: dados
-      }
-
-      switch (what) {
-        case 'estagiario':
-          objeto.desc = 'atualiza_estagiario'
-          break
-        case 'orientador':
-          objeto.desc = 'atualiza_orientador'
-          break
-        case 'empresa':
-          objeto.desc = 'atualiza_empresa'
-          break
-        case 'turma':
-          objeto.dec = 'atualiza_turma'
-          break
-      }
-
-
-      if (objetoAtualizacao.desc !== null) {
-        ws.send(JSON.stringify({ objetoAtualizacao }))
-      } else {
-        throw new Error('Não foi possível enviar a atualização ao servidor devido ' +
-                  'ao objeto sem descrição.')
-      }
     }
 
     var pesquisa = {
@@ -302,6 +217,9 @@ if (typeof basejs === 'undefined') {
                 desc: 'get_classes'
               }))
 
+              // TODO: As informações da empresa, turma e orientadores estão sendo preenchidas
+              // antes dos selects estarem populados com as informações, e por isso não estão
+              // aparecendo.
               mostraForm('estagiario')
               populaForm(data)
               break
@@ -321,7 +239,7 @@ if (typeof basejs === 'undefined') {
               if (data.value) {
                 for (var i = 0; i < data.value.length; i++) {
                   $('select#select-empresa').append(
-                      '<option value="' + data.value[i].nome + '">' + data.value[i].nome + '</option>'
+                      '<option value="' + data.value[i].id_empresa + '">' + data.value[i].nome + '</option>'
                   )
                 }
               }

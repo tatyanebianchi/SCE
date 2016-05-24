@@ -62,7 +62,6 @@ if (typeof notificacao === 'undefined') {
                     ' <td>' + (data.value[i].email == null ? 'Nenhum email informado' : data.value[i].email) + '</td>' +
                     ' <td class="text-center">' +
                     '   <div class="btn-group btn-group-lg" role="group" id="grupoAcoes">' +
-                    '     <button class="btn sce-btn-primary" data-toggle="tooltip" data-container="body" title="Editar informações da empresa" data-id="' + data.value[i].id_empresa + '" data-row="' + i + '" id="botaoEdita"><i class="libre libre-edit"></i></button>' +
                     '     <button class="btn sce-btn-default" data-toggle="tooltip" data-container="body" title="Ver informações da empresa" data-id="' + data.value[i].id_empresa + '" data-row="' + i + '" id="botaoVer"><i class="libre libre-content"></i></button>' +
                     '     <button class="btn sce-btn-danger" data-toggle="tooltip" data-container="body" title="Excluir empresa" data-id="' + data.value[i].id_empresa + '" data-row="' + i + '" id="botaoRemove"><i class="libre libre-trash"></i></button></div>' +
                     ' </td>' +
@@ -73,7 +72,7 @@ if (typeof notificacao === 'undefined') {
               break
 
             case 'delete_empresa':
-              if (linhaEmpresa !== null ) { 
+              if (linhaEmpresa !== null) {
                 document.getElementById('tabela-empresas').deleteRow(linhaEmpresa)
               }
               window.notificacao_sucesso('Empresa removida')
@@ -98,8 +97,6 @@ if (typeof notificacao === 'undefined') {
 
           if (clickedItem === 'botaoVer') {
             window.acaoVer('empresa', e.target.dataset.id)
-          } else if (clickedItem === 'botaoEdita') {
-            window.acaoEdita('empresa', e.target.dataset.id)
           } else if (clickedItem === 'botaoRemove') {
             window.acaoRemove('empresa', e.target.dataset.id)
           }
