@@ -18,8 +18,9 @@
  */
 
 /**
- * Esse script controla o comportamento do botão de visualizar,
- * redirecionando o usuário à respectiva página de visualização.
+ * Esse script controla o comportamento dos botões de visualizar e remover,
+ * redirecionando o usuário à respectiva página de visualização ou removendo
+ * a entidade respectivamente.
  */
 
 'use strict'

@@ -36,45 +36,16 @@ if (typeof basejs === 'undefined') {
     var decodedURL = decodeURIComponent(window.location).split('/')
     var what = null
     var key = null
+    // Variável que guarda os dados recebidos pelo WebSocket da entidade em questão.
+    var dadosEntidade = null
 
     what = decodedURL[decodedURL.length - 2]
     key = decodedURL[decodedURL.length - 1]
-
-    // variável que guarda o elemento do formulário da paǵina
-    var formulario = null
-
-    /**
-     * Método que habilita a edição do formulário;
-     */
-    window.habilitarEdicao = function () {
-      $('#botao-atualizar').prop('disabled', false)
-      $('#botao-limpa-campos').prop('disabled', false)
-      $('#cabecalho-visualiza').hide('fast', function () {
-        $('#cabecalho-edita').show('slow')
-      })
-
-      document.title = 'SCE - Editar ' + what
-
-      var elementosForm = $('.form-control')
-
-      for (var elemento in elementosForm) {
-        if (elementosForm[elemento].type === 'text' ||
-            elementosForm[elemento].type === 'textarea' ||
-            elementosForm[elemento].type === 'number') {
-          $(elementosForm[elemento]).prop('readonly', false)
-        } else if (elementosForm[elemento].type === 'select-one') {
-          $(elementosForm[elemento]).prop('disabled', false)
-        }
-      }
-    }
 
     for (var i in decodedURL) {
       if (decodedURL[i] === 'visualize') {
         $('#cabecalho-visualiza').show('slow')
         document.title = 'SCE - Visualize ' + what
-      } else if (decodedURL[i] === 'edite') {
-        $('#cabecalho-edita').show('slow')
-        window.habilitarEdicao()
       }
     }
 
@@ -98,9 +69,56 @@ if (typeof basejs === 'undefined') {
           $(forms[form]).remove()
         }
       }
+    }
 
-      // setando o a variável formulário para corresponder ao formulário exibido na tela.
-      formulario = document.querySelector('.form-horizontal')
+    /**
+     * Remove a entidade do sistema
+     * @param {String} which Qual entidade do sistema remover
+     */
+    window.removerEntidade = function (which) {
+      switch (which) {
+        case 'estagiario':
+          window.acaoRemove(which, document.getElementById('estagiario_id').value)
+          window.notificacao_informacao('Removendo estagiário...')
+          if ($('#error_box').hasClass('sce-hide')) {
+            window.notificacao_informacao('Redirecionando em 5 segundos...')
+            window.setTimeout(function () {
+              window.location = '/'
+            }, 5000)
+          }
+          break
+        case 'empresa':
+          window.acaoRemove(which, document.getElementById('empresa_id').value)
+          window.notificacao_informacao('Removendo empresa...')
+          if ($('#error_box').hasClass('sce-hide')) {
+            window.notificacao_informacao('Redirecionando em 5 segundos...')
+            window.setTimeout(function () {
+              window.location = '/empresas.html'
+            }, 5000)
+          }
+          break
+        case 'orientador':
+          window.acaoRemove(which, document.getElementById('orientador_id').value)
+          window.notificacao_informacao('Removendo orientador...')
+          if ($('#error_box').hasClass('sce-hide')) {
+            window.notificacao_informacao('Redirecionando em 5 segundos...')
+            window.setTimeout(function () {
+              window.location = '/orientadores.html'
+            }, 5000)
+          }
+          break
+        case 'turma':
+          window.acaoRemove(which, document.getElementById('turma_id').value)
+          window.notificacao_informacao('Removendo turma...')
+          window.esconder_notificacao(350)
+          if ($('#error_box').hasClass('sce-hide')) {
+            window.notificacao_informacao('Redirecionando em 5 segundos...')
+            window.setTimeout(function () {
+              window.location = '/turmas.html'
+            }, 5000)
+          }
+          break
+      }
     }
 
     /**
@@ -110,22 +128,26 @@ if (typeof basejs === 'undefined') {
      * informações sobre a entidade em questão.
      */
     function populaForm (dados) {
+      window.notificacao_informacao('Carregando informações...')
       var elementosForm = $('.form-control')
-      var entidade = dados.value[0]
+
+      if (dados) {
+        dadosEntidade = dados.value[0]
+      }
 
       // Not the best way to do it... O(n^2), although this is not so processing intensive.
       for (var i = 0; i < elementosForm.length; i++) {
-        for (var caracteristica in entidade) {
+        for (var caracteristica in dadosEntidade) {
           if (caracteristica == elementosForm[i].name.split('[')[1].split(']')[0]) {
             if (elementosForm[i].type === 'select-one') {
-              elementosForm[i].value = entidade[caracteristica]
+              elementosForm[i].value = dadosEntidade[caracteristica]
               break
             } else {
               if (caracteristica === 'periodo_inicio' || caracteristica === 'periodo_fim') {
-                elementosForm[i].value = entidade[caracteristica].split('T')[0].split('-').reverse().join('-')
+                elementosForm[i].value = dadosEntidade[caracteristica].split('T')[0].split('-').reverse().join('-')
                 break
               }
-              elementosForm[i].value = entidade[caracteristica]
+              elementosForm[i].value = dadosEntidade[caracteristica]
             }
             break
           }
@@ -239,7 +261,7 @@ if (typeof basejs === 'undefined') {
               if (data.value) {
                 for (var i = 0; i < data.value.length; i++) {
                   $('select#select-empresa').append(
-                      '<option value="' + data.value[i].id_empresa + '">' + data.value[i].nome + '</option>'
+                      '<option value="' + data.value[i].nome + '">' + data.value[i].nome + '</option>'
                   )
                 }
               }
@@ -269,5 +291,13 @@ if (typeof basejs === 'undefined') {
           break
       }
     }
+
+    // Executa um segundo populamento por causa das informações que chegam após a aparição
+    // do formulário.
+    window.setTimeout(function () {
+      populaForm()
+      window.notificacao_sucesso('Informações carregadas!')
+      window.esconder_notificacao(750)
+    }, 1000)
   }) // document.ready
 }

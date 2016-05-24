@@ -74,61 +74,35 @@
 			  </p>
         
         <div class="sce-hide margin-bottom" id="cabecalho-visualiza">
-          <p class="sce-alert sce-alert-info col-md-10" data-toggle="tooltip" data-container="body" data-placement="top" title="Clique para fechar o alerta">
+          <p class="sce-alert sce-alert-info col-md-12" data-toggle="tooltip" data-container="body" data-placement="top" title="Clique para fechar o alerta">
             <span class="libre-stack">
                <i class="libre libre-stack-1x libre-circle"></i>
                <i class="libre libre-stack-1x libre-info text-inverse"></i>
             </span>
-            Olá, seja bem vindo(a) a página de visualização/controle de entidades do sistema, para 
-            habilitar a edição basta clicar no ícone a direita deste balão. Até breve! ^.^
-            
+            Olá, seja bem vindo(a) a página de visualização de entidades do sistema.
           </p>
-          <button class="btn-lg btn-out-secondary float-right" onclick="habilitarEdicao()">Habilitar edição</button>
-          <br>
-        </div>
-        
-        <div class="sce-hide margin-bottom" id="cabecalho-edita">
-          <h4 class="title-1">
-            Edição
-            <a tabindex="0" role="button" class="tool-info float-right" data-toggle="popover" data-placement="left" title="Página de edição de entidades"
-              data-content="Nessa página encontra-se o formulário para a edição da entidade em questão. Para mais informações siga a página de ajuda." data-trigger="focus">
-                <i  class="libre libre-question"></i>
-            </a>
-          </h4>
         </div>
         
         <form class="form-horizontal margin-top sce-hide" method="post" name="formEstagiario" id="form-estagiario">
           <div class="form-group">
             <label for="estagiario[nome]" class="col-sm-1 control-label">Nome: </label>
             <div class="col-sm-11">
-              <input type="text" class="form-control" name="estagiario[nome]" placeholder="Exemplo: Rafael Campos Nunes" required readonly>
+              <input type="text" class="form-control" name="estagiario[nome]" placeholder="Exemplo: Rafael Campos Nunes"  readonly>
             </div>
           </div>
 
           <div class="form-group">
             <label for="estagiario[matricula]" class="col-sm-1 control-label">Matrícula: </label>
             <div class="col-sm-11">
-              <input type="text" class="form-control" name="estagiario[matricula]" placeholder="Exemplo: 20122280033" required readonly>
+              <input type="text" id="estagiario_id" class="form-control" name="estagiario[matricula]" placeholder="Exemplo: 20122280033"  readonly>
             </div>
           </div>
 
           <div class="form-group">
-            <label for="estagiario[turma]" class="col-sm-1 control-label">Turma: </label>
+            <label for="estagiario[turma_id_turma]" class="col-sm-1 control-label">Turma: </label>
             <div class="col-sm-11">
-							<select class="form-control" name="estagiario[turma]" id="select-turma" disabled>
+							<select class="form-control" name="estagiario[turma_id_turma]" id="select-turma" disabled>
                 <option value="none" selected>Selecione uma turma</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="estagiario[turno]" class="col-sm-1 control-label">Turno: </label>
-            <div class="col-sm-5">
-              <select class="form-control" name="estagiario[turno]" data-toggle="tooltip" data-placement="right" data-container="body"
-							title="Observe que o turno pedido é o turno de trabalho do estagiário." id="select-turno" disabled>
-                <option value="none" selected>Selecione um turno</option>
-                <option value="mat">Matutino</option>
-                <option value="ves">Vespertino</option>
               </select>
             </div>
           </div>
@@ -143,9 +117,9 @@
           </div>
 
           <div class="form-group">
-            <label for="estagiario[orientador]" class="col-sm-1 control-label">Orientador: </label>
+            <label for="estagiario[orientador_siap]" class="col-sm-1 control-label">Orientador: </label>
             <div class="col-sm-4 col-sm-offset-1">
-              <select class="form-control" name="estagiario[orientador]" id="select-orientador" disabled>
+              <select class="form-control" name="estagiario[orientador_siap]" id="select-orientador" disabled>
                 <option value="none" selected>Selecione um orientador</option>
               </select>
             </div>
@@ -158,7 +132,7 @@
             <label class="col-sm-1 control-label">Início: </label>
 						<div class="col-sm-5">
               <input type="text" name="estagiario[periodo_inicio]" class="form-control" placeholder="DD-MM-AAAA" data-toggle="tooltip" data-placement="right" data-container="body"
-							title="Coloque a data conforme descrita pelo campo de texto, no formato: DIA-MÊS-ANO. Exemplo: 21-08-2014" id="data_inicio" maxlength="10" required readonly>
+							title="Coloque a data conforme descrita pelo campo de texto, no formato: DIA-MÊS-ANO. Exemplo: 21-08-2014" id="data_inicio" maxlength="10"  readonly>
             </div>
           </div>
 
@@ -166,7 +140,7 @@
             <label class="col-sm-1 control-label">Fim: </label>
             <div class="col-sm-5">
               <input type="text" name="estagiario[periodo_fim]" class="form-control" placeholder="DD-MM-AAAA" data-toggle="tooltip" data-placement="right" data-container="body"
-							title="Coloque a data conforme descrita pelo campo de texto, no formato: DIA-MÊS-ANO. Exemplo: 21-08-2015" id="data_fim" maxlength="10" required readonly>
+							title="Coloque a data conforme descrita pelo campo de texto, no formato: DIA-MÊS-ANO. Exemplo: 21-08-2015" id="data_fim" maxlength="10"  readonly>
             </div>
           </div>
 
@@ -174,39 +148,42 @@
           
           <div class="float-right margin-bottom">
             <br>
-            <button type="button" class="btn sce-btn-success" id="botao-atualizar" onclick="document.formEstagiario.submit()" disabled>Atualizar  <i class="libre libre-check-yes"></i></button>
-            <button type="button" class="btn sce-btn-default" id="botao-limpa-campos" onclick="limparCampos()" disabled>Limpar campos <i class="libre libre-eraser"></i></button>
+            <button type="button" class="btn sce-btn-danger" id="botao-limpa-campos" onclick="removerEntidade('estagiario')">Deletar estagiário <i class="libre libre-trash"></i></button>
           </div>
         </form>
         
-        <form class="form-horizontal sce-hide margin-top" method="post" name="formOrientador" action="/atualiza_orientador" id="form-orientador">
+        <form class="sce-hide margin-top" method="post" name="formOrientador" action="/atualiza_orientador" id="form-orientador">
           <h4 class="title-3">Informações do orientador</h4>
           <div class="form-group">
-            <input type="text" name="orientador[nome]" class="form-control" placeholder="Nome completo do orientador. Exemplo: Landry Silva" required readonly>
+            <label for="orientador[nome]">Nome</label>
+            <input type="text" name="orientador[nome]" class="form-control" placeholder="Nome completo do orientador. Exemplo: Landry Silva"  readonly>
           </div>
 
           <div class="form-group">
-            <input type="number" name="orientador[siap]" class="form-control" placeholder="o SIAP do orientador." required readonly>
+            <label for="orientador[siap]">SIAP</label>
+            <input type="number" id="orientador_id" name="orientador[siap]" class="form-control" placeholder="o SIAP do orientador."  readonly>
           </div>
           
           <div class="float-right margin-bottom">
             <br>
-            <button type="submit" class="btn sce-btn-success" id="botao-atualizar" onclick="verificaForm()" disabled>Atualizar  <i class="libre libre-check-yes"></i></button>
-            <button type="button" class="btn sce-btn-default" id="botao-limpa-campos" onclick="limparCampos()" disabled>Limpar campos <i class="libre libre-eraser"></i></button>
+            <button type="button" class="btn sce-btn-danger" id="botao-limpa-campos" onclick="removerEntidade('orientador')" >Deletar orientador <i class="libre libre-trash"></i></button>
           </div>
         </form>
         
-        <form class="form-horizontal sce-hide margin-top" method="post" name="formTurma" id="form-turma">
+        <form class="sce-hide margin-top" method="post" name="formTurma" id="form-turma">
           <h4 class="title-3">Informações da turma</h4>
           <div class="form-group">
-            <input type="text" name="turma[id_turma]" class="form-control" placeholder="Código da turma. Exemplo: T228-4MA." required readonly>
+            <label for="turma[id_turma]">Código da turma</label>
+            <input type="text" id="turma_id" name="turma[id_turma]" class="form-control" placeholder="Código da turma. Exemplo: T228-4MA."  readonly>
           </div>
 
           <div class="form-group">
-            <input type="text" name="turma[curso]" class="form-control" placeholder="Nome do curso. Exemplo: Manutenção e Suporte à Informática." required readonly>
+            <label for="turma[curso]">Curso</label>
+            <input type="text" name="turma[curso]" class="form-control" placeholder="Nome do curso. Exemplo: Manutenção e Suporte à Informática."  readonly>
           </div>
 
           <div class="form-group">
+            <label for="turma[turno]">Turno de estudo </label>
             <select class="form-control" name="turma[turno]" disabled>
                 <option value="none">Turno de estudo da turma</option>
                 <option value="Matutino">Matutino</option>
@@ -217,59 +194,62 @@
           
           <div class="float-right margin-bottom">
             <br>
-            <button type="button" class="btn sce-btn-success" id="botao-atualizar" onclick="document.formTurma.submit()" disabled>Atualizar  <i class="libre libre-check-yes"></i></button>
-            <button type="button" class="btn sce-btn-default" id="botao-limpa-campos" onclick="limparCampos()" disabled>Limpar campos <i class="libre libre-eraser"></i></button>
+            <button type="button" class="btn sce-btn-danger" id="botao-limpa-campos" onclick="removerEntidade('turma')">Deletar turma <i class="libre libre-trash"></i></button>
           </div>
         </form>
         
-        <form class="form-horizontal sce-hide margin-top" method="post" name="formEmpresa" id="form-empresa">
+        <form class="sce-hide margin-top" method="post" name="formEmpresa" id="form-empresa">
           <h4 class="title-3">Informações básicas</h4>
+          
           <div class="form-group">
-            <input type="text" name="empresa[nome]" class="form-control" placeholder="Nome da empresa. Exemplo: Supernorte" required readonly>
+            <input class="" id="empresa_id" name="empresa[id_empresa]" readonly></input>
+          </div>
+          
+          <div class="form-group">
+            <input type="text" name="empresa[nome]" class="form-control" placeholder="Nome da empresa não informado"  readonly>
           </div>
 
           <div class="form-group">
-            <input type="text" name="empresa[razao_social]" class="form-control" placeholder="Razão social da empresa. Exemplo: Supermercados do Norte do Brasil" required readonly>
+            <input type="text" name="empresa[razao_social]" class="form-control" placeholder="Razão social não informada"  readonly>
           </div>
 
           <div class="form-group">
-            <input type="text" name="empresa[cnpj]" class="form-control" placeholder="CNPJ. Exemplo: 05.327.241/0001-63" required readonly>
+            <input type="text" name="empresa[cnpj]" class="form-control" placeholder="CNPJ não informado"  readonly>
           </div>
 
           <h4 class="title-3">Endereço</h4>
           <div class="form-group">
-            <input type="text" name="empresa[rua]" class="form-control" placeholder="Nome da rua. Exemplo: R Lauro Sodré" required readonly>
+            <input type="text" name="empresa[rua]" class="form-control" placeholder="Rua não informada"  readonly>
           </div>
 
           <div class="form-group">
-            <input type="number" name="empresa[numero]" class="form-control" placeholder="Número. Exemplo: 640" required readonly>
+            <input type="number" name="empresa[numero]" class="form-control" placeholder="Número não informado não informado"  readonly>
           </div>
 
           <div class="form-group">
-            <input type="number" name="empresa[cep]" class="form-control" placeholder="CEP. Exemplo: 68456000" required readonly>
+            <input type="number" name="empresa[cep]" class="form-control" placeholder="CEP não informado"  readonly>
           </div>
 
           <div class="form-group">
-            <input type="text" name="empresa[bairro]" class="form-control" placeholder="Bairro. Exemplo: São José" required readonly>
+            <input type="text" name="empresa[bairro]" class="form-control" placeholder="Bairro não informado"  readonly>
           </div>
 
           <h4 class="title-3">Contato</h4>
           <div class="form-group">
-            <input type="text" name="empresa[email]" class="form-control" placeholder="Email. Exemplo: empresa_tal@empresa.com" readonly>
+            <input type="text" name="empresa[email]" class="form-control" placeholder="Email não informado" readonly>
           </div>
 
           <div class="form-group">
-            <input type="text" name="empresa[telefone]" class="form-control" placeholder="Telefone. Exemplo: 3787-3045" readonly>
+            <input type="text" name="empresa[telefone]" class="form-control" placeholder="Telefone não informado" readonly>
           </div>
 
           <div class="form-group">
-            <input type="text" name="empresa[telefone_2]" class="form-control" placeholder="Telefone secundário" readonly>
+            <input type="text" name="empresa[telefone_2]" class="form-control" placeholder="Telefone secundário não informado" readonly>
           </div>
           
           <div class="float-right margin-bottom">
             <br>
-            <button type="button" class="btn sce-btn-success" id="botao-atualizar" onclick="document.formEmpresa.submit()" disabled>Atualizar  <i class="libre libre-check-yes"></i></button>
-            <button type="button" class="btn sce-btn-default" id="botao-limpa-campos" onclick="limparCampos()" disabled>Limpar campos <i class="libre libre-eraser"></i></button>
+            <button type="button" class="btn sce-btn-danger" id="botao-limpa-campos" onclick="removerEntidade('empresa')">Deletar empresa <i class="libre libre-trash"></i></button>
           </div>
         </form>
 			</article>
@@ -283,5 +263,6 @@
   <script src="js/sce/gerencia_erros.js"></script>
 	<script src="js/sce/notification.js"></script>
 	<script src="js/sce/acoes.js"></script>
+  <script src="js/sce/acoes_botoes.js"></script>
 </body>
 </html>
