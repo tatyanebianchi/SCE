@@ -50,6 +50,10 @@
   font-style: normal;
 }
 
+body {
+  background: #ededed;
+}
+
 li > a {
   padding: 5px;
   -moz-transition: all .2s;
@@ -332,8 +336,8 @@ ul.help-nav > li > ul.help-nav > li > a:hover {
 
 .btn-out-success {
   background: inherit;
-  color: rgb(72, 152, 29);
-  border: 1px solid rgb(72, 152, 29);
+  color: rgba(46, 204, 113, 1);
+  border: 1px solid rgba(46, 204, 113, 1);
   -webkit-transition: all .125s ease-out;
      -moz-transition: all .125s ease-out;
        -o-transition: all .125s ease-out;
@@ -341,7 +345,8 @@ ul.help-nav > li > ul.help-nav > li > a:hover {
 }
 
 .btn-out-success:hover {
-  background: rgba(72, 152, 29, 1);
+  background: rgba(39, 174, 96, 1);
+  border-color: rgba(39, 174, 96, 1);
   color: white;
 }
 
@@ -362,8 +367,8 @@ ul.help-nav > li > ul.help-nav > li > a:hover {
 
 .btn-out-danger {
   background: inherit;
-  color: rgb(255, 0, 0);
-  border: 1px solid rgb(255, 0, 0);
+  color: rgba(231, 76, 60, 1);
+  border: 1px solid rgba(231, 76, 60, 1);
   -webkit-transition: all .125s ease-out;
      -moz-transition: all .125s ease-out;
        -o-transition: all .125s ease-out;
@@ -371,7 +376,8 @@ ul.help-nav > li > ul.help-nav > li > a:hover {
 }
 
 .btn-out-danger:hover {
-  background: rgba(255, 0, 0, 1);
+  background: rgba(244, 43, 43, 1);
+  border-color: rgba(244, 43, 43, 1);
   color: white;
 }
 
@@ -390,16 +396,16 @@ ul.help-nav > li > ul.help-nav > li > a:hover {
   color: white;
 }
 
-.sce-btn-danger:focus,
-.sce-btn-primary:focus,
-.sce-btn-success:focus,
-.sce-btn-warning:focus,
-.sce-btn-secondary:focus {
+.sce-btn-danger,
+.sce-btn-primary,
+.sce-btn-success,
+.sce-btn-warning,
+.sce-btn-secondary {
   color: white !important;
+  margin: 2px;
 }
 
 .sce-btn-primary {
-  color: white;
   background: rgba(2, 141, 200, 1);
   -webkit-transition: all .125s ease-out;
      -moz-transition: all .125s ease-out;
@@ -409,11 +415,9 @@ ul.help-nav > li > ul.help-nav > li > a:hover {
 
 .sce-btn-primary:hover {
   background: rgba(3, 103, 145, 1);
-  color: white;
 }
 
 .sce-btn-secondary {
-  color: white;
   background: rgb(37, 54, 74);
   -webkit-transition: all .125s ease-out;
      -moz-transition: all .125s ease-out;
@@ -422,13 +426,11 @@ ul.help-nav > li > ul.help-nav > li > a:hover {
 }
 
 .sce-btn-secondary:hover {
-  background: rgb(23, 34, 47);
-  color: white;
+  background: rgba(23, 34, 47, 1);
 }
 
 .sce-btn-success {
-  color: white;
-  background: rgba(92, 195, 36, 1);
+  background: rgba(46, 204, 113, 1);
   -webkit-transition: all .125s ease-out;
      -moz-transition: all .125s ease-out;
        -o-transition: all .125s ease-out;
@@ -436,12 +438,10 @@ ul.help-nav > li > ul.help-nav > li > a:hover {
 }
 
 .sce-btn-success:hover {
-  background: rgba(72, 152, 29, 1);
-  color: white;
+  background: rgba(39, 174, 96, 1);
 }
 
 .sce-btn-warning {
-  color: white;
   background: rgba(255, 222, 0, 1);
   -webkit-transition: all .125s ease-out;
      -moz-transition: all .125s ease-out;
@@ -450,13 +450,11 @@ ul.help-nav > li > ul.help-nav > li > a:hover {
 }
 
 .sce-btn-warning:hover {
-  background: rgba(226, 197, 8, 1);
-  color: white;
+  background: rgba(241, 196, 15, 1);
 }
 
 .sce-btn-danger {
-  color: white;
-  background: rgba(244, 43, 43, 1);
+  background: rgba(231, 76, 60, 1);
   -webkit-transition: all .125s ease-out;
      -moz-transition: all .125s ease-out;
        -o-transition: all .125s ease-out;
@@ -464,8 +462,7 @@ ul.help-nav > li > ul.help-nav > li > a:hover {
 }
 
 .sce-btn-danger:hover {
-  background: rgba(255, 0, 0, 1);
-  color: white;
+  background: rgba(244, 43, 43, 1);
 }
 
 .sce-btn-default {
@@ -724,7 +721,7 @@ ul.help-nav > li > ul.help-nav > li > a:hover {
 }
 
 .navbar-inverse {
-   background: #202020 !important;
+   background: rgba(20, 20, 20, 1) !important;
 }
 
 .form-control {
@@ -747,6 +744,7 @@ ul.help-nav > li > ul.help-nav > li > a:hover {
 }
 
 .btn-group > * {
+  margin: 0px !important;
   border-radius: 0px !important;
 }
 
@@ -767,6 +765,7 @@ ul.help-nav > li > ul.help-nav > li > a:hover {
 
 .input-group-btn > button,
 .input-group-btn > .dropdown > button {
+  margin: 0px !important;
   border-left: 0 !important;
   border-top-left-radius: 0 !important;
   border-bottom-left-radius: 0 !important;
@@ -774,8 +773,12 @@ ul.help-nav > li > ul.help-nav > li > a:hover {
 
 .modal-title {
   padding: 2%;
-  /*background-image: url();*/
   background-size: cover;
+}
+
+.modal-header {
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
 }
 
 select,
@@ -784,6 +787,7 @@ input[type="text"],
 input[type="number"],
 input[type="password"] {
   font-weight: 300;
+  border: 1px solid rgba(37, 54, 74, .3) !important;
 }
 
 select:focus,
@@ -791,7 +795,7 @@ textarea:focus,
 input[type="text"]:focus,
 input[type="number"]:focus,
 input[type="password"]:focus {
-  border: 1px solid rgba(37, 54, 74, .8) !important;
+  border: 1px solid rgba(37, 54, 74, 1) !important;
 }
 
 a:hover {
