@@ -31,7 +31,6 @@ exports.cadastraEstagiario = function (req, res) {
   // Dados do estagiário a ser enviado ao banco de dados.
   var estagiario = []
 
-<<<<<<< f8b213bd39f69998eba7d3e5e982bfa248843f27
   estagiario.push(req.estagiario.matricula)
   estagiario.push(req.estagiario.nome)
   estagiario.push(req.estagiario.periodo_inicio)
@@ -61,7 +60,6 @@ exports.cadastraEstagiario = function (req, res) {
       ws.sendClientMessage('1004', '[DB_API_ERR]', err)
     }
   })
->>>>>>> SQL injection fixado, alteração no modo de cadstro
 }
 
 exports.cadastraEmpresa = function (req, res) {
