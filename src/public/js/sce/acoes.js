@@ -78,7 +78,7 @@ if (typeof basejs === 'undefined') {
     window.removerEntidade = function (which) {
       switch (which) {
         case 'estagiario':
-          window.acaoRemove(which, document.getElementById('estagiario_id').value)
+          window.acaoRemove(which, key)
           window.notificacao_informacao('Removendo estagiário...')
           if ($('#error_box').hasClass('sce-hide')) {
             window.notificacao_informacao('Redirecionando em 5 segundos...')
@@ -88,7 +88,7 @@ if (typeof basejs === 'undefined') {
           }
           break
         case 'empresa':
-          window.acaoRemove(which, document.getElementById('empresa_id').value)
+          window.acaoRemove(which, key)
           window.notificacao_informacao('Removendo empresa...')
           if ($('#error_box').hasClass('sce-hide')) {
             window.notificacao_informacao('Redirecionando em 5 segundos...')
@@ -98,7 +98,7 @@ if (typeof basejs === 'undefined') {
           }
           break
         case 'orientador':
-          window.acaoRemove(which, document.getElementById('orientador_id').value)
+          window.acaoRemove(which, key)
           window.notificacao_informacao('Removendo orientador...')
           if ($('#error_box').hasClass('sce-hide')) {
             window.notificacao_informacao('Redirecionando em 5 segundos...')
@@ -108,9 +108,8 @@ if (typeof basejs === 'undefined') {
           }
           break
         case 'turma':
-          window.acaoRemove(which, document.getElementById('turma_id').value)
+          window.acaoRemove(which, key)
           window.notificacao_informacao('Removendo turma...')
-          window.esconder_notificacao(350)
           if ($('#error_box').hasClass('sce-hide')) {
             window.notificacao_informacao('Redirecionando em 5 segundos...')
             window.setTimeout(function () {

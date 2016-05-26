@@ -94,7 +94,7 @@
           <div class="form-group">
             <label for="estagiario[matricula]" class="col-sm-1 control-label">Matrícula: </label>
             <div class="col-sm-11">
-              <input type="text" id="estagiario_id" class="form-control" name="estagiario[matricula]" placeholder="Exemplo: 20122280033"  readonly>
+              <input type="text" class="form-control" name="estagiario[matricula]" placeholder="Exemplo: 20122280033"  readonly>
             </div>
           </div>
 
@@ -161,7 +161,7 @@
 
           <div class="form-group">
             <label for="orientador[siap]">SIAP</label>
-            <input type="number" id="orientador_id" name="orientador[siap]" class="form-control" placeholder="o SIAP do orientador."  readonly>
+            <input type="number" name="orientador[siap]" class="form-control" placeholder="o SIAP do orientador."  readonly>
           </div>
           
           <div class="float-right margin-bottom">
@@ -174,7 +174,7 @@
           <h4 class="title-3">Informações da turma</h4>
           <div class="form-group">
             <label for="turma[id_turma]">Código da turma</label>
-            <input type="text" id="turma_id" name="turma[id_turma]" class="form-control" placeholder="Código da turma. Exemplo: T228-4MA."  readonly>
+            <input type="text" name="turma[id_turma]" class="form-control" placeholder="Código da turma. Exemplo: T228-4MA."  readonly>
           </div>
 
           <div class="form-group">
@@ -202,48 +202,54 @@
           <h4 class="title-3">Informações básicas</h4>
           
           <div class="form-group">
-            <input class="" id="empresa_id" name="empresa[id_empresa]" readonly></input>
-          </div>
-          
-          <div class="form-group">
+            <label for="empresa[nome]">Nome</label>
             <input type="text" name="empresa[nome]" class="form-control" placeholder="Nome da empresa não informado"  readonly>
           </div>
 
           <div class="form-group">
+            <label for="empresa[razao_social]">Razão social</label>
             <input type="text" name="empresa[razao_social]" class="form-control" placeholder="Razão social não informada"  readonly>
           </div>
 
           <div class="form-group">
+            <label for="empresa[cnpj]">CNPJ</label>
             <input type="text" name="empresa[cnpj]" class="form-control" placeholder="CNPJ não informado"  readonly>
           </div>
 
           <h4 class="title-3">Endereço</h4>
           <div class="form-group">
+            <label for="empresa[rua]">Rua</label>
             <input type="text" name="empresa[rua]" class="form-control" placeholder="Rua não informada"  readonly>
           </div>
 
           <div class="form-group">
+            <label for="empresa[numero]">Número</label>
             <input type="number" name="empresa[numero]" class="form-control" placeholder="Número não informado não informado"  readonly>
           </div>
 
           <div class="form-group">
+            <label for="empresa[cep]">CEP</label>
             <input type="number" name="empresa[cep]" class="form-control" placeholder="CEP não informado"  readonly>
           </div>
 
           <div class="form-group">
+            <label for="empresa[bairro]">Bairro</label>
             <input type="text" name="empresa[bairro]" class="form-control" placeholder="Bairro não informado"  readonly>
           </div>
 
           <h4 class="title-3">Contato</h4>
           <div class="form-group">
+            <label for="empresa[email]">Email</label>
             <input type="text" name="empresa[email]" class="form-control" placeholder="Email não informado" readonly>
           </div>
 
           <div class="form-group">
+            <label for="empresa[telefone]">Telefone</label>
             <input type="text" name="empresa[telefone]" class="form-control" placeholder="Telefone não informado" readonly>
           </div>
 
           <div class="form-group">
+            <label for="empresa[telefone2]">Telefone secundário</label>
             <input type="text" name="empresa[telefone_2]" class="form-control" placeholder="Telefone secundário não informado" readonly>
           </div>
           
