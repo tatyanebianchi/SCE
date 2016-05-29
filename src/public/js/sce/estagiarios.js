@@ -53,7 +53,7 @@ if (typeof basejs === 'undefined') {
         case '1007':
           switch (data.desc) {
             case 'lista_empresas':
-              if (data.value) {
+              if (data.value !== 'undefined' && data.value !== 'Nenhum resultado foi encontrado.') {
                 for (var i = 0; i < data.value.length; i++) {
                   $('select#select-empresa').append(
                       '<option value="' + data.value[i].id_empresa + '">' + data.value[i].nome + '</option>'
@@ -62,7 +62,7 @@ if (typeof basejs === 'undefined') {
               }
               break
             case 'lista_orientadores':
-              if (data.value) {
+              if (data.value !== 'undefined' && data.value !== 'Nenhum resultado foi encontrado.') {
                 for (i = 0; i < data.value.length; i++) {
                   $('select#select-orientador').append(
                       '<option value="' + data.value[i].siap + '">' + data.value[i].nome + '</option>'
@@ -71,7 +71,7 @@ if (typeof basejs === 'undefined') {
               }
               break
             case 'lista_turmas':
-              if (data.value) {
+              if (data.value !== 'undefined' && data.value !== 'Nenhum resultado foi encontrado.') {
                 for (i = 0; i < data.value.length; i++) {
                   $('select#select-turma').append(
                     '<option value="' + data.value[i].id_turma + '">' + data.value[i].id_turma + ' - ' + data.value[i].curso + '</option>'

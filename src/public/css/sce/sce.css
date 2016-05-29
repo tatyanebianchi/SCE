@@ -675,8 +675,16 @@ ul.help-nav > li > ul.help-nav > li > a:hover {
   *  Obs: In the future I will make the SCE bootstrap version
   */
 
+.navbar-default .navbar-nav > .active > a, 
+.navbar-default .navbar-nav > .active > a:hover, 
+.navbar-default .navbar-nav > .active > a:focus {
+  color: white;
+  background: rgb(37, 54, 74);
+}
+
 .navbar { 
-  background: white !important;  
+  margin-top: -1px;
+  background: white !important; 
 }
 
 .navbar .nav > li > a:hover {
