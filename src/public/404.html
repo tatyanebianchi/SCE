@@ -62,7 +62,7 @@
 
   <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
   <script type="text/javascript">
-    if (window.history.length < 1) {
+    if (window.history.length <= 1) {
       $('#opcoes').append('<li> <i class="libre-li libre libre-arrow-right"></i><a style="margin-left: -5px;" href="/">Voltar a página inicial</a></i></li>')
     } else {
       $('#opcoes').append('<li> <i class="libre-li libre libre-arrow-right"></i><a style="margin-left: -5px;" href="javascript:window.history.back()">Voltar a página anterior</a></i></li>')
