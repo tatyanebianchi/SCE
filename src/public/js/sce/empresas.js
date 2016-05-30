@@ -17,14 +17,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-'use strict'
-
 if (typeof sockets === 'undefined') {
   throw new Error('This script requires sockets.js, verify if it was included.')
 }
 if (typeof notificacao === 'undefined') {
   throw new Error('This script requires notification.js, verify if it was included.')
 } else {
+  'use strict'
+
   $(document).ready(function () {
     var linhaEmpresa = null;
 

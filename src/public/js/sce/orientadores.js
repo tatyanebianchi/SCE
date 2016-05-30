@@ -17,9 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-'use strict'
-
 function pesquisa_orientador (search_key) {
+  'use strict'
+
   var search = $('#campo_orientador').val()
 
   var _search_for = []
@@ -58,6 +58,8 @@ if (typeof sockets === 'undefined') {
 if (typeof notificacao === 'undefined') {
   throw new Error('This script requires notification.js, verify if it was included.')
 } else {
+  'use strict'
+  
   var linhaOrientador = null;
 
   window.ws.onopen = function (e) {

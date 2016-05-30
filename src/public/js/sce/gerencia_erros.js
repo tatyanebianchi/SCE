@@ -17,11 +17,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-'use strict'
-
 if (typeof jQuery === 'undefined') {
   throw new Error('error_handling.js needs jQuery to work')
 } else {
+  'use strict'
+
   // variável que ficará exposta para testes de inclusão deste arquivo
   var errorHandling = true
 

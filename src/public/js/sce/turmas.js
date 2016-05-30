@@ -17,9 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-'use strict'
-
 function pesquisa_turma () {
+  'use strict'
+  
   var search = $('#campo_turma').val()
 
   var _search_for = []
@@ -59,6 +59,8 @@ if (typeof sockets === 'undefined') {
 if (typeof notificacao === 'undefined') {
   throw new Error('This script requires notification.js, verify if it was included.')
 } else {
+  'use strict'
+
   window.ws.onopen = function (e) {
     console.log('Conexão com o web socket bem sucedida na porta %s', window.ws_port)
   }

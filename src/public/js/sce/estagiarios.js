@@ -17,8 +17,6 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-'use strict'
-
 if (typeof basejs === 'undefined') {
   throw new Error('This script requires base.js, verify if it was included.')
 } else if (typeof sockets === 'undefined') {
@@ -26,6 +24,8 @@ if (typeof basejs === 'undefined') {
 } else if (typeof notificacao === 'undefined') {
   throw new Error('This script requires notification.js, verify if it was included.')
 } else {
+  'use strict'
+
   $(document).ready(function () {
     window.ws.onopen = function (e) {
       console.log('Conexão com o web socket bem sucedida na porta %s', window.ws_port)

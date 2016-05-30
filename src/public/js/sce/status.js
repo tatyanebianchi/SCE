@@ -17,11 +17,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-'use strict'
-
 if (typeof sockets === 'undefined') {
   throw new Error('This script requires sockets.js, verify if it was included.')
 } else {
+  'use strict'
+  
   $(document).ready(function () {
     var segundos = 10
     var classes = 'label-danger label-success label-warning label-info label-default'

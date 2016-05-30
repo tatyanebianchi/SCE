@@ -17,8 +17,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- 'use strict'
-
 if (typeof sockets === 'undefined') {
   throw new Error('This script requires sockets.js, verify if it was included.')
 } else if (typeof notificacao === 'undefined') {
@@ -26,6 +24,8 @@ if (typeof sockets === 'undefined') {
 } else if (typeof errorHandling === 'undefined') {
   throw new Error('This script requires error_handling.js, verify if it was included.')
 } else {
+   'use strict'
+
   $(document).ready(function () {
     var pageUrl = window.location.pathname
 

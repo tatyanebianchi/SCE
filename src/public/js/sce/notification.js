@@ -17,11 +17,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-'use strict'
-
 if (typeof jQuery == 'undefined') {
   throw new Error('notification.js needs jQuery to work')
 } else {
+  'use strict'
   /**
    * TODO: Refatorar tudo isso em um objeto.
    */

@@ -17,8 +17,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-'use strict'
-
 /**
  * Script para gerenciar a edição e a visualização de dados do sistema.
  */
@@ -29,6 +27,8 @@ if (typeof basejs === 'undefined') {
 } else if (typeof notificacao === 'undefined') {
   throw new Error('This script requires notification.js, verify if it was included.')
 } else {
+  'use strict'
+  
   $(document).ready(function () {
     /**
      * Preparando as configurações da página.

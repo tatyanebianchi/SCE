@@ -23,12 +23,12 @@
  * a entidade respectivamente.
  */
 
-'use strict'
-
 // Verificando se o objeto sockets existe na página.
 if (typeof sockets === 'undefined') {
   throw new Error('This script requires sockets.js, verify if it was included.')
 } else {
+  'use strict'
+  
   $(document).ready(function () {
     /**
      * @param {String} what O que remover?

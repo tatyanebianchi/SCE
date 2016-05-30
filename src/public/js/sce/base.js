@@ -17,8 +17,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-'use strict'
-
 // Definindo uma variável basejs global para uso posterior.
 window.basejs = true
 
@@ -27,6 +25,8 @@ document.body.ondragstart = false
 if (typeof jQuery === 'undefined') {
   throw new Error('base.js need jQuery in order to some functions work.')
 } else {
+  'use strict'
+
   $(document).ready(function () {
     // Um pouco de falso positivo aqui.
     var bootstrap = (typeof $().popover === 'function')
